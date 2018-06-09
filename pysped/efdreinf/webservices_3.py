@@ -3,7 +3,7 @@
 # PySPED - Python libraries to deal with Brazil's SPED Project
 #
 # Copyright (C) 2010-2012
-# Copyright (C) Aristides Caldeira <aristides.caldeira at tauga.com.br>
+# Copyright (C) Wagner Pereira <wagner.pereira at tauga.com.br>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Library General Public License as
@@ -39,4 +39,33 @@
 # <http://www.gnu.org/licenses/>
 #
 
-from .processador_esocial import ProcessadorESocial
+from __future__ import division, print_function, unicode_literals
+
+from .webservices_flags import *
+
+METODO_WS = {
+    WS_EFDREINF_ENVIO: {
+        'webservice': 'ServicoEnviarLoteEventos',
+        'metodo'    : 'ReceberLoteEventos',
+    },
+    WS_EFDREINF_CONSULTA: {
+        'webservice': 'ServicoConsultarLoteEventos',
+        'metodo'    : 'ConsultaInformacoesConsolidadas',
+    },
+}
+
+SVEFDREINF = {
+    # o servidor da consulta de cadastro é diferente dos demais...
+    EFDREINF_AMBIENTE_PRODUCAO: {
+        'servidor'                  : 'reinf.receita.fazenda.gov.br',
+        WS_EFDREINF_ENVIO           : 'WsREINF/RecepcaoLoteReinf.svc',
+        WS_EFDREINF_CONSULTA        : 'WsREINF/ConsultasReinf.svc',
+        
+    },
+    EFDREINF_AMBIENTE_HOMOLOGACAO: {
+        'servidor'                  : 'preprodefdreinf.receita.fazenda.gov.br',
+        WS_EFDREINF_ENVIO           : 'WsREINF/RecepcaoLoteReinf.svc',
+        WS_EFDREINF_CONSULTA        : 'WsREINF/ConsultasReinf.svc',
+       
+    }
+}

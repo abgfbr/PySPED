@@ -3,7 +3,7 @@
 # PySPED - Python libraries to deal with Brazil's SPED Project
 #
 # Copyright (C) 2010-2012
-# Copyright (C) Aristides Caldeira <aristides.caldeira at tauga.com.br>
+# Copyright (C) Wagner Pereira <wagner.pereira at tauga.com.br>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Library General Public License as
@@ -39,4 +39,13 @@
 # <http://www.gnu.org/licenses/>
 #
 
-from .processador_esocial import ProcessadorESocial
+from __future__ import division, print_function, unicode_literals
+
+from ..nfe.webservices_flags import UF_CODIGO, CODIGO_UF
+
+
+WS_EFDREINF_ENVIO = 0
+WS_EFDREINF_CONSULTA = 1
+
+EFDREINF_AMBIENTE_PRODUCAO = 1
+EFDREINF_AMBIENTE_HOMOLOGACAO = 2

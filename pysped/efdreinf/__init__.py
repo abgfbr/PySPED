@@ -39,4 +39,4 @@
 # <http://www.gnu.org/licenses/>
 #
 
-from .processador_esocial import ProcessadorESocial
+from .processador_efdreinf import ProcessadorEFDReinf
