@@ -385,7 +385,8 @@ class Certificado(object):
         # Esocial
         #
         elif '</evtInfoEmpregador>' in xml:
-            doctype = '<!DOCTYPE eSocial [<!ATTLIST evtInfoEmpregador Id ID #IMPLIED>]>'
+            # doctype = '<!DOCTYPE eSocial [<!ATTLIST evtInfoEmpregador Id ID #IMPLIED>]>'
+            doctype = '<!DOCTYPE eSocial [<!ATTLIST eSocial>]>'
 
         #
         # EFD/Reinf
@@ -410,7 +411,7 @@ class Certificado(object):
         doctype = self._obtem_doctype(xml)
 
         #
-        # Importantíssimo colocar o encode, pois do contário não é possível
+        # Importantíssimo colocar o encode, pois do cesontário não é possível
         # assinar caso o xml tenha letras acentuadas
         #
         xml = tira_abertura(xml)

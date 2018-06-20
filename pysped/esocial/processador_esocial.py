@@ -51,15 +51,20 @@ from ..nfe.processador_nfe import ProcessadorNFe, ProcessoNFe as ProcessoESocial
 
 from .webservices_flags import *
 from . import webservices_3
-from .leiaute import SOAPEnvio_10100, SOAPRetorno_10100
+from .leiaute import SOAPEnvio_10100, SOAPRetorno_10100, SOAPConsulta_10100
 from .leiaute import LoteEventosEsocial_10101
 from .leiaute import RetornoLoteEventosEsocial_10100
 from .leiaute import ConsultaLoteEventosEsocial_10000
+from .leiaute import RetornoProcessamentoLoteEsocial_10000
+import pybrasil
 
 
 class ProcessadorESocial(ProcessadorNFe):
     def __init__(self):
         super(ProcessadorESocial, self).__init__()
+        self.tpInsc = ''
+        self.nrInsc = ''
+        self.certificado = pybrasil.certificado.Certificado()
 
     def _configura_servico(self, servico, envio, resposta, ambiente=None, somente_ambiente_nacional=False):
         if ambiente is None:
@@ -68,7 +73,11 @@ class ProcessadorESocial(ProcessadorNFe):
         webservices = webservices_3
         metodo_ws = webservices.METODO_WS
 
-        self._soap_envio   = SOAPEnvio_10100()
+        # Se for Consulta deve usar o SOAPConsulta ao invés do SOAPEnvio
+        if servico == WS_ESOCIAL_CONSULTA:
+            self._soap_envio = SOAPConsulta_10100()
+        else:
+            self._soap_envio = SOAPEnvio_10100()
         self._soap_retorno = SOAPRetorno_10100()
 
         ws_a_usar = webservices.SVESOCIAL
@@ -109,21 +118,25 @@ class ProcessadorESocial(ProcessadorNFe):
 
         processo = ProcessoESocial(webservice=WS_ESOCIAL_ENVIO, envio=envio, resposta=resposta)
 
-        envio.envioLoteEventos.ideEmpregador.tpInsc.valor  = lista_eventos[0].evento.ideEmpregador.tpInsc.valor
-        envio.envioLoteEventos.ideEmpregador.nrInsc.valor  = lista_eventos[0].evento.ideEmpregador.nrInsc.valor
-        envio.envioLoteEventos.ideTransmissor.tpInsc.valor = lista_eventos[0].evento.ideEmpregador.tpInsc.valor
-        envio.envioLoteEventos.ideTransmissor.nrInsc.valor = lista_eventos[0].evento.ideEmpregador.nrInsc.valor
+        envio.envioLoteEventos.ideEmpregador.tpInsc.valor  = self.tpInsc
+        envio.envioLoteEventos.ideEmpregador.nrInsc.valor  = self.nrInsc[0:8]
+        envio.envioLoteEventos.ideTransmissor.tpInsc.valor = self.tpInsc
+        envio.envioLoteEventos.ideTransmissor.nrInsc.valor = self.nrInsc
 
         self.ambiente = lista_eventos[0].evtInfoEmpregador.ideEvento.tpAmb.valor
 
-        for evento in lista_eventos:
-            self.certificado.assina_xmlnfe(evento)
-            evento.validar()
+        namespaces = {
+            'evtInfoEmpregador': 'http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v02_04_02',
+        }
 
-        print(envio.xml)
+        for evento in lista_eventos:
+            # print(evento.xml)
+            evento.xml_assinado = self.certificado.assina_xml(evento.xml, assinar_raiz=True, metodo='sha256')
+            # import ipdb; ipdb.set_trace();
+            # evento.validar()
+
         envio.envioLoteEventos.eventos = lista_eventos
         envio.validar()
-        print(resposta.xml)
 
         if self.salvar_arquivos:
             for n in lista_eventos:
@@ -137,7 +150,8 @@ class ProcessadorESocial(ProcessadorNFe):
             arq.write(envio.xml)
             arq.close()
 
-        # self._conectar_servico(WS_ESOCIAL_ENVIO, envio, resposta)
+        print(envio.xml)
+        self._conectar_servico(WS_ESOCIAL_ENVIO, envio, resposta)
 
         #resposta.validar()
         if self.salvar_arquivos:
@@ -156,21 +170,24 @@ class ProcessadorESocial(ProcessadorNFe):
 
     def consultar_lote(self, protocolo):
         envio = ConsultaLoteEventosEsocial_10000()
-        resposta = RetornoLoteEventosEsocial_10100()
+        resposta = RetornoProcessamentoLoteEsocial_10000()
 
-        processo = ProcessoESocial(webservice=WS_ESOCIAL_ENVIO, envio=envio, resposta=resposta)
+        processo = ProcessoESocial(webservice=WS_ESOCIAL_CONSULTA, envio=envio, resposta=resposta)
 
         envio.consultaLoteEventos.protocoloEnvio.valor = protocolo
 
         envio.validar()
-        if self.salvar_arquivos:
-            arq = open(self.caminho + '/' + protocolo + '/consulta.xml', 'w')
-            arq.write(envio.xml)
-            arq.close()
+        # if self.salvar_arquivos:
+        #     arq = open(self.caminho + '/' + protocolo + '/consulta.xml', 'w')
+        #     arq.write(envio.xml)
+        #     arq.close()
 
-        self._conectar_servico(WS_ESOCIAL_ENVIO, envio, resposta)
+        self._conectar_servico(WS_ESOCIAL_CONSULTA, envio, resposta)
+        print(resposta.original)
 
-        if self.salvar_arquivos:
-            arq = open(self.caminho + '/' + protocolo + '/resposta.xml', 'w')
-            arq.write(envio.xml)
-            arq.close()
+        # if self.salvar_arquivos:
+        #     arq = open(self.caminho + '/' + protocolo + '/resposta.xml', 'w')
+        #     arq.write(envio.xml)
+        #     arq.close()
+
+        return processo
