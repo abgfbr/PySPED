@@ -52,86 +52,279 @@ DIRNAME = os.path.dirname(__file__)
 NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTabEstab/v02_04_02'
 
 
-class Contato(XMLNFe):
+class NovaValidade(XMLNFe):
     def __init__(self):
-        super(Contato, self).__init__()
-        self.nmCtt = TagCaracter(nome='nmCtt', tamanho=[ 1, 70]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.cpfCtt = TagCaracter(nome='cpfCtt', tamanho=[ 1, 11]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.foneFixo = TagCaracter(nome='foneFixo', tamanho=[ 1, 11]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.email = TagCaracter(nome='email', tamanho=[ 1, 11]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        super(NovaValidade, self).__init__()
+        self.iniValid = TagCaracter(nome='iniValid', raiz='//eSocial/evtTabEstab/infoEstab/novaValidade', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.fimValid = TagCaracter(nome='fimValid', raiz='//eSocial/evtTabEstab/infoEstab/novaValidade', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<contato>'
-        xml += self.nmCtt.xml
-        xml += self.cpfCtt.xml
-        xml += self.foneFixo.xml
-        xml += self.email.xml
-        xml += '</contato>'
+        xml += '<novaValidade>'
+        xml += self.iniValid.xml
+        xml += self.fimValid.xml
+        xml += '</novaValidade>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.nmCtt.xml = arquivo
-            self.cpfCtt.xml = arquivo
-            self.foneFixo.xml = arquivo
-            self.email.xml = arquivo
+            self.iniValid.xml = arquivo
+            self.fimValid.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
 
-class InfoCadastro(XMLNFe):
+class InfoPCD(XMLNFe):
     def __init__(self):
-        super(InfoCadastro, self).__init__()
-        self.contato = Contato()
-        self.nmRazao     = TagCaracter(nome='nmRazao'  , tamanho=[ 1, 100], raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.classTrib   = TagCaracter(nome='classTrib', tamanho=[ 1, 2]  , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
-        self.natJurid    = TagCaracter(nome='natJurid' , tamanho=[ 1, 4]  , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indCoop     = TagCaracter(nome='indCoop'  , tamanho=[ 1, 1]  , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indConstr   = TagCaracter(nome='indConstr', tamanho=[ 1, 1]  , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indDesFolha = TagCaracter(nome='indDesFolha', tamanho=[ 1, 1], raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='0')
-        self.indOptRegEletron = TagCaracter(nome='indOptRegEletron', tamanho=[ 1, 1], raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='0')
-        self.indEntEd    = TagCaracter(nome='indEntEd',                     raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indEtt      = TagCaracter(nome='indEtt'  ,                     raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='N')
-        self.nrRegEtt    = TagCaracter(nome='nrRegEtt', tamanho=[ 1, 30]  , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indSitPJ    = TagCaracter(nome='indSitPJ', tamanho=[ 1, 1]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/infoComplementares/situacaoPJ', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        super(InfoPCD, self).__init__()
+        self.contPCD   = TagCaracter(nome='contPCD'  , tamanho=[1, 1] , raiz='//infoPCD', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrProcJud = TagCaracter(nome='nrProcJud', tamanho=[1, 20], raiz='//infoPCD', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<infoCadastro>'
-        xml += self.nmRazao.xml
-        xml += self.classTrib.xml
-        xml += self.natJurid.xml
-        xml += self.indCoop.xml
-        xml += self.indConstr.xml
-        xml += self.indDesFolha.xml
-        xml += self.indOptRegEletron.xml
-        xml += self.indEntEd.xml
-        xml += self.indEtt.xml
-        xml += self.nrRegEtt.xml
-        xml += self.contato.xml
-        xml += '<infoComplementares>'
-        xml += '<situacaoPJ>'
-        xml += self.indSitPJ.xml
-        xml += '</situacaoPJ>'
-        xml += '</infoComplementares>'
-        xml += '</infoCadastro>'
+        xml += '<infoPCD>'
+        xml += self.contPCD.xml
+        xml += self.nrProcJud.xml
+        xml += '</infoPCD>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.nmRazao.xml = arquivo
-            self.classTrib.xml = arquivo
-            self.natJurid.xml = arquivo
-            self.indCoop.xml = arquivo
-            self.indConstr.xml = arquivo
-            self.indDesFolha.xml = arquivo
-            self.indOptRegEletron.xml = arquivo
-            self.indEntEd.xml = arquivo
-            self.indEtt.xml = arquivo
-            self.nrRegEtt.xml = arquivo
-            self.contato.xml = arquivo
-            self.indSitPJ.xml = arquivo
+            self.contPCD.xml = arquivo
+            self.nrProcJud.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class InfoEntEduc(XMLNFe):
+    def __init__(self):
+        super(InfoEntEduc, self).__init__()
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//infoEntEduc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<infoEntEduc>'
+        xml += self.nrInsc.xml
+        xml += '</infoEntEduc>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.nrInsc.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class InfoApr(XMLNFe):
+    def __init__(self):
+        super(InfoApr, self).__init__()
+        self.contApr   = TagCaracter(nome='contApr'  , tamanho=[1, 1] , raiz='//eSocial/evtTabEstab/infoEstab/dadosEstab/infoTrab/infoApr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrProcJud = TagCaracter(nome='nrProcJud', tamanho=[1, 20], raiz='//eSocial/evtTabEstab/infoEstab/dadosEstab/infoTrab/infoApr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.contEntEd = TagCaracter(nome='contEntEd', tamanho=[1, 1] , raiz='//eSocial/evtTabEstab/infoEstab/dadosEstab/infoTrab/infoApr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.infoEntEduc = []
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<infoApr>'
+        xml += self.contApr.xml
+        xml += self.nrProcJud.xml
+        xml += self.contEntEd.xml
+        for e in self.infoEntEduc:
+            xml += e.xml
+        xml += '</infoApr>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.contApr.xml = arquivo
+            self.nrProcJud.xml = arquivo
+            self.contEntEd.xml = arquivo
+            self.infoEntEduc = self.le_grupo('//eSocial/evtTabEstab/infoEstab/dadosEstab/infoTrab/infoApr/infoEntEduc', InfoEntEduc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+
+    xml = property(get_xml, set_xml)
+
+
+class InfoTrab(XMLNFe):
+    def __init__(self):
+        super(InfoTrab, self).__init__()
+        self.regPt = TagCaracter(nome='regPt', tamanho=[1, 1], raiz='//eSocial/evtTabEstab/infoEstab/dadosEstab/infoTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.infoApr = InfoApr()
+        self.infoPCD = []
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<infoTrab>'
+        xml += self.regPt.xml
+        xml += self.infoApr.xml
+        if len(self.infoPCD) > 0:
+            for p in self.infoPCD:
+                xml += p.xml
+        xml += '</infoTrab>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.regPt.xml = arquivo
+            self.infoApr.xml = arquivo
+            self.infoPCD = self.le_grupo('//eSocial/evtTabEstab/infoEstab/dadosEstab/infoTrab/infoPCD', InfoPCD, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+
+    xml = property(get_xml, set_xml)
+
+
+class InfoObra(XMLNFe):
+    def __init__(self):
+        super(InfoObra, self).__init__()
+        self.indSubstPatrObra = TagInteiro(nome='indSubstPatrObra', tamanho=[1, 1], raiz='//infoObra', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<infoObra>'
+        xml += self.indSubstPatrObra.xml
+        xml += '</infoObra>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.indSubstPatrObra.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class InfoCaepf(XMLNFe):
+    def __init__(self):
+        super(InfoCaepf, self).__init__()
+        self.tpCaepf = TagInteiro(nome='tpCaepf', tamanho=[1, 1], raiz='//infoCaepf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<infoCaepf>'
+        xml += self.tpCaepf.xml
+        xml += '</infoCaepf>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.tpCaepf.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class ProcAdmJudFap(XMLNFe):
+    def __init__(self):
+        super(ProcAdmJudFap, self).__init__()
+        self.tpProc  = TagInteiro( nome='tpProc' , tamanho=[1, 1] , raiz='//procAdmJudFap', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrProc  = TagCaracter(nome='nrProc' , tamanho=[1, 21], raiz='//procAdmJudFap', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codSusp = TagInteiro( nome='codSusp', tamanho=[1, 14], raiz='//procAdmJudFap', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<procAdmJudFap>'
+        xml += self.tpProc.xml
+        xml += self.nrProc.xml
+        xml += self.codSusp.xml
+        xml += '</procAdmJudFap>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.tpProc.xml = arquivo
+            self.nrProc.xml = arquivo
+            self.codSusp.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class ProcAdmJudRat(XMLNFe):
+    def __init__(self):
+        super(ProcAdmJudRat, self).__init__()
+        self.tpProc  = TagInteiro( nome='tpProc' , tamanho=[1, 1] , raiz='//procAdmJudRat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrProc  = TagCaracter(nome='nrProc' , tamanho=[1, 21], raiz='//procAdmJudRat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codSusp = TagInteiro( nome='codSusp', tamanho=[1, 14], raiz='//procAdmJudRat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<procAdmJudRat>'
+        xml += self.tpProc.xml
+        xml += self.nrProc.xml
+        xml += self.codSusp.xml
+        xml += '</procAdmJudRat>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.tpProc.xml = arquivo
+            self.nrProc.xml = arquivo
+            self.codSusp.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class AliqGilrat(XMLNFe):
+    def __init__(self):
+        super(AliqGilrat, self).__init__()
+        self.aliqRat       = TagInteiro(nome='aliqRat', tamanho=[1, 1], raiz='//eSocial/evtTabEstab/infoEstab/dadosEstab/aliqGilrat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.fap           = TagDecimal(nome='fap', tamanho=[1, 5, 4], raiz='//eSocial/evtTabEstab/infoEstab/dadosEstab/aliqGilrat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.aliqRatAjust  = TagDecimal(nome='aliqRatAjust', tamanho=[1, 5, 4], raiz='//eSocial/evtTabEstab/infoEstab/dadosEstab/aliqGilrat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.procAdmJudRat = []
+        self.procAdmJudFap = []
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<aliqGilrat>'
+        xml += self.aliqRat.xml
+        xml += self.fap.xml
+        xml += self.aliqRatAjust.xml
+        if len(self.procAdmJudRat) > 0:
+            for p in self.procAdmJudRat:
+                xml += p.xml
+        if len(self.procAdmJudFap) > 0:
+            for p in self.procAdmJudFap:
+                xml += p.xml
+        xml += '</aliqGilrat>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.aliqRat.xml = arquivo
+            self.fap.xml = arquivo
+            self.aliqRatAjust.xml = arquivo
+            self.procAdmJudRat = self.le_grupo('//eSocial/evtTabEstab/infoEstab/dadosEstab/aliqGilrat/procAdmJudRat', ProcAdmJudRat, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.procAdmJudFap = self.le_grupo('//eSocial/evtTabEstab/infoEstab/dadosEstab/aliqGilrat/procAdmJudFap', ProcAdmJudRat, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+
+    xml = property(get_xml, set_xml)
+
+
+class DadosEstab(XMLNFe):
+    def __init__(self):
+        super(DadosEstab, self).__init__()
+        self.cnaePrep   = TagCaracter(nome='cnaePrep', tamanho=[1, 7], raiz='//eSocial/evtTabEstab/infoEstab/dadosEstab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.aliqGilrat = AliqGilrat()
+        self.infoCaepf  = []
+        self.infoObra   = []
+        self.infoTrab   = InfoTrab()
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<dadosEstab>'
+        xml += self.cnaePrep.xml
+        xml += self.aliqGilrat.xml
+        if len(self.infoCaepf) > 0:
+            for c in self.infoCaepf:
+                xmo += c.xml
+        if len(self.infoObra) > 0:
+            for o in self.infoObra:
+                xml += o.xml
+        xml += self.infoTrab.xml
+        xml += '</dadosEstab>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.cnaePrep.xml = arquivo
+            self.aliqGilrat.xml = arquivo
+            self.infoCaepf = self.le_grupo('//eSocial/evtTabEstab/infoEstab/dadosEstab/infoCaepf', InfoCaepf, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoObra = self.le_grupo('//eSocial/evtTabEstab/infoEstab/dadosEstab/infoObra', InfoObra, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoTrab.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -139,19 +332,25 @@ class InfoCadastro(XMLNFe):
 class IdeEstab(XMLNFe):
     def __init__(self):
         super(IdeEstab, self).__init__()
-        self.iniValid  = TagCaracter(nome='iniValid', raiz='//eSocial/evtInfoEmpregador/infoEmpregador/idePeriodo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.fimValid  = TagCaracter(nome='fimValid', raiz='//eSocial/evtInfoEmpregador/infoEmpregador/idePeriodo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tpInsc   = TagCaracter(nome='tpInsc',   raiz='//eSocial/evtTabEstab/infoEstab/ideEstab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.nrInsc   = TagCaracter(nome='nrInsc',   raiz='//eSocial/evtTabEstab/infoEstab/ideEstab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.iniValid = TagCaracter(nome='iniValid', raiz='//eSocial/evtTabEstab/infoEstab/ideEstab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.fimValid = TagCaracter(nome='fimValid', raiz='//eSocial/evtTabEstab/infoEstab/ideEstab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<idePeriodo>'
+        xml += '<ideEstab>'
+        xml += self.tpInsc.xml
+        xml += self.nrInsc.xml
         xml += self.iniValid.xml
         xml += self.fimValid.xml
-        xml += '</idePeriodo>'
+        xml += '</ideEstab>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
+            self.tpInsc.xml = arquivo
+            self.nrInsc.xml = arquivo
             self.iniValid.xml = arquivo
             self.fimValid.xml = arquivo
 
@@ -168,7 +367,7 @@ class InfoEstab(XMLNFe):
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<infoEmpregador>'
+        xml += '<infoEstab>'
         if self.operacao == 'I':
             xml += '<inclusao>'
             xml += self.ideEstab.xml
@@ -186,7 +385,7 @@ class InfoEstab(XMLNFe):
             xml += self.ideEstab.xml
             xml += '</exclusao>'
 
-        xml += '</infoEmpregador>'
+        xml += '</infoEstab>'
         return xml
 
     def set_xml(self, arquivo):
@@ -276,7 +475,7 @@ class S1005(XMLNFe):
         super(S1005, self).__init__()
         self.evtTabEstab = EvtTabEstab()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
-        self.arquivo_esquema = 'evtInfoEmpregador.xsd'
+        self.arquivo_esquema = 'evtTabEstab.xsd'
         self.id_evento = ''
         self.tpInsc = ''
         self.nrInsc = ''
