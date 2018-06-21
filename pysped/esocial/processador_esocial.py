@@ -123,17 +123,15 @@ class ProcessadorESocial(ProcessadorNFe):
         envio.envioLoteEventos.ideTransmissor.tpInsc.valor = self.tpInsc
         envio.envioLoteEventos.ideTransmissor.nrInsc.valor = self.nrInsc
 
-        self.ambiente = lista_eventos[0].evtInfoEmpregador.ideEvento.tpAmb.valor
+        # self.ambiente = lista_eventos[0].evtInfoEmpregador.ideEvento.tpAmb.valor
+        # self.ambiente = 2
 
         namespaces = {
             'evtInfoEmpregador': 'http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v02_04_02',
         }
 
         for evento in lista_eventos:
-            # print(evento.xml)
             evento.xml_assinado = self.certificado.assina_xml(evento.xml, assinar_raiz=True, metodo='sha256')
-            # import ipdb; ipdb.set_trace();
-            # evento.validar()
 
         envio.envioLoteEventos.eventos = lista_eventos
         envio.validar()
@@ -150,7 +148,6 @@ class ProcessadorESocial(ProcessadorNFe):
             arq.write(envio.xml)
             arq.close()
 
-        print(envio.xml)
         self._conectar_servico(WS_ESOCIAL_ENVIO, envio, resposta)
 
         #resposta.validar()
@@ -183,7 +180,6 @@ class ProcessadorESocial(ProcessadorNFe):
         #     arq.close()
 
         self._conectar_servico(WS_ESOCIAL_CONSULTA, envio, resposta)
-        print(resposta.original)
 
         # if self.salvar_arquivos:
         #     arq = open(self.caminho + '/' + protocolo + '/resposta.xml', 'w')
