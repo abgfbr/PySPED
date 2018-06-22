@@ -183,7 +183,6 @@ class InfoEmpregador(XMLNFe):
             xml += self.infoCadastro.xml
             xml += self.novaValidade.xml
             xml += '</alteracao>'
-
         elif self.operacao == 'E':
             xml += '<exclusao>'
             xml += self.idePeriodo.xml

@@ -150,7 +150,6 @@ class ProcessadorESocial(ProcessadorNFe):
 
         self._conectar_servico(WS_ESOCIAL_ENVIO, envio, resposta)
 
-        #resposta.validar()
         if self.salvar_arquivos:
             nome_arq = self.caminho + id_evento + '-rec'
 
