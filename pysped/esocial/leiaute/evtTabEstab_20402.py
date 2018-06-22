@@ -310,7 +310,7 @@ class DadosEstab(XMLNFe):
         xml += self.aliqGilrat.xml
         if len(self.infoCaepf) > 0:
             for c in self.infoCaepf:
-                xmo += c.xml
+                xml += c.xml
         if len(self.infoObra) > 0:
             for o in self.infoObra:
                 xml += o.xml
@@ -399,8 +399,8 @@ class InfoEstab(XMLNFe):
 class IdeEmpregador(XMLNFe):
     def __init__(self):
         super(IdeEmpregador, self).__init__()
-        self.tpInsc = TagCaracter(nome='tpInsc', raiz='//eSocial/evtInfoEmpregador/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
-        self.nrInsc = TagCaracter(nome='nrInsc', raiz='//eSocial/evtInfoEmpregador/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc = TagCaracter(nome='tpInsc', raiz='//eSocial/evtTabEstab/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.nrInsc = TagCaracter(nome='nrInsc', raiz='//eSocial/evtTabEstab/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)

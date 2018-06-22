@@ -55,7 +55,23 @@ from .retornoEnvioLoteEventos_10100 import RetornoLoteEventosEsocial as RetornoL
 from .consultaLoteEventos_10000 import ConsultaLoteEventosEsocial as ConsultaLoteEventosEsocial_10000
 from .retornoProcessamentoLote_10100 import RetornoProcessamentoLoteEsocial as RetornoProcessamentoLoteEsocial_10000
 
+# S-1000
 from .evtInfoEmpregador_20402 import S1000 as S1000_2
+
+# S-1005
 from .evtTabEstab_20402 import S1005 as S1005_2
 from .evtTabEstab_20402 import InfoEntEduc as InfoEntEduc_2
 
+# S-1010
+from . evtTabRubrica_20402 import S1010 as S1010_2
+
+# S-1020
+from .evtTabLotacao_20402 import S1020 as S1020_2
+
+# S-1030
+from .evtTabCargo_20402 import S1030 as S1030_2
+from .evtTabCargo_20402 import CargoPublico as S1030_CargoPublico_2
+
+# S-1050
+from .evtTabHorTur_20402 import S1050 as S1050_2
+from .evtTabHorTur_20402 import HorarioIntervalo as HorarioIntervalo_2
