@@ -78,3 +78,10 @@ from .evtTabHorTur_20402 import HorarioIntervalo as HorarioIntervalo_2
 
 # S-2200
 from .evtAdmissao_20402 import S2200 as S2200_2
+from .evtAdmissao_20402 import CTPS as S2200_CTPS_2
+from .evtAdmissao_20402 import RIC as S2200_RIC_2
+from .evtAdmissao_20402 import RG as S2200_RG_2
+from .evtAdmissao_20402 import RNE as S2200_RNE_2
+from .evtAdmissao_20402 import OC as S2200_OC_2
+from .evtAdmissao_20402 import CNH as S2200_CNH_2
+from .evtAdmissao_20402 import Brasil as S2200_Brasil_2
