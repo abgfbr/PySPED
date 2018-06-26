@@ -211,7 +211,7 @@ class HorContratual(XMLNFe):
         super(HorContratual, self).__init__()
         self.qtdHorSem   = TagCaracter(nome='qtdHorSem',   tamanho=[1, 4],   raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpJornada   = TagCaracter(nome='tpJornada',   tamanho=[1, 1],   raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dscTpJor    = TagCaracter(nome='dscTpJor',    tamanho=[1, 100], raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.dscTpJorn   = TagCaracter(nome='dscTpJorn',   tamanho=[1, 100], raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tmpParc     = TagCaracter(nome='tmpParc',     tamanho=[1, 1],   raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.horario     = []
 
@@ -220,7 +220,7 @@ class HorContratual(XMLNFe):
         xml += '<horContratual>'
         xml += self.qtdHorSem.xml
         xml += self.tpJornada.xml
-        xml += self.dscTpJor.xml
+        xml += self.dscTpJorn.xml
         xml += self.tmpParc.xml
         if len(self.horario) > 0:
             for h in self.horario:
@@ -232,7 +232,7 @@ class HorContratual(XMLNFe):
         if self._le_xml(arquivo):
             self.qtdHorSem.xml = arquivo
             self.tpJornada.xml = arquivo
-            self.dscTpJor.xml = arquivo
+            self.dscTpJorn.xml = arquivo
             self.tmpParc.xml = arquivo
             self.horario.xml = self.le_grupo('//horContratual/horario', Horario, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
@@ -1110,8 +1110,8 @@ class CTPS(XMLNFe):
 class Endereco(XMLNFe):
     def __init__(self):
         super(Endereco, self).__init__()
-        self.brasil = Brasil()
-        self.exterior = Exterior()
+        self.brasil = []
+        self.exterior = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
