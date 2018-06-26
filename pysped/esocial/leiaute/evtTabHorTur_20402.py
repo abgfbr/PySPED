@@ -121,7 +121,7 @@ class DadosHorContratual(XMLNFe):
         if len(self.horarioIntervalo) > 0:
             for h in self.horarioIntervalo:
                 xml += h.xml
-        xml += '</dadosHorContratual'
+        xml += '</dadosHorContratual>'
         return xml
 
     def set_xml(self, arquivo):
