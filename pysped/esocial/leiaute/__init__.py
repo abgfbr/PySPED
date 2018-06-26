@@ -75,3 +75,6 @@ from .evtTabCargo_20402 import CargoPublico as S1030_CargoPublico_2
 # S-1050
 from .evtTabHorTur_20402 import S1050 as S1050_2
 from .evtTabHorTur_20402 import HorarioIntervalo as HorarioIntervalo_2
+
+# S-2200
+from .evtAdmissao_20402 import S2200 as S2200_2
