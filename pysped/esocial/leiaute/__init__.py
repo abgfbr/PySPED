@@ -85,3 +85,9 @@ from .evtAdmissao_20402 import RNE as S2200_RNE_2
 from .evtAdmissao_20402 import OC as S2200_OC_2
 from .evtAdmissao_20402 import CNH as S2200_CNH_2
 from .evtAdmissao_20402 import Brasil as S2200_Brasil_2
+from .evtAdmissao_20402 import Dependente as S2200_Dependente_2
+from .evtAdmissao_20402 import Contato as S2200_Contato_2
+from .evtAdmissao_20402 import InfoCeletista as S2200_InfoCeletista_2
+from .evtAdmissao_20402 import InfoEstatutario as S2200_InfoEstatutario_2
+from .evtAdmissao_20402 import LocalTrabGeral as S2200_LocalTrabGeral_2
+from .evtAdmissao_20402 import HorContratual as S2200_HorContratual_2
