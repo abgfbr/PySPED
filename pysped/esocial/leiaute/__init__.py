@@ -91,3 +91,7 @@ from .evtAdmissao_20402 import InfoCeletista as S2200_InfoCeletista_2
 from .evtAdmissao_20402 import InfoEstatutario as S2200_InfoEstatutario_2
 from .evtAdmissao_20402 import LocalTrabGeral as S2200_LocalTrabGeral_2
 from .evtAdmissao_20402 import HorContratual as S2200_HorContratual_2
+from .evtAdmissao_20402 import Horario as S2200_Horario_2
+from .evtAdmissao_20402 import FiliacaoSindical as S2200_FiliacaoSindical_2
+from .evtAdmissao_20402 import Observacoes as S2200_Observacoes_2
+from .evtAdmissao_20402 import SucessaoVinc as S2200_SucessaoVinc_2
