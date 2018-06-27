@@ -79,17 +79,17 @@ class HorarioIntervalo(XMLNFe):
         super(HorarioIntervalo, self).__init__()
         self.tpInterv = TagCaracter(nome='tpInterv', tamanho=[1, 1], raiz='//horarioIntervalo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.durInterv = TagCaracter(nome='durInterv', tamanho=[1, 3], raiz='//horarioIntervalo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.iniInterv = TagCaracter(nome='iniInterv', tamanho=[1, 1], raiz='//horarioIntervalo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.termInterv = TagCaracter(nome='termInterv', tamanho=[1, 1], raiz='//horarioIntervalo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.iniInterv = TagCaracter(nome='iniInterv', tamanho=[1, 4], raiz='//horarioIntervalo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.termInterv = TagCaracter(nome='termInterv', tamanho=[1, 4], raiz='//horarioIntervalo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<cargoPublico>'
+        xml += '<horarioIntervalo>'
         xml += self.tpInterv.xml
         xml += self.durInterv.xml
         xml += self.iniInterv.xml
         xml += self.termInterv.xml
-        xml += '</cargoPublico>'
+        xml += '</horarioIntervalo>'
         return xml
 
     def set_xml(self, arquivo):
