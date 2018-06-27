@@ -52,6 +52,25 @@ DIRNAME = os.path.dirname(__file__)
 NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAdmissao/v02_04_02'
 
 
+class Observacoes(XMLNFe):
+    def __init__(self):
+        super(Observacoes, self).__init__()
+        self.observacao = TagCaracter(nome='observacao', tamanho=[1, 255], raiz='//observacoes', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<observacoes>'
+        xml += self.observacao.xml
+        xml += '</observacoes>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.observacao.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
 class Desligamento(XMLNFe):
     def __init__(self):
         super(Desligamento, self).__init__()
@@ -172,7 +191,7 @@ class FiliacaoSindical(XMLNFe):
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<filiacalSindical>'
+        xml += '<filiacaoSindical>'
         xml += self.cnpjSindTrab.xml
         xml += '</filiacaoSindical>'
         return xml
