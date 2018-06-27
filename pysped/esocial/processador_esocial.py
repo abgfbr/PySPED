@@ -112,11 +112,17 @@ class ProcessadorESocial(ProcessadorNFe):
 
         return caminho
 
-    def enviar_lote(self, lista_eventos=[]):
+    def enviar_lote(self, lista_eventos=[], grupo='1'):
         envio = LoteEventosEsocial_10101()
         resposta = RetornoLoteEventosEsocial_10100()
 
         processo = ProcessoESocial(webservice=WS_ESOCIAL_ENVIO, envio=envio, resposta=resposta)
+
+        # Popula o grupo de Eventos conforme tabela
+        # 1-Eventos de Tabela
+        # 2-Eventos não Periódicos
+        # 3-Eventos Periódicos
+        envio.envioLoteEventos.grupo.valor = grupo
 
         envio.envioLoteEventos.ideEmpregador.tpInsc.valor  = self.tpInsc
         envio.envioLoteEventos.ideEmpregador.nrInsc.valor  = self.nrInsc[0:8]
