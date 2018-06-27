@@ -702,6 +702,8 @@ class Vinculo(XMLNFe):
         xml += self.tpRegTrab.xml
         xml += self.tpRegPrev.xml
         xml += self.nrRecInfPrelim.xml
+        xml += self.cadIni.xml
+        xml += self.infoRegimeTrab.xml
         xml += self.infoContrato.xml
         if len(self.sucessaoVinc) > 0:
             for s in self.sucessaoVinc:
@@ -1244,7 +1246,7 @@ class Trabalhador(XMLNFe):
         self.sexo       = TagCaracter(nome='sexo'      , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.racaCor    = TagCaracter(nome='racaCor'   , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.estCiv     = TagCaracter(nome='estCiv'    , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.grauInstr  = TagCaracter(nome='grauInstr' , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.grauInstr  = TagCaracter(nome='grauInstr' , tamanho=[1, 2] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.indPriEmpr = TagCaracter(nome='indPriEmpr', tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nmSoc      = TagCaracter(nome='nmSoc'     , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nascimento = Nascimento()
