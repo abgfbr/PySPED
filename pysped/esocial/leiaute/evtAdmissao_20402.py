@@ -140,10 +140,10 @@ class TransfDom(XMLNFe):
 class SucessaoVinc(XMLNFe):
     def __init__(self):
         super(SucessaoVinc, self).__init__()
-        self.cnpjEmpregAnt = TagCaracter(nome='ncnpjEmpregAnt', tamanho=[1, 14],  raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.matricAnt     = TagCaracter(nome='matricAnt',      tamanho=[1, 30],  raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.dtTransf      = TagData(    nome='dtTransf',                         raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.observacao    = TagCaracter(nome='observacao',     tamanho=[1, 255], raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.cnpjEmpregAnt = TagCaracter(nome='cnpjEmpregAnt', tamanho=[1, 14],  raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.matricAnt     = TagCaracter(nome='matricAnt',     tamanho=[1, 30],  raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.dtTransf      = TagData(    nome='dtTransf',                        raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.observacao    = TagCaracter(nome='observacao',    tamanho=[1, 255], raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -228,16 +228,16 @@ class Horario(XMLNFe):
 class HorContratual(XMLNFe):
     def __init__(self):
         super(HorContratual, self).__init__()
-        self.qtdHorSem   = TagCaracter(nome='qtdHorSem',   tamanho=[1, 4],   raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.tpJornada   = TagCaracter(nome='tpJornada',   tamanho=[1, 1],   raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dscTpJorn   = TagCaracter(nome='dscTpJorn',   tamanho=[1, 100], raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.tmpParc     = TagCaracter(nome='tmpParc',     tamanho=[1, 1],   raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.qtdHrsSem   = TagDecimal( nome='qtdHrsSem',   tamanho=[1, 4, 2], raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tpJornada   = TagCaracter(nome='tpJornada',   tamanho=[1, 1],    raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dscTpJorn   = TagCaracter(nome='dscTpJorn',   tamanho=[1, 100],  raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tmpParc     = TagCaracter(nome='tmpParc',     tamanho=[1, 1],    raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.horario     = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<horContratual>'
-        xml += self.qtdHorSem.xml
+        xml += self.qtdHrsSem.xml
         xml += self.tpJornada.xml
         xml += self.dscTpJorn.xml
         xml += self.tmpParc.xml
@@ -249,7 +249,7 @@ class HorContratual(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.qtdHorSem.xml = arquivo
+            self.qtdHrsSem.xml = arquivo
             self.tpJornada.xml = arquivo
             self.dscTpJorn.xml = arquivo
             self.tmpParc.xml = arquivo
