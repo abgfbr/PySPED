@@ -95,3 +95,6 @@ from .evtAdmissao_20402 import Horario as S2200_Horario_2
 from .evtAdmissao_20402 import FiliacaoSindical as S2200_FiliacaoSindical_2
 from .evtAdmissao_20402 import Observacoes as S2200_Observacoes_2
 from .evtAdmissao_20402 import SucessaoVinc as S2200_SucessaoVinc_2
+
+# S-2205
+from .evtAltCadastral_20402 import S2205 as S2205_2
