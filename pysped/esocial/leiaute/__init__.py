@@ -98,3 +98,35 @@ from .evtAdmissao_20402 import SucessaoVinc as S2200_SucessaoVinc_2
 
 # S-2205
 from .evtAltCadastral_20402 import S2205 as S2205_2
+
+# S-2299
+from .evtDeslig_20402 import S2299 as S2299_2
+from .evtDeslig_20402 import IdeEstabLot as S2299_IdeEstabLot_2
+from .evtDeslig_20402 import IdePeriodo as S2299_IdePeriodo_2
+from .evtDeslig_20402 import IdeADC as S2299_IdeADC_2
+from .evtDeslig_20402 import InfoTrabInterm as S2299_InfoTrabInterm_2
+from .evtDeslig_20402 import InfoPerAnt as S2299_InfoPerAnt_2
+from .evtDeslig_20402 import ProcCS as S2299_ProcCS_2
+from .evtDeslig_20402 import RemunOutrEmpr as S2299_RemunOutrEmpr_2
+from .evtDeslig_20402 import InfoMV as S2299_InfoMV_2
+from .evtDeslig_20402 import ProcJudTrab as S2299_ProcJudTrab_2
+from .evtDeslig_20402 import InfoSimples as S2299_InfoSimples_2
+from .evtDeslig_20402 import InfoAgNocivo as S2299_InfoAgNocivo_2
+from .evtDeslig_20402 import DetPlano as S2299_DetPlano_2
+from .evtDeslig_20402 import DetVerbas as S2299_DetVerbas_2
+from .evtDeslig_20402 import InfoPerApur as S2299_InforPerApur_2
+from .evtDeslig_20402 import ConsigFGTS as S2299_ConsigFGTS_2
+from .evtDeslig_20402 import Quarentena as S2299_Quarentena_2
+from .evtDeslig_20402 import DmDev as S2299_DmDev_2
+from .evtDeslig_20402 import TransfTit as S2299_TransfTit_2
+from .evtDeslig_20402 import SucessaoVinc as S2299_SucessaoVinc_2
+from .evtDeslig_20402 import Observacoes as S2299_Observacoes_2
+from .evtDeslig_20402 import VerbasResc as S2299_VerbasResc_2
+from .evtDeslig_20402 import InfoDeslig as S2299_InfoDeslig_2
+from .evtDeslig_20402 import IdeVinculo as S2299_IdeVinculo_2
+from .evtDeslig_20402 import EvtDeslig as S2299_EvtDeslig_2
+from .evtDeslig_20402 import DetOper as S2299_DetOper_2
+from .evtDeslig_20402 import IdeEmpregador as S2299_DetOper_2
+from .evtDeslig_20402 import IdeEstabLotApur as S2299_IdeEstabLotApur_2
+from .evtDeslig_20402 import IdeEvento as S2299_IdeEvento_2
+from .evtDeslig_20402 import InfoSaudeColet as S2299_InfoSaudeColet_2
