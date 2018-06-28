@@ -57,12 +57,12 @@ NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtDeslig/v02_04_02'
 class DetVerbas(XMLNFe):
     def __init__(self):
         super(DetVerbas, self).__init__()
-        self.codRubr = TagCaracter(nome='codRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.ideTabRubr = TagCaracter(nome='ideTabRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdRubr = TagCaracter(nome='qtdRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.fatorRubr = TagCaracter(nome='fatorRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vrUnit = TagCaracter(nome='vrUnit', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vrRubr = TagCaracter(nome='vrRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codRubr = TagCaracter(nome='codRubr', tamanho=[1, 30], raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8], raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.qtdRubr = TagInteiro(nome='qtdRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.fatorRubr = TagInteiro(nome='fatorRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.vrUnit = TagInteiro(nome='vrUnit', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.vrRubr = TagInteiro(nome='vrRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -92,11 +92,11 @@ class DetVerbas(XMLNFe):
 class DetPlano(XMLNFe):
     def __init__(self):
         super(DetPlano, self).__init__()
-        self.tpDep = TagCaracter(name='tpDep', raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.cpfDep = TagCaracter(name='cpfDep', raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nmDep = TagCaracter(name='nmDep', raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtNascto = TagCaracter(name='dtNascto', raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vlorPgDep = TagCaracter(name='vlorPgDep', raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpDep = TagCaracter(name='tpDep', tamanho=[1, 2], raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cpfDep = TagCaracter(name='cpfDep', tamanho=[1, 11], raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmDep = TagCaracter(name='nmDep', tamanho=[1, 70], raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtNascto = TagData(name='dtNascto', raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vlorPgDep = TagInteiro(name='vlorPgDep', raiz='//dtPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -123,8 +123,8 @@ class DetPlano(XMLNFe):
 class DetOper(XMLNFe):
     def __init__(self):
         super(DetOper, self).__init__()
-        self.cnpjOper = TagCaracter(name='cnpjOper', raiz='//detOper', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.regANS = TagCaracter(name='regANS', raiz='//detOper', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cnpjOper = TagCaracter(name='cnpjOper', tamanho=[1, 14], raiz='//detOper', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.regANS = TagCaracter(name='regANS', tamanho=[1, 6], raiz='//detOper', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.vrPgTit = TagInteiro(name='vrPgTit', raiz='//detOper', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.detPlano = []
 
@@ -213,10 +213,10 @@ class InfoSimples(XMLNFe):
 
 class IdeEstabLotApur(XMLNFe):
     def __init__(self):
-        super(IdeEstabLot, self).__init__()
+        super(IdeEstabLotApur, self).__init__()
         self.tpInsc = TagInteiro(nome='tpInsc', raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInsc = TagCaracter(nome='ideEstabLot', raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codLotacao = TagCaracter(nome='codLotacao', raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInsc = TagCaracter(nome='ideEstabLot', tamanho=[1, 15], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.detVerbas = []
         self.infoSaudeColet = []
         self.infoAgNocivo = []
@@ -277,8 +277,8 @@ class IdeEstabLot(XMLNFe):
     def __init__(self):
         super(IdeEstabLot, self).__init__()
         self.tpInsc = TagInteiro(nome='tpInsc', raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInsc = TagCaracter(nome='nrInsc', raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codLotacao = TagCaracter(nome='codLotacao', raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.detVerbas = []
         self.infoAgNocivo = []
         self.infoSimples = []
@@ -313,7 +313,7 @@ class IdeEstabLot(XMLNFe):
 class IdePeriodo(XMLNFe):
     def __init__(self):
         super(IdePeriodo, self).__init__()
-        self.perRef = TagCaracter(nome='perRef', raiz='//idePeriodo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.perRef = TagCaracter(nome='perRef', tamanho=[1, 7], raiz='//idePeriodo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEstabLot = []
 
     def get_xml(self):
@@ -336,11 +336,11 @@ class IdePeriodo(XMLNFe):
 class IdeADC(XMLNFe):
     def __init__(self):
         super(IdeADC, self).__init__()
-        self.dtAcConv = TagCaracter(name='dtAcConv', raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.tpAcConv = TagCaracter(name='tpAcConv', raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.compAcConv = TagCaracter(name='compAcConv', raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtEfAcConv = TagCaracter(name='dtEfAcConv', raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dsc = TagCaracter(name='dsc', raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtAcConv = TagData(name='dtAcConv', raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpAcConv = TagCaracter(name='tpAcConv', tamanho=[1, 1], raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.compAcConv = TagCaracter(name='compAcConv', tamanho=[1, 7], raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.dtEfAcConv = TagData(name='dtEfAcConv', raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dsc = TagCaracter(name='dsc', tamanho=[1, 255], raiz='//ideADC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.idePeriodo = []
 
     def get_xml(self):
@@ -391,7 +391,7 @@ class InfoPerAnt(XMLNFe):
 class InfoTrabInterm(XMLNFe):
     def __init__(self):
         super(InfoTrabInterm, self).__init__()
-        self.codConv = TagCaracter(name='codConv', raiz='//codConv', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codConv = TagCaracter(name='codConv', tamanho=[1, 30], raiz='//codConv', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -411,7 +411,7 @@ class InfoTrabInterm(XMLNFe):
 class DmDev(XMLNFe):
     def __init__(self):
         super(DmDev, self).__init__()
-        self.ideDmDev = TagCaracter(nome='ideDmDev', raiz='//dmDev', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.ideDmDev = TagCaracter(nome='ideDmDev', tamanho=[1, 30], raiz='//dmDev', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.infoPerApur = []
         self.infoPerAnt = []
         self.infoTrabInterm = []
@@ -447,8 +447,8 @@ class ProcJudTrab(XMLNFe):
     def __init__(self):
         super(ProcJudTrab, self).__init__()
         self.tpTrib = TagInteiro(name='tpTrib', raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrProcJud = TagCaracter(name='nrProcJud', raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codSusp = TagInteiro(name='codSusp', raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrProcJud = TagCaracter(name='nrProcJud', tamanho=[1, 20], raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codSusp = TagInteiro(name='codSusp', raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -473,7 +473,7 @@ class RemunOutrEmpr(XMLNFe):
     def __init__(self):
         super(RemunOutrEmpr, self).__init__()
         self.tpInsc = TagInteiro(name='tpInsc', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInsc = TagCaracter(name='nrInsc', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInsc = TagCaracter(name='nrInsc', tamanho=[1, 15], raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codCateg = TagInteiro(name='codCateg', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.vlrRemunOE = TagInteiro(name='vlrRemunOE', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
@@ -526,7 +526,7 @@ class InfoMV(XMLNFe):
 class ProcCS(XMLNFe):
     def __init__(self):
         super(ProcCS, self).__init__()
-        self.nrProcJud = TagCaracter(nome='nrProcJud', raiz='//procCS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrProcJud = TagCaracter(nome='nrProcJud', tamanho=[1, 20], raiz='//procCS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -583,7 +583,7 @@ class VerbasResc(XMLNFe):
 class Observacoes(XMLNFe):
     def __init__(self):
         super(Observacoes, self).__init__()
-        self.observacao = TagCaracter(nome='observacao', raiz='//observacoes', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.observacao = TagCaracter(nome='observacao', tamanho=[1, 255], raiz='//observacoes', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -603,7 +603,7 @@ class Observacoes(XMLNFe):
 class SucessaoVinc(XMLNFe):
     def __init__(self):
         super(SucessaoVinc, self).__init__()
-        self.cnpjSucessora = TagCaracter(nome='cnpjSucessora', raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cnpjSucessora = TagCaracter(nome='cnpjSucessora', tamanho=[1, 14], raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -623,8 +623,8 @@ class SucessaoVinc(XMLNFe):
 class TransfTit(XMLNFe):
     def __init__(self):
         super(TransfTit, self).__init__()
-        self.cpfSubstituto = TagCaracter(name='cpfSubstituto', raiz='//transfTit', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtNascto = TagCaracter(name='dtNascto', raiz='//transfTit', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cpfSubstituto = TagCaracter(name='cpfSubstituto', tamanho=[1, 11], raiz='//transfTit', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtNascto = TagData(name='dtNascto', raiz='//transfTit', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -646,7 +646,7 @@ class TransfTit(XMLNFe):
 class Quarentena(XMLNFe):
     def __init__(self):
         super(Quarentena, self).__init__()
-        self.dtFimQuar = TagCaracter(name='dtFimQuar', raiz='//quarentena', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtFimQuar = TagData(name='dtFimQuar', raiz='//quarentena', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -666,8 +666,8 @@ class Quarentena(XMLNFe):
 class ConsigFGTS(XMLNFe):
     def __init__(self):
         super(ConsigFGTS, self).__init__()
-        self.insConsig = TagCaracter(nome='insConsig', raiz='//consigFGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrContr = TagCaracter(nome='nrContr', raiz='//consigFGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.insConsig = TagCaracter(nome='insConsig', tamanho=[1, 5], raiz='//consigFGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrContr = TagCaracter(nome='nrContr', tamanho=[1, 40], raiz='//consigFGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -689,17 +689,17 @@ class ConsigFGTS(XMLNFe):
 class InfoDeslig(XMLNFe):
     def __init__(self):
         super(InfoDeslig, self).__init__()
-        self.mtvDeslig = TagCaracter(nome='mtvDeslig', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtDeslig = TagCaracter(nome='dtDeslig', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.indPagtoAPI = TagCaracter(nome='indPagtoAPI', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtProjFimAPI = TagCaracter(nome='dtProjFimAPI', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.mtvDeslig = TagCaracter(nome='mtvDeslig', tamanho=[1, 2], raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtDeslig = TagData(nome='dtDeslig', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indPagtoAPI = TagCaracter(nome='indPagtoAPI', tamanho=[1, 1], raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtProjFimAPI = TagData(nome='dtProjFimAPI', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.pensAlim = TagInteiro(nome='pensAlim', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.percAliment = TagInteiro(nome='percAliment', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vrAlim = TagInteiro(nome='vrAlim', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrCertObito = TagCaracter(nome='nrCertObito', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrProcTrab = TagCaracter(nome='nrProcTrab', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.percAliment = TagInteiro(nome='percAliment', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.vrAlim = TagInteiro(nome='vrAlim', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nrCertObito = TagCaracter(nome='nrCertObito', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nrProcTrab = TagCaracter(nome='nrProcTrab', tamanho=[1, 20], raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.indCumprParc = TagInteiro(nome='indCumprParc', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdDiasInterm = TagInteiro(nome='qtdDiasInterm', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.qtdDiasInterm = TagInteiro(nome='qtdDiasInterm', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.observacoes = []
         self.sucessaoVinc = []
         self.transfTit = []
@@ -768,9 +768,9 @@ class InfoDeslig(XMLNFe):
 class IdeVinculo(XMLNFe):
     def __init__(self):
         super(IdeVinculo, self).__init__()
-        self.cpfTrab = TagCaracter(nome='cpfTrab', raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.matricula = TagCaracter(nome='matricula', raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -794,8 +794,8 @@ class IdeVinculo(XMLNFe):
 class IdeEmpregador(XMLNFe):
     def __init__(self):
         super(IdeEmpregador, self).__init__()
-        self.tpInsc = TagCaracter(nome='tpInsc', raiz='//eSocial/evtDeslig/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
-        self.nrInsc = TagCaracter(nome='nrInsc', raiz='//eSocial/evtDeslig/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc = TagInteiro(nome='tpInsc', raiz='//eSocial/evtDeslig/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//eSocial/evtDeslig/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -816,11 +816,11 @@ class IdeEmpregador(XMLNFe):
 class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
-        self.indRetif = TagInteir(nome='indRetif', raiz='//eSocial/evtDeslig/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
-        self.nrRecibo = TagCaracter(nome='nrRecibo', raiz='//eSocial/evtDeslig/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indRetif = TagInteiro(nome='indRetif', raiz='//eSocial/evtDeslig/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
+        self.nrRecibo = TagCaracter(nome='nrRecibo', tamanho=[1, 40], raiz='//eSocial/evtDeslig/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpAmb   = TagInteiro(nome='tpAmb'   , raiz='//eSocial/evtDeslig/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
         self.procEmi = TagInteiro(nome='procEmi' , raiz='//eSocial/evtDeslig/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
-        self.verProc = TagCaracter(nome='verProc', raiz='//eSocial/evtDeslig/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.verProc = TagCaracter(nome='verProc', tamanho=[1, 20], raiz='//eSocial/evtDeslig/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -851,7 +851,7 @@ class EvtDeslig(XMLNFe):
         self.ideEmpregador = IdeEmpregador()
         self.ideVinculo = IdeVinculo()
         self.infoDeslig = InfoDeslig()
-        self.Id = TagCaracter(nome='evtDeslig', propriedade='Id', raiz='//eSocial/evtDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.Id = TagCaracter(nome='evtDeslig', propriedade='Id', tamanho=[1, 36], raiz='//eSocial/evtDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
