@@ -243,6 +243,9 @@ class Evento(XMLNFe):
         super(Evento, self).__init__()
         self.Id = TagCaracter(nome='evento', propriedade='Id', raiz='/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.retornoEvento = RetornoEvento()
+        self.resposta = self.retornoEvento.eSocial.retornoEvento.processamento.cdResposta.valor
+        self.descricao = self.retornoEvento.eSocial.retornoEvento.processamento.descResposta.valor
+        self.ocorrencias = self.retornoEvento.eSocial.retornoEvento.processamento.ocorrencias
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -486,6 +489,9 @@ class RetornoProcessamentoLoteEsocial(XMLNFe):
     def __init__(self):
         super(RetornoProcessamentoLoteEsocial, self).__init__()
         self.retornoProcessamentoLoteEventos = RetornoProcessamentoLoteEventos()
+        self.cdResposta = self.retornoProcessamentoLoteEventos.status.cdResposta.valor
+        self.descResposta = self.retornoProcessamentoLoteEventos.status.descResposta.valor
+        self.tempoEstimadoConclusao = self.retornoProcessamentoLoteEventos.status.tempoEstimadoConclusao.valor
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
         self.arquivo_esquema = 'RetornoProcessamentoLote-v1_3_0.xsd'
 

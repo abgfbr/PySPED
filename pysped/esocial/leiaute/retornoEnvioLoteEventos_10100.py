@@ -223,6 +223,9 @@ class RetornoLoteEventosEsocial(XMLNFe):
     def __init__(self):
         super(RetornoLoteEventosEsocial, self).__init__()
         self.retornoEnvioLoteEventos = RetornoEnvioLoteEventos()
+        self.cdResposta = self.retornoEnvioLoteEventos.status.cdResposta.valor
+        self.descResposta = self.retornoEnvioLoteEventos.status.descResposta.valor
+        self.ocorrencias = self.retornoEnvioLoteEventos.status.ocorrencias
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
         self.arquivo_esquema = 'RetornoEnvioLoteEventos-v1_1_0.xsd'
 
