@@ -78,9 +78,9 @@ class InfoEmprParcial(XMLNFe):
     def __init__(self):
         super(InfoEmprParcial, self).__init__()
         self.tpInscContrat = TagCaracter(nome='tpInscContrat', tamanho=[1, 1], raiz='//infoEmprParcial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInscContrat = TagCaracter(nome='nrInscContrat', tamanho=[1, 1], raiz='//infoEmprParcial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInscContrat = TagCaracter(nome='nrInscContrat', tamanho=[1, 14], raiz='//infoEmprParcial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpInscProp = TagCaracter(nome='tpInscProp', tamanho=[1, 1], raiz='//infoEmprParcial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInscProp = TagCaracter(nome='nrInscProp', tamanho=[1, 1], raiz='//infoEmprParcial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInscProp = TagCaracter(nome='nrInscProp', tamanho=[1, 14], raiz='//infoEmprParcial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -183,7 +183,7 @@ class DadosLotacao(XMLNFe):
         super(DadosLotacao, self).__init__()
         self.tpLotacao = TagCaracter(nome='tpLotacao', tamanho=[1, 2], raiz='//eSocial/evtTabLotacao/infoLotacao/dadosLotacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpInsc = TagCaracter(nome='tpInsc', tamanho=[1, 1], raiz='//eSocial/evtTabLotacao/infoLotacao/dadosLotacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 1], raiz='//eSocial/evtTabLotacao/infoLotacao/dadosLotacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//eSocial/evtTabLotacao/infoLotacao/dadosLotacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fpasLotacao = FpasLotacao()
         self.infoEmprParcial = []
 
