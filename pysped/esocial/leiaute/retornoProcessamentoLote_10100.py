@@ -489,9 +489,14 @@ class RetornoProcessamentoLoteEsocial(XMLNFe):
     def __init__(self):
         super(RetornoProcessamentoLoteEsocial, self).__init__()
         self.retornoProcessamentoLoteEventos = RetornoProcessamentoLoteEventos()
-        self.cdResposta = self.retornoProcessamentoLoteEventos.status.cdResposta.valor
-        self.descResposta = self.retornoProcessamentoLoteEventos.status.descResposta.valor
-        self.tempoEstimadoConclusao = self.retornoProcessamentoLoteEventos.status.tempoEstimadoConclusao.valor
+        self.cdResposta = ''
+        self.descResposta = ''
+        self.tempoEstimadoConclusao = ''
+        self.dhRecepcao = ''
+        self.protocoloEnvio = ''
+        self.ocorrencias = []
+        self.versaoAplicativoRecepcao = ''
+        self.versaoAplicativoProcessamentoLote = ''
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
         self.arquivo_esquema = 'RetornoProcessamentoLote-v1_3_0.xsd'
 
@@ -506,6 +511,14 @@ class RetornoProcessamentoLoteEsocial(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.retornoProcessamentoLoteEventos.xml = arquivo
+            self.cdResposta = self.retornoProcessamentoLoteEventos.status.cdResposta.valor
+            self.descResposta = self.retornoProcessamentoLoteEventos.status.descResposta.valor
+            self.tempoEstimadoConclusao = self.retornoProcessamentoLoteEventos.status.tempoEstimadoConclusao.valor
+            self.dhRecepcao = self.retornoProcessamentoLoteEventos.dadosRecepcaoLote.dhRecepcao.valor
+            self.versaoAplicativoRecepcao = self.retornoProcessamentoLoteEventos.dadosRecepcaoLote.versaoAplicativoRecepcao.valor
+            self.protocoloEnvio = self.retornoProcessamentoLoteEventos.dadosRecepcaoLote.protocoloEnvio.valor
+            self.ocorrencias = self.retornoProcessamentoLoteEventos.status.ocorrencias
+            self.versaoAplicativoProcessamentoLote = self.retornoProcessamentoLoteEventos.dadosProcessamentoLote.versaoAplicativoProcessamentoLote.valor
 
     xml = property(get_xml, set_xml)
 
