@@ -885,7 +885,6 @@ class Imposto(nfe_200.Imposto):
         xml += self.ICMSUFDest.xml
 
         xml += '</imposto>'
-        print(xml)
         return xml
 
     def set_xml(self, arquivo):
