@@ -139,6 +139,28 @@ class InfoCadastro(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
+class NovaValidade(XMLNFe):
+    def __init__(self):
+        super(NovaValidade, self).__init__()
+        self.iniValid  = TagCaracter(nome='iniValid', raiz='//eSocial/evtInfoEmpregador/infoEmpregador/novaValidade', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.fimValid  = TagCaracter(nome='fimValid', raiz='//eSocial/evtInfoEmpregador/infoEmpregador/novaValidade', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<novaValidade>'
+        xml += self.iniValid.xml
+        xml += self.fimValid.xml
+        xml += '</novaValidade>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.iniValid.xml = arquivo
+            self.fimValid.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
 class IdePeriodo(XMLNFe):
     def __init__(self):
         super(IdePeriodo, self).__init__()
@@ -166,7 +188,7 @@ class InfoEmpregador(XMLNFe):
         super(InfoEmpregador, self).__init__()
         self.idePeriodo = IdePeriodo()
         self.infoCadastro = InfoCadastro()
-        self.novaValidade = IdePeriodo()
+        self.novaValidade = NovaValidade()
         self.operacao = 'I'
 
     def get_xml(self):
