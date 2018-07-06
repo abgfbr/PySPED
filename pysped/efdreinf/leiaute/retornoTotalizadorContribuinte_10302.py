@@ -482,6 +482,9 @@ class RetornoTotalizadorContribuinte(XMLNFe):
         self.evtTotalContrib = EvtTotalContrib()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
         self.arquivo_esquema = 'retornoTotalizadorContribuinte.xsd'
+        self.cdResposta = ''
+        self.descResposta = ''
+        self.ocorrencias = []
         self.id_evento = ''
         self.Signature = Signature()
         self.evento = self.evtTotalContrib
@@ -507,6 +510,9 @@ class RetornoTotalizadorContribuinte(XMLNFe):
         if self._le_xml(arquivo):
             self.evtTotalContrib.xml = arquivo
             self.Signature.xml = self._le_noh('//Reinf/evtTotalContrib/sig:Signature')
+            self.cdResposta = self.evtTotalContrib.ideRecRetorno.ideStatus.cdRetorno.valor
+            self.descResposta = self.evtTotalContrib.ideRecRetorno.ideStatus.descRetorno.valor
+            self.ocorrencias = self.evtTotalContrib.ideRecRetorno.ideStatus.regOcorrs
         return True
 
     # def gera_id_evento(self, data_hora):
