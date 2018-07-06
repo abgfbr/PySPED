@@ -62,7 +62,7 @@ class DetVerbas(XMLNFe):
         self.qtdRubr = TagInteiro(nome='qtdRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr = TagInteiro(nome='fatorRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit = TagInteiro(nome='vrUnit', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrRubr = TagInteiro(nome='vrRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vrRubr = TagDecimal(nome='vrRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -86,7 +86,7 @@ class DetVerbas(XMLNFe):
             self.vrUnit.xml = arquivo
             self.vrRubr.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class DetPlano(XMLNFe):
@@ -117,7 +117,7 @@ class DetPlano(XMLNFe):
             self.dtNascto.xml = arquivo
             self.vlorPgDep.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class DetOper(XMLNFe):
@@ -148,7 +148,7 @@ class DetOper(XMLNFe):
             self.vrPgTit.xml = arquivo
             self.detPlano = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot/infoSaudeCelet/detOper/detPlano', DetPlano, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoSaudeColet(XMLNFe):
@@ -168,7 +168,7 @@ class InfoSaudeColet(XMLNFe):
         if self._le_xml(arquivo):
             self.detOper = self.infoSaudeCelet = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot/infoSaudeCelet/detOper', DetOper, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoAgNocivo(XMLNFe):
@@ -188,7 +188,7 @@ class InfoAgNocivo(XMLNFe):
         if self._le_xml(arquivo):
             self.grauExp.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoSimples(XMLNFe):
@@ -208,14 +208,14 @@ class InfoSimples(XMLNFe):
         if self._le_xml(arquivo):
             self.indSimples.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class IdeEstabLotApur(XMLNFe):
     def __init__(self):
         super(IdeEstabLotApur, self).__init__()
         self.tpInsc = TagInteiro(nome='tpInsc', raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInsc = TagCaracter(nome='ideEstabLot', tamanho=[1, 15], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.detVerbas = []
         self.infoSaudeColet = []
@@ -248,7 +248,7 @@ class IdeEstabLotApur(XMLNFe):
             self.infoAgNocivo = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot/infoAgNocivo', InfoAgNocivo, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoSimples = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot/infoSimples', InfoSimples, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoPerApur(XMLNFe):
@@ -270,7 +270,7 @@ class InfoPerApur(XMLNFe):
         if self._le_xml(arquivo):
             self.ideEstabLot = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot', IdeEstabLotApur, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class IdeEstabLot(XMLNFe):
@@ -405,7 +405,7 @@ class InfoTrabInterm(XMLNFe):
         if self._le_xml(arquivo):
             self.codConv.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class DmDev(XMLNFe):
@@ -440,7 +440,7 @@ class DmDev(XMLNFe):
             self.infoPerAnt = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerAnt', InfoPerAnt, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoTrabInterm = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoTrabInterm', InfoTrabInterm, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class ProcJudTrab(XMLNFe):
@@ -466,7 +466,7 @@ class ProcJudTrab(XMLNFe):
             self.nrProcJud.xml = arquivo
             self.codSusp.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class RemunOutrEmpr(XMLNFe):
@@ -495,7 +495,7 @@ class RemunOutrEmpr(XMLNFe):
             self.codCateg.xml = arquivo
             self.vlrRemunOE.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoMV(XMLNFe):
@@ -520,7 +520,7 @@ class InfoMV(XMLNFe):
             self.indMV.xml = arquivo
             self.remunOutrEmpr = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/infoMV/remunOutrEmpr', RemunOutrEmpr, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class ProcCS(XMLNFe):
@@ -540,7 +540,7 @@ class ProcCS(XMLNFe):
         if self._le_xml(arquivo):
             self.nrProcJud.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class VerbasResc(XMLNFe):
@@ -640,7 +640,7 @@ class TransfTit(XMLNFe):
             self.cpfSubstituto.xml = arquivo
             self.dtNascto.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class Quarentena(XMLNFe):
@@ -660,7 +660,7 @@ class Quarentena(XMLNFe):
         if self._le_xml(arquivo):
             self.dtFimQuar.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class ConsigFGTS(XMLNFe):
@@ -683,7 +683,7 @@ class ConsigFGTS(XMLNFe):
             self.insConsig.xml = arquivo
             self.nrContr.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoDeslig(XMLNFe):
@@ -693,7 +693,7 @@ class InfoDeslig(XMLNFe):
         self.dtDeslig = TagData(nome='dtDeslig', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.indPagtoAPI = TagCaracter(nome='indPagtoAPI', tamanho=[1, 1], raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtProjFimAPI = TagData(nome='dtProjFimAPI', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.pensAlim = TagInteiro(nome='pensAlim', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.pensAlim = TagCaracter(nome='pensAlim', tamanho=[1, 1], raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.percAliment = TagInteiro(nome='percAliment', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrAlim = TagInteiro(nome='vrAlim', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nrCertObito = TagCaracter(nome='nrCertObito', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
@@ -891,7 +891,7 @@ class S2299(XMLNFe):
         xml = XMLNFe.get_xml(self)
         # xml += ABERTURA
         xml += '<eSocial xmlns="' + NAMESPACE_ESOCIAL + '">'
-        xml += self.evtTabHorTur.xml
+        xml += self.evtDeslig.xml
 
         #
         # Define a URI a ser assinada
@@ -933,7 +933,7 @@ class S2299(XMLNFe):
 
         # Define o Id
         #
-        self.evtTabHorTur.Id.valor = id_evento
+        self.evtDeslig.Id.valor = id_evento
         self.id_evento = id_evento
 
     xml = property(get_xml, set_xml)
