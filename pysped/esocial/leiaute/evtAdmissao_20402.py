@@ -1432,7 +1432,7 @@ class S2200(XMLNFe):
             self.evtAdmissao.xml = arquivo
             # self.Signature.xml = self._le_noh('//eSocial/sig:Signature')
 
-    def gera_id_evento(self, data_hora):
+    def gera_id_evento(self, data_hora, sequencia=False):
         #A identificação única do evento (Id) é composta por 36 caracteres, conforme o que segue: IDTNNNNNNNNNNNNNNAAAAMMDDHHMMSSQQQQQ
         #ID - Texto Fixo "ID";
         #T - Tipo de Inscrição do Empregador (1 - CNPJ; 2 - CPF);
@@ -1448,11 +1448,14 @@ class S2200(XMLNFe):
         #OBS.: No caso de pessoas jurídicas, o CNPJ informado deverá conter 8 ou 14 posições de
         #acordo com o enquadramento do contribuinte para preenchimento do campo {ideEmpregador/nrInsc} do evento S-1000, completando-se com zeros à direita, se necessário.
 
+        if not sequencia:
+            sequencia=1
+
         id_evento = 'ID'
         id_evento += self.tpInsc
         id_evento += self.nrInsc[0:8] + '000000'
         id_evento += data_hora
-        id_evento += str(1).zfill(5)
+        id_evento += str(sequencia).zfill(5)
 
         # Define o Id
         #
