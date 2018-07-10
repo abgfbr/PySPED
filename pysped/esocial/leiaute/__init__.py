@@ -130,3 +130,27 @@ from .evtDeslig_20402 import IdeEmpregador as S2299_DetOper_2
 from .evtDeslig_20402 import IdeEstabLotApur as S2299_IdeEstabLotApur_2
 from .evtDeslig_20402 import IdeEvento as S2299_IdeEvento_2
 from .evtDeslig_20402 import InfoSaudeColet as S2299_InfoSaudeColet_2
+
+# S-1200
+from .evtRemun_20402 import S1200 as S1200_2
+from .evtRemun_20402 import InfoMV as InfoMV_2
+from .evtRemun_20402 import InfoComplement as InfoComplement_2
+from .evtRemun_20402 import ProcJudTrab as ProcJudTrab_2
+from .evtRemun_20402 import InfoInterm as InfoInterm_2
+from .evtRemun_20402 import RemunOutrEmpr as RemunOutrEmpr_2
+from .evtRemun_20402 import SucessaoVinc as SucessaoVinc_2
+from .evtRemun_20402 import InfoPerApur as InfoPerApur_2
+from .evtRemun_20402 import InfoPerAnt as InfoPerAnt_2
+from .evtRemun_20402 import InfoComplCont as InfoComplCont_2
+from .evtRemun_20402 import ItensRemun as ItensRemun_2
+from .evtRemun_20402 import InfoSaudeColet as InfoSaudeColet_2
+from .evtRemun_20402 import InfoAgNocivo as InfoAgNocivo_2
+from .evtRemun_20402 import InfoTrabInterm as InfoTrabInterm_2
+from .evtRemun_20402 import DetOper as DetOper_2
+from .evtRemun_20402 import DetPlano as DetPlano_2
+from .evtRemun_20402 import IdeADC as IdeADC_2
+from .evtRemun_20402 import IdePeriodo as IdePeriodo_2
+from .evtRemun_20402 import IdePeriodoIdeEstabLot as IdePeriodoIdeEstabLot_2
+from .evtRemun_20402 import RemunPerAntItensRemun as RemunPerAntItensRemun_2
+from .evtRemun_20402 import RemunPerAntInfoAgNocivo as RemunPerAntInfoAgNocivo_2
+from .evtRemun_20402 import RemunPerAntInfoTrabInterm as RemunPerAntInfoTrabInterm_2
