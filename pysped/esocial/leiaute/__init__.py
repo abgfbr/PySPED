@@ -175,3 +175,19 @@ from .evtRmnRPPS_20402 import RemunPerAntItensRemun as S1202_RemunPerAntItensRem
 from .evtBenPrRP_20402 import S1207 as S1207_2
 from .evtBenPrRP_20402 import DmDev as S1207_DmDev_2
 from .evtBenPrRP_20402 import Itens as S1207_Itens_2
+
+# S-1210
+from .evtPgtos_20402 import S1210 as S1210_2
+from .evtPgtos_20402 import InfoPgto as S1210_InfoPgto_2
+from .evtPgtos_20402 import DetPgtoFl as S1210_DetPgtoFl_2
+from .evtPgtos_20402 import RetPgtoTot as S1210_RetPgtoTot_2
+from .evtPgtos_20402 import PenAlim as S1210_PenAlim_2
+from .evtPgtos_20402 import InfoPgtoParc as S1210_InfoPgtoParc_2
+from .evtPgtos_20402 import DetPgtoBenPr as S1210_DetPgtoBenPr_2
+from .evtPgtos_20402 import DetPgtoBenPrRetPgtoTot as S1210_DetPgtoBenPrRetPgtoTot_2
+from .evtPgtos_20402 import DetPgtoBenPrInfoPgtoParc as S1210_DetPgtoBenPrInfoPgtoParc_2
+from .evtPgtos_20402 import DetPgtoFer as S1210_DetPgtoFer_2
+from .evtPgtos_20402 import DetRubrFer as S1210_DetRubrFer_2
+from .evtPgtos_20402 import DetPgtoAnt as S1210_DetPgtoAnt_2
+from .evtPgtos_20402 import IdePgtoExt as S1210_IdePgtoExt_2
+from .evtPgtos_20402 import InfoPgtoAnt as S1210_InfoPgtoAnt_2
