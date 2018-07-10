@@ -548,7 +548,7 @@ class IdeEvento(XMLNFe):
 class EvtRmnRPPS(XMLNFe):
     def __init__(self):
         super(EvtRmnRPPS, self).__init__()
-        self.Id = TagCaracter(nome='evtRmnRPPS', propriedade='Id', raiz='//eSocial/evtRmnRPPS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.Id = TagCaracter(nome='evtRemun', propriedade='Id', raiz='//eSocial/evtRmnRPPS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.ideTrabalhador = IdeTrabalhador()
@@ -561,7 +561,7 @@ class EvtRmnRPPS(XMLNFe):
         xml += self.ideEmpregador.xml
         xml += self.ideTrabalhador.xml
         xml += self.dmDev.xml
-        xml += '</evtRmnRPPS>'
+        xml += '</evtRemun>'
         return xml
 
     def set_xml(self, arquivo):
