@@ -152,8 +152,8 @@ class RemunPerAntItensRemun(XMLNFe):
 class RemunPerAnt(XMLNFe):
     def __init__(self):
         super(RemunPerAnt, self).__init__()
-        self.matricula  = TagCaracter(nome='matricula',  tamanho=[1, 30], raiz='//idePeriodo/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indSimples = TagCaracter(nome='indSimples', tamanho=[1, 1],  raiz='//idePeriodo/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.matricula  = TagCaracter(nome='matricula',  tamanho=[1, 30], raiz='//ideEstabLot/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.indSimples = TagCaracter(nome='indSimples', tamanho=[1, 1],  raiz='//ideEstabLot/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.itensRemun     = []
         self.infoAgNocivo   = []
         self.infoTrabInterm = []
@@ -165,6 +165,12 @@ class RemunPerAnt(XMLNFe):
         xml += self.indSimples.xml
         if len(self.itensRemun) > 0:
             for r in self.itensRemun:
+                xml += r.xml
+        if len(self.infoAgNocivo) > 0:
+            for r in self.infoAgNocivo:
+                xml += r.xml
+        if len(self.infoTrabInterm) > 0:
+            for r in self.infoTrabInterm:
                 xml += r.xml
         xml += '</remunPerAnt>'
         return xml
@@ -183,9 +189,9 @@ class RemunPerAnt(XMLNFe):
 class IdePeriodoIdeEstabLot(XMLNFe):
     def __init__(self):
         super(IdePeriodoIdeEstabLot, self).__init__()
-        self.tpInsc      = TagCaracter(nome='tpInsc',     tamanho=[1, 1],  raiz='//idePeriodo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
-        self.nrInsc      = TagCaracter(nome='nrInsc',     tamanho=[1, 15], raiz='//idePeriodo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codLotacao  = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//idePeriodo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc      = TagCaracter(nome='tpInsc',     tamanho=[1, 1],  raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.nrInsc      = TagCaracter(nome='nrInsc',     tamanho=[1, 15], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codLotacao  = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.remunPerAnt = RemunPerAnt()
 
     def get_xml(self):
@@ -253,7 +259,7 @@ class IdeADC(XMLNFe):
         xml += self.dsc.xml
         xml += self.remunSuc.xml
         if len(self.idePeriodo) > 0:
-            for p in self.idePerido:
+            for p in self.idePeriodo:
                 xml += p.xml
         xml += '</ideADC>'
         return xml
@@ -274,7 +280,7 @@ class InfoPerAnt(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<infoPerAnt>'
         if len(self.ideADC) > 0:
-            for i in self.infoADC:
+            for i in self.ideADC:
                 xml += i.xml
         xml += '</infoPerAnt>'
         return xml
@@ -327,16 +333,16 @@ class InfoAgNocivo(XMLNFe):
 class DetPlano(XMLNFe):
     def __init__(self):
         super(DetPlano, self).__init__()
-        self.tpPlano  = TagCaracter(nome='tpPlano',  tamanho=[1, 1],     raiz='//detPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.cpfDep   = TagCaracter(nome='cpfPlano', tamanho=[1, 11],    raiz='//detPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nmDep    = TagCaracter(nome='nmPlano',  tamanho=[1, 70],    raiz='//detPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpDep    = TagCaracter(nome='tpDep',    tamanho=[1, 1],     raiz='//detPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cpfDep   = TagCaracter(nome='cpfDep',   tamanho=[1, 11],    raiz='//detPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmDep    = TagCaracter(nome='nmDep',    tamanho=[1, 70],    raiz='//detPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtNascto = TagData(    nome='dtNascto', tamanho=[1, 70],    raiz='//detPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.vrPgDep  = TagDecimal( nome='vrPgDep',  tamanho=[1, 14, 2], raiz='//detPlano', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<detPlano>'
-        xml += self.tpPlano.xml
+        xml += self.tpDep.xml
         xml += self.cpfDep.xml
         xml += self.nmDep.xml
         xml += self.dtNascto.xml
@@ -346,7 +352,7 @@ class DetPlano(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.tpPlano.xml = arquivo
+            self.tpDep.xml = arquivo
             self.cpfDep.xml = arquivo
             self.nmDep.xml = arquivo
             self.dtNascto.xml = arquivo
@@ -443,7 +449,7 @@ class ItensRemun(XMLNFe):
 class RemunPerApur(XMLNFe):
     def __init__(self):
         super(RemunPerApur, self).__init__()
-        self.matricula  = TagCaracter(nome='matricula',  tamanho=[1, 30], raiz='//infoPerApur/ideEstabLot/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.matricula  = TagCaracter(nome='matricula',  tamanho=[1, 30], raiz='//infoPerApur/ideEstabLot/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.indSimples = TagCaracter(nome='indSimples', tamanho=[1, 1],  raiz='//infoPerApur/ideEstabLot/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.itensRemun = []
         self.infoSaudeColet = []
@@ -563,8 +569,8 @@ class DmDev(XMLNFe):
             self.ideDmDev.xml = arquivo
             self.codCateg.xml = arquivo
             self.infoPerApur = self.le_grupo('//eSocial/evtRemun/dmDev/infoPerApur', InfoPerApur, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoPerAnt = self.le_grupo('//eSocial/evtRemun/dmDev/infoPerAnt', infoPerAnt, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoComplCont = self.le_grupo('//eSocial/evtRemun/dmDev/infoComplCont', infoComplCont, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoPerAnt = self.le_grupo('//eSocial/evtRemun/dmDev/infoPerAnt', InfoPerAnt, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoComplCont = self.le_grupo('//eSocial/evtRemun/dmDev/infoComplCont', InfoComplCont, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -724,7 +730,7 @@ class IdeTrabalhador(XMLNFe):
     def __init__(self):
         super(IdeTrabalhador, self).__init__()
         self.cpfTrab        = TagCaracter(nome='cpfTrab'   , tamanho=[1, 11], raiz='//eSocial/evtRemun/ideTrabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab        = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtRemun/ideTrabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nisTrab        = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtRemun/ideTrabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.infoMV         = []
         self.infoComplement = []
         self.procJudTrab    = []
@@ -856,7 +862,7 @@ class S1200(XMLNFe):
         super(S1200, self).__init__()
         self.evtRemun = EvtRemun()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
-        self.arquivo_esquema = 'evtAdmissao.xsd'
+        self.arquivo_esquema = 'evtRemun.xsd'
         self.id_evento = ''
         self.tpInsc = ''
         self.nrInsc = ''
