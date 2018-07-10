@@ -170,3 +170,8 @@ from .evtRmnRPPS_20402 import IdeADC as S1202_IdeADC_2
 from .evtRmnRPPS_20402 import IdePeriodo as S1202_IdePeriodo_2
 from .evtRmnRPPS_20402 import IdePeriodoIdeEstab as S1202_IdePeriodoIdeEstab_2
 from .evtRmnRPPS_20402 import RemunPerAntItensRemun as S1202_RemunPerAntItensRemun_2
+
+# S-1207
+from .evtBenPrRP_20402 import S1207 as S1207_2
+from .evtBenPrRP_20402 import DmDev as S1207_DmDev_2
+from .evtBenPrRP_20402 import Itens as S1207_Itens_2
