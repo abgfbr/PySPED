@@ -231,6 +231,9 @@ class IdeEstabLotApur(XMLNFe):
         if self.detVerbas:
             for verba in self.detVerbas:
                 xml += verba.xml
+        if self.infoAgNocivo:
+            for agente in self.infoAgNocivo:
+                xml += agente.xml
         if self.infoSaudeColet:
             for info in self.infoSaudeColet:
                 xml += info.xml

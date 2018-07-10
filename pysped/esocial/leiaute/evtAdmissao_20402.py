@@ -207,7 +207,7 @@ class Horario(XMLNFe):
     def __init__(self):
         super(Horario, self).__init__()
         self.dia           = TagCaracter(nome='dia',           tamanho=[1, 1], raiz='//horario', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codHorContrat = TagCaracter(nome='codHorContrat', tamanho=[1, 1], raiz='//horario', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codHorContrat = TagCaracter(nome='codHorContrat', tamanho=[1, 30], raiz='//horario', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
