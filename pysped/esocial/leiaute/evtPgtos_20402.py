@@ -49,7 +49,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtRemun/v02_04_02'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtPgtos/v02_04_02'
 
 
 class InfoComplCont(XMLNFe):
@@ -120,7 +120,7 @@ class RemunPerAntItensRemun(XMLNFe):
         super(RemunPerAntItensRemun, self).__init__()
         self.codRubr    = TagCaracter(nome='codRubr',    tamanho=[1, 30],    raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdRubr    = TagInteiro( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.qtdRubr    = TagInteiro( nome='qtdRubr',    tamanho=[1, 6],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -417,8 +417,8 @@ class ItensRemun(XMLNFe):
         super(ItensRemun, self).__init__()
         self.codRubr    = TagCaracter(nome='codRubr',    tamanho=[1, 30],    raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdRubr    = TagInteiro( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.qtdRubr    = TagInteiro( nome='qtdRubr',    tamanho=[1, 6],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
@@ -827,10 +827,10 @@ class IdeEvento(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class EvtRemun(XMLNFe):
+class EvtPgtos(XMLNFe):
     def __init__(self):
-        super(EvtRemun, self).__init__()
-        self.Id = TagCaracter(nome='evtRemun', propriedade='Id', raiz='//eSocial/evtRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        super(EvtPgtos, self).__init__()
+        self.Id = TagCaracter(nome='evtPgtos', propriedade='Id', raiz='//eSocial/evtPgtos', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.ideTrabalhador = IdeTrabalhador()
@@ -843,7 +843,7 @@ class EvtRemun(XMLNFe):
         xml += self.ideEmpregador.xml
         xml += self.ideTrabalhador.xml
         xml += self.dmDev.xml
-        xml += '</evtRemun>'
+        xml += '</evtPgtos>'
         return xml
 
     def set_xml(self, arquivo):
@@ -857,24 +857,24 @@ class EvtRemun(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class S1200(XMLNFe):
+class S1210(XMLNFe):
     def __init__(self):
-        super(S1200, self).__init__()
-        self.evtRemun = EvtRemun()
+        super(S1210, self).__init__()
+        self.evtPgtos = EvtPgtos()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
         self.arquivo_esquema = 'evtRemun.xsd'
         self.id_evento = ''
         self.tpInsc = ''
         self.nrInsc = ''
         # self.Signature = Signature()
-        self.evento = self.evtRemun
+        self.evento = self.evtPgtos
         self.xml_assinado = ''
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         #xml += ABERTURA
         xml += '<eSocial xmlns="' + NAMESPACE_ESOCIAL + '">'
-        xml += self.evtRemun.xml
+        xml += self.evtPgtos.xml
 
         #
         # Define a URI a ser assinada
@@ -889,7 +889,7 @@ class S1200(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.evtRemun.xml = arquivo
+            self.evtPgtos.xml = arquivo
             # self.Signature.xml = self._le_noh('//eSocial/sig:Signature')
 
     def gera_id_evento(self, data_hora, sequencia=False):
@@ -919,7 +919,7 @@ class S1200(XMLNFe):
 
         # Define o Id
         #
-        self.evtRemun.Id.valor = id_evento
+        self.evtPgtos.Id.valor = id_evento
         self.id_evento = id_evento
 
     xml = property(get_xml, set_xml)
