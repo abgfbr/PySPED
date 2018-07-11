@@ -201,3 +201,6 @@ from .evtTSVInicio_20402 import S2300 as S2300_2
 
 # S-2306
 from .evtTSVAltContr_20402 import S2306 as S2306_2
+
+# S-2399
+from .evtTSVTermino_20402 import S2399 as S2399_2
