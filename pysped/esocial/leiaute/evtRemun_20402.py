@@ -420,7 +420,7 @@ class ItensRemun(XMLNFe):
         self.qtdRubr    = TagInteiro( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrRubr     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -450,7 +450,7 @@ class RemunPerApur(XMLNFe):
     def __init__(self):
         super(RemunPerApur, self).__init__()
         self.matricula  = TagCaracter(nome='matricula',  tamanho=[1, 30], raiz='//infoPerApur/ideEstabLot/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indSimples = TagCaracter(nome='indSimples', tamanho=[1, 1],  raiz='//infoPerApur/ideEstabLot/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indSimples = TagCaracter(nome='indSimples', tamanho=[1, 1],  raiz='//infoPerApur/ideEstabLot/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.itensRemun = []
         self.infoSaudeColet = []
         self.infoAgNocivo = []
