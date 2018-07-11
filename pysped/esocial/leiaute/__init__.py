@@ -198,3 +198,6 @@ from .evtFechaEvPer_20402 import S1299 as S1299_2
 
 # S-2300
 from .evtTSVInicio_20402 import S2300 as S2300_2
+
+# S-2306
+from .evtTSVAltContr_20402 import S2306 as S2306_2
