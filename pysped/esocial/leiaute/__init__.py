@@ -195,3 +195,6 @@ from .evtPgtos_20402 import InfoPgtoAnt as S1210_InfoPgtoAnt_2
 
 # S-1299
 from .evtFechaEvPer_20402 import S1299 as S1299_2
+
+# S-2300
+from .evtTSVInicio_20402 import S2300 as S2300_2
