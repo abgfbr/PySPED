@@ -134,13 +134,14 @@ from .evtDeslig_20402 import InfoSaudeColet as S2299_InfoSaudeColet_2
 # S-1200
 from .evtRemun_20402 import S1200 as S1200_2
 from .evtRemun_20402 import InfoMV as S1200_InfoMV_2
-from .evtRemun_20402 import InfoComplement as S1200_InfoComplement_2
+from .evtRemun_20402 import InfoComplem as S1200_InfoComplem_2
 from .evtRemun_20402 import ProcJudTrab as S1200_ProcJudTrab_2
 from .evtRemun_20402 import InfoInterm as S1200_InfoInterm_2
 from .evtRemun_20402 import DmDev as S1200_DmDev_2
 from .evtRemun_20402 import RemunOutrEmpr as S1200_RemunOutrEmpr_2
 from .evtRemun_20402 import SucessaoVinc as S1200_SucessaoVinc_2
 from .evtRemun_20402 import InfoPerApur as S1200_InfoPerApur_2
+from .evtRemun_20402 import RemunPerApur as S1200_RemunPerApur_2
 from .evtRemun_20402 import InfoPerAnt as S1200_InfoPerAnt_2
 from .evtRemun_20402 import InfoComplCont as S1200_InfoComplCont_2
 from .evtRemun_20402 import ItensRemun as S1200_ItensRemun_2

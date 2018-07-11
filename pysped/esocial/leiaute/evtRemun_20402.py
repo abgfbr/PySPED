@@ -495,7 +495,7 @@ class IdeEstabLot(XMLNFe):
         self.nrInsc     = TagCaracter(nome='nrInsc',     tamanho=[1, 15], raiz='//infoPerApur/ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//infoPerApur/ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.qtdDiasAv  = TagInteiro( nome='qtdDiasAv',  tamanho=[1, 2],  raiz='//infoPerApur/ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.remunPerApur = RemunPerApur()
+        self.remunPerApur = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -504,7 +504,9 @@ class IdeEstabLot(XMLNFe):
         xml += self.nrInsc.xml
         xml += self.codLotacao.xml
         xml += self.qtdDiasAv.xml
-        xml += self.remunPerApur.xml
+        if len(self.remunPerApur) > 0:
+            for r in self.remunPerApur:
+                xml += r.xml
         xml += '</ideEstabLot>'
         return xml
 
@@ -514,7 +516,7 @@ class IdeEstabLot(XMLNFe):
             self.nrInsc.xml = arquivo
             self.codLotacao.xml = arquivo
             self.qtdDiasAv.xml = arquivo
-            self.remunPerApur.xml = arquivo
+            self.remunPerApur = self.le_grupo('//eSocial/evtRemun/dmDev/ideEstabLot/remunPerApur', RemunPerApur, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -647,29 +649,29 @@ class SucessaoVinc(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class InfoComplement(XMLNFe):
+class InfoComplem(XMLNFe):
     def __init__(self):
-        super(InfoComplement, self).__init__()
-        self.nmTrab       = TagCaracter(nome='nmTrab',   tamanho=[1, 70], raiz='//infoComplement', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtNascto     = TagData(    nome='dtNascto',                  raiz='//infoComplement', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        super(InfoComplem, self).__init__()
+        self.nmTrab       = TagCaracter(nome='nmTrab',   tamanho=[1, 70], raiz='//infoComplem', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtNascto     = TagData(    nome='dtNascto',                  raiz='//infoComplem', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.sucessaoVinc = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<infoComplement>'
+        xml += '<infoComplem>'
         xml += self.nmTrab.xml
         xml += self.dtNascto.xml
         if len(self.sucessaoVinc) > 0:
             for s in self.sucessaoVinc:
                 xml += s.xml
-        xml += '</infoComplement>'
+        xml += '</infoComplem>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.nmTrab.xml = arquivo
             self.dtNascto.xml = arquivo
-            self.sucessaoVinc = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/infoComplementar/sucessaoVinc', SucessaoVinc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.sucessaoVinc = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/infoComplem/sucessaoVinc', SucessaoVinc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -761,7 +763,7 @@ class IdeTrabalhador(XMLNFe):
             self.cpfTrab.xml = arquivo
             self.nisTrab.xml = arquivo
             self.infoMV = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/infoMV', InfoMV, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoComplement = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/infoComplement', InfoComplement, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoComplement = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/infoComplem', InfoComplem, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.procJudTrab = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/procJudTrab', ProcJudTrab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoInterm = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/infoInterm', InfoInterm, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
@@ -834,7 +836,7 @@ class EvtRemun(XMLNFe):
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.ideTrabalhador = IdeTrabalhador()
-        self.dmDev = DmDev()
+        self.dmDev = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -842,7 +844,9 @@ class EvtRemun(XMLNFe):
         xml += self.ideEvento.xml
         xml += self.ideEmpregador.xml
         xml += self.ideTrabalhador.xml
-        xml += self.dmDev.xml
+        if len(self.dmDev) > 0:
+            for d in self.dmDev:
+                xml += d.xml
         xml += '</evtRemun>'
         return xml
 
@@ -852,7 +856,7 @@ class EvtRemun(XMLNFe):
             self.ideEvento.xml = arquivo
             self.ideEmpregador.xml = arquivo
             self.ideTrabalhador.xml = arquivo
-            self.dmDev.xml = arquivo
+            self.dmDev = self.le_grupo('//eSocial/evtRemun/dmDev', DmDev, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
