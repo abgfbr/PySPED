@@ -53,6 +53,28 @@ NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/lote/eventos/envio/retorno
 NAMESPACE_ESOCIAL_RETORNO_EVENTO = 'http://www.esocial.gov.br/schema/evt/retornoEvento/v1_2_0'
 
 
+class Recibo(XMLNFe):
+    def __init__(self):
+        super(Recibo, self).__init__()
+        self.nrRecibo    = TagCaracter(nome='nrRecibo'   , raiz='//recibo', namespace=NAMESPACE_ESOCIAL_RETORNO_EVENTO, namespace_obrigatorio=False)
+        self.hash        = TagCaracter(nome='descricao'  , raiz='//recibo', namespace=NAMESPACE_ESOCIAL_RETORNO_EVENTO, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<recibo>'
+        xml += self.nrRecibo.xml
+        xml += self.hash.xml
+        xml += '</recibo>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.nrRecibo.xml = arquivo
+            self.hash.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
 class Ocorrencia2(XMLNFe):
     def __init__(self):
         super(Ocorrencia2, self).__init__()
@@ -179,6 +201,7 @@ class RetornoEvento2(XMLNFe):
         self.ideEmpregador = IdeEmpregador2()
         self.recepcao = Recepcao()
         self.processamento = Processamento()
+        self.registro = Registro()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -187,6 +210,7 @@ class RetornoEvento2(XMLNFe):
         xml += self.ideEmpregador.xml
         xml += self.recepcao.xml
         xml += self.processamento.xml
+        xml += self.registro.xml
         xml += '</retornoEvento>'
         return xml
 
@@ -196,6 +220,7 @@ class RetornoEvento2(XMLNFe):
             self.ideEmpregador.xml = arquivo
             self.recepcao.xml = arquivo
             self.processamento.xml = arquivo
+            self.registro.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
