@@ -56,8 +56,8 @@ NAMESPACE_ESOCIAL_RETORNO_EVENTO = 'http://www.esocial.gov.br/schema/evt/retorno
 class Recibo(XMLNFe):
     def __init__(self):
         super(Recibo, self).__init__()
-        self.nrRecibo    = TagCaracter(nome='nrRecibo'   , raiz='//recibo', namespace=NAMESPACE_ESOCIAL_RETORNO_EVENTO, namespace_obrigatorio=False)
-        self.hash        = TagCaracter(nome='descricao'  , raiz='//recibo', namespace=NAMESPACE_ESOCIAL_RETORNO_EVENTO, namespace_obrigatorio=False)
+        self.nrRecibo    = TagCaracter(nome='nrRecibo', raiz='//recibo', namespace=NAMESPACE_ESOCIAL_RETORNO_EVENTO, namespace_obrigatorio=False)
+        self.hash        = TagCaracter(nome='hash'    , raiz='//recibo', namespace=NAMESPACE_ESOCIAL_RETORNO_EVENTO, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -201,7 +201,7 @@ class RetornoEvento2(XMLNFe):
         self.ideEmpregador = IdeEmpregador2()
         self.recepcao = Recepcao()
         self.processamento = Processamento()
-        self.registro = Registro()
+        self.recibo = Recibo()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -210,7 +210,7 @@ class RetornoEvento2(XMLNFe):
         xml += self.ideEmpregador.xml
         xml += self.recepcao.xml
         xml += self.processamento.xml
-        xml += self.registro.xml
+        xml += self.recibo.xml
         xml += '</retornoEvento>'
         return xml
 
@@ -220,7 +220,7 @@ class RetornoEvento2(XMLNFe):
             self.ideEmpregador.xml = arquivo
             self.recepcao.xml = arquivo
             self.processamento.xml = arquivo
-            self.registro.xml = arquivo
+            self.recibo.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -293,6 +293,14 @@ class Evento(XMLNFe):
     @property
     def descricao_retorno(self):
         return self.retornoEvento.eSocial.retornoEvento.processamento.descResposta.valor
+
+    @property
+    def recibo(self):
+        return self.retornoEvento.eSocial.retornoEvento.recibo.nrRecibo.valor
+
+    @property
+    def hash(self):
+        return self.retornoEvento.eSocial.retornoEvento.recibo.hash.valor
 
     @property
     def lista_ocorrencias(self):
