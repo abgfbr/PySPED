@@ -103,6 +103,8 @@ from .evtAltCadastral_20402 import RG as S2205_RG_2
 from .evtAltCadastral_20402 import CNH as S2205_CNH_2
 from .evtAltCadastral_20402 import Dependente as S2205_Dependente_2
 
+# S-2206
+from .evtAltContratual_20402 import S2206 as S2206_2
 
 # S-2299
 from .evtDeslig_20402 import S2299 as S2299_2
