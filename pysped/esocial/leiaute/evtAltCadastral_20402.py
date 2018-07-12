@@ -452,12 +452,7 @@ class Endereco(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<endereco>'
-        if len(self.brasil) > 0:
-            for b in self.brasil:
-                xml += b.xml
-        if len(self.exterior) > 0:
-            for e in self.exterior:
-                xml += e.xml
+        xml += self.brasil.xml
         xml += '</endereco>'
         return xml
 
@@ -560,7 +555,7 @@ class DadosTrabalhador(XMLNFe):
         self.sexo = TagCaracter(nome='sexo', tamanho=[1, 1], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.racaCor = TagCaracter(nome='racaCor', tamanho=[1, 1], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.estCiv = TagCaracter(nome='estCiv', tamanho=[1, 1], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False,obrigatorio=False)
-        self.grauInstr = TagCaracter(nome='grauInstr', tamanho=[1, 1], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.grauInstr = TagCaracter(nome='grauInstr', tamanho=[1, 2], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nmSoc = TagCaracter(nome='nmSoc', tamanho=[1, 70], raiz='//eSocial/evtAltContratual/alteracao/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nascimento = Nascimento()
         self.documentos = Documentos()
@@ -643,12 +638,14 @@ class Alteracao(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<alteracao>'
         xml += self.dtAlteracao.xml
+        xml += self.dadosTrabalhador.xml
         xml += '</alteracao>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.dtAlteracao.xml = arquivo
+            self.dadosTrabalhador.xml = arquivo
 
     xml = property(get_xml, set_xml)
 

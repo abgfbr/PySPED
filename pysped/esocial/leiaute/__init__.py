@@ -98,6 +98,11 @@ from .evtAdmissao_20402 import SucessaoVinc as S2200_SucessaoVinc_2
 
 # S-2205
 from .evtAltCadastral_20402 import S2205 as S2205_2
+from .evtAltCadastral_20402 import CTPS as S2205_CTPS_2
+from .evtAltCadastral_20402 import RG as S2205_RG_2
+from .evtAltCadastral_20402 import CNH as S2205_CNH_2
+from .evtAltCadastral_20402 import Dependente as S2205_Dependente_2
+
 
 # S-2299
 from .evtDeslig_20402 import S2299 as S2299_2
