@@ -363,22 +363,24 @@ class IdeEstab(XMLNFe):
         super(IdeEstab, self).__init__()
         self.tpInsc = TagCaracter(nome='tpInsc', tamanho=[1, 1],  raiz='//infoPerApur/ideEstab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
         self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//infoPerApur/ideEstab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.remunPerApur = RemunPerApur()
+        self.remunPerApur = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<ideEstabLot>'
+        xml += '<ideEstab>'
         xml += self.tpInsc.xml
         xml += self.nrInsc.xml
-        xml += self.remunPerApur.xml
-        xml += '</ideEstabLot>'
+        if len(self.remunPerApur) > 0:
+            for r in self.remunPerApur:
+                xml += r.xml
+        xml += '</ideEstab>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.tpInsc.xml = arquivo
             self.nrInsc.xml = arquivo
-            self.remunPerApur.xml = arquivo
+            self.remunPerApur = self.le_grupo('//eSocial/evtRmnRPPS/dmDev/infoPerApur/ideEstab/remunPerApur', RemunPerApur, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -552,7 +554,7 @@ class EvtRmnRPPS(XMLNFe):
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.ideTrabalhador = IdeTrabalhador()
-        self.dmDev = DmDev()
+        self.dmDev = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -560,7 +562,9 @@ class EvtRmnRPPS(XMLNFe):
         xml += self.ideEvento.xml
         xml += self.ideEmpregador.xml
         xml += self.ideTrabalhador.xml
-        xml += self.dmDev.xml
+        if len(self.dmDev) > 0:
+            for d in self.dmDev:
+                xml += d.xml
         xml += '</evtRmnRPPS>'
         return xml
 
@@ -570,7 +574,7 @@ class EvtRmnRPPS(XMLNFe):
             self.ideEvento.xml = arquivo
             self.ideEmpregador.xml = arquivo
             self.ideTrabalhador.xml = arquivo
-            self.dmDev.xml = arquivo
+            self.dmDev = self.le_grupo('//eSocial/evtRmnRPPS/dmDev', DmDev, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 

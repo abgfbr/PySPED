@@ -170,6 +170,7 @@ from .evtRmnRPPS_20402 import ProcJudTrab as S1202_ProcJudTrab_2
 from .evtRmnRPPS_20402 import DmDev as S1202_DmDev_2
 from .evtRmnRPPS_20402 import InfoPerApur as S1202_InfoPerApur_2
 from .evtRmnRPPS_20402 import InfoPerAnt as S1202_InfoPerAnt_2
+from .evtRmnRPPS_20402 import RemunPerApur as S1202_RemunPerApur_2
 from .evtRmnRPPS_20402 import ItensRemun as S1202_ItensRemun_2
 from .evtRmnRPPS_20402 import InfoSaudeColet as InfoSaudeColet_2
 from .evtRmnRPPS_20402 import DetOper as S1202_DetOper_2

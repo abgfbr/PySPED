@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 #
 # PySPED - Python libraries to deal with Brazil's SPED Project
 #
