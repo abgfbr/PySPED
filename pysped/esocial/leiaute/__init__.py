@@ -105,6 +105,13 @@ from .evtAltCadastral_20402 import Dependente as S2205_Dependente_2
 
 # S-2206
 from .evtAltContratual_20402 import S2206 as S2206_2
+from .evtAltContratual_20402 import InfoCeletista as S2206_InfoCeletista_2
+from .evtAltContratual_20402 import Vinculo as S2206_Vinculo_2
+from .evtAltContratual_20402 import InfoRegimeTrab as S2206_InfoRegimeTrab_2
+from .evtAltContratual_20402 import LocalTrabGeral as S2206_LocalTrabGeral_2
+from .evtAltContratual_20402 import HorContratual as S2206_HorContratual_2
+from .evtAltContratual_20402 import Horario as S2206_Horario_2
+from .evtAltContratual_20402 import FiliacaoSindical as S2206_FiliacaoSindical_2
 
 # S-2299
 from .evtDeslig_20402 import S2299 as S2299_2
