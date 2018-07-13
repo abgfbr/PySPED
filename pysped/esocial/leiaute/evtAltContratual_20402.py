@@ -49,7 +49,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAltCadastral/v02_04_02'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAltContratual/v02_04_02'
 
 
 class ServPubl(XMLNFe):
@@ -161,7 +161,7 @@ class HorContratual(XMLNFe):
         self.qtdHrsSem = TagInteiro(nome='qtdHrsSem', raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpJornada = TagInteiro(nome='tpJornada', raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dscTpJorn = TagCaracter(nome='dscTpJorn', tamanh=[1, 100], raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.tmpParc = TagInteiro(nome='dscTpJorn', raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tmpParc = TagCaracter(nome='tmpParc', tamanho=[1, 1], raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.horario = []
 
     def get_xml(self):
@@ -306,7 +306,7 @@ class Duracao(XMLNFe):
 class Remuneracao(XMLNFe):
     def __init__(self):
         super(Remuneracao, self).__init__()
-        self.vrSalFx = TagInteiro(nome='vrSalFx', raiz='//remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vrSalFx = TagDecimal(nome='vrSalFx', tamanho=[1, 14, 2], raiz='//remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.undSalFixo = TagInteiro(nome='undSalFixo', raiz='//remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.descSalVar = TagCaracter(nome='descSalVar', tamanho=[1, 255], raiz='//remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
@@ -540,10 +540,10 @@ class AltContratual(XMLNFe):
         super(AltContratual, self).__init__()
         self.dtAlteracao = TagData(nome='dtAlteracao', raiz='//eSocial/evtAltContratual/altContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtEf = TagData(nome='dtEf', raiz='//eSocial/evtAltContratual/altContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.dscAlt = TagCaracter(nome='dscAlt', tamanho=[1, 150], raiz='//eSocial/evtAltContratual/altContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dscAlt = TagCaracter(nome='dscAlt', tamanho=[1, 150], raiz='//eSocial/evtAltContratual/altContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vinculo = []
         self.infoRegimeTrab = []
-        self.infoContrato = []
+        self.infoContrato = InfoContrato()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -555,8 +555,7 @@ class AltContratual(XMLNFe):
             xml += vinculo.xml
         for infoReg in self.infoRegimeTrab:
             xml += infoReg.xml
-        for infoCont in self.infoContrato:
-            xml += infoCont.xml
+        xml += self.infoContrato.xml
         xml += '</altContratual>'
 
         return xml
@@ -568,7 +567,7 @@ class AltContratual(XMLNFe):
             self.dscAlt.xml = arquivo
             self.vinculo = self.le_grupo('//eSocial/evtAltContratual/altContratual/vinculo', Vinculo, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoRegimeTrab = self.le_grupo('//eSocial/evtAltContratual/altContratual/infoRegimeTrab', InfoRegimeTrab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoContrato = self.le_grupo('//eSocial/evtAltContratual/altContratual/infoContrato', InfoContrato, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoContrato = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -629,7 +628,7 @@ class IdeEvento(XMLNFe):
         self.nrRecibo = TagCaracter(nome='nrRecibo', tamanho=[1, 40], raiz='//eSocial/evtAltContratual/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpAmb = TagInteiro(nome='tpAmb', raiz='//eSocial/evtAltContratual/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.procEmi = TagInteiro(nome='procEmi', raiz='//eSocial/evtAltContratual/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.verProc = TagCaracter(nome='procEmi', raiz='//eSocial/evtAltContratual/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.verProc = TagCaracter(nome='verProc', raiz='//eSocial/evtAltContratual/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
