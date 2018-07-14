@@ -204,6 +204,7 @@ from .evtPgtos_20402 import DetPgtoBenPrRetPgtoTot as S1210_DetPgtoBenPrRetPgtoT
 from .evtPgtos_20402 import DetPgtoBenPrInfoPgtoParc as S1210_DetPgtoBenPrInfoPgtoParc_2
 from .evtPgtos_20402 import DetPgtoFer as S1210_DetPgtoFer_2
 from .evtPgtos_20402 import DetRubrFer as S1210_DetRubrFer_2
+from .evtPgtos_20402 import DetRubrFerPenAlim as S1210_DetRubrFerPenAlim_2
 from .evtPgtos_20402 import DetPgtoAnt as S1210_DetPgtoAnt_2
 from .evtPgtos_20402 import IdePgtoExt as S1210_IdePgtoExt_2
 from .evtPgtos_20402 import InfoPgtoAnt as S1210_InfoPgtoAnt_2
