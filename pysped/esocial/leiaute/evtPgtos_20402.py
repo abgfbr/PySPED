@@ -288,7 +288,7 @@ class DetPgtoBenPrRetPgtoTot(XMLNFe):
         self.qtdRubr    = TagDecimal( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagDecimal( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagCaracter(nome='vrUnit',     tamanho=[1, 40],    raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrRubr     = TagCaracter(nome='vrRubr',     tamanho=[1, 40],    raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -425,7 +425,7 @@ class RetPgtoTot(XMLNFe):
         self.qtdRubr    = TagDecimal( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagDecimal( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagCaracter(nome='vrUnit',     tamanho=[1, 40],    raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrRubr     = TagCaracter(nome='vrRubr',     tamanho=[1, 40],    raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//retPgtoTot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.penAlim    = []
 
     def get_xml(self):
