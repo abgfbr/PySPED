@@ -264,15 +264,15 @@ class InfoDirigenteSindical(XMLNFe):
 class FGTS(XMLNFe):
     def __init__(self):
         super(FGTS, self).__init__()
-        self.opcFGTS   = TagCaracter(nome='opcFGTS'  , tamanho=[1, 1], raiz='//infoCeletista/FGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtOpcFGTS = TagCaracter(nome='dtOpcFGTS', raiz='//infoCeletista/FGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.opcFGTS   = TagCaracter(nome='opcFGTS'  , tamanho=[1, 1], raiz='//infoCeletista/fgts', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtOpcFGTS = TagCaracter(nome='dtOpcFGTS', raiz='//infoCeletista/fgts', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<FGTS>'
+        xml += '<fgts>'
         xml += self.opcFGTS.xml
         xml += self.dtOpcFGTS.xml
-        xml += '</FGTS>'
+        xml += '</fgts>'
         return xml
 
     def set_xml(self, arquivo):
@@ -288,7 +288,7 @@ class Remuneracao(XMLNFe):
         super(Remuneracao, self).__init__()
         self.vrSalFx = TagDecimal(nome='vrSalFx', tamanho=[1, 14, 2], raiz='//vrSalFx', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.undSalFixo = TagInteiro(nome='undSalFixo', tamanho=[1, 1], raiz='//undSalFixo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dscSalVar = TagCaracter(nome='dscSalVar', raiz='//dscSalVar', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dscSalVar = TagCaracter(nome='dscSalVar', raiz='//dscSalVar', tamanho=[0, 255], namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -311,8 +311,8 @@ class Remuneracao(XMLNFe):
 class CargoFuncao(XMLNFe):
     def __init__(self):
         super(CargoFuncao, self).__init__()
-        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -358,7 +358,9 @@ class InfoComplementares(XMLNFe):
         if self.infoTrabCedido:
             for info in self.infoTrabCedido:
                 xml += info.xml
-        xml += self.infoEstagiario.xml
+        if self.infoEstagiario:
+            for estag in self.infoEstagiario:
+                xml += estag.xml
         xml += '</infoComplementares>'
         return xml
 
@@ -418,10 +420,10 @@ class Termino(XMLNFe):
 class InfoTSVInicio(XMLNFe):
     def __init__(self):
         super(InfoTSVInicio, self).__init__()
-        self.cadIni = TagCaracter(  nome='cadIni', tamanho=[1, 1], raiz='//cadIni', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codCateg = TagInteiro( nome='codCatef', raiz='//codCatef', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.dtInicio = TagData(    nome='dtInicio'   , raiz='//dtInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.natAtividade = TagInteiro(nome='natAtividade' , raiz='//natAtividade', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cadIni = TagCaracter(nome='cadIni', tamanho=[1, 1], raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codCateg = TagInteiro(nome='codCateg', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.dtInicio = TagData(nome='dtInicio', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.natAtividade = TagInteiro(nome='natAtividade', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.infoComplementares = []
         self.afastamento = []
         self.termino = []
@@ -869,8 +871,8 @@ class Endereco(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.brasil = self.le_grupo('//eSocial/evtAdmissao/trabalhador/endereco/brasil', CTPS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.exterior = self.le_grupo('//eSocial/evtAdmissao/trabalhador/endereco/exterior', CTPS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.brasil = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/endereco/brasil', CTPS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.exterior = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/endereco/exterior', CTPS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -911,12 +913,12 @@ class Documentos(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.CTPS = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/CTPS', CTPS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.RIC  = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/RIC' , RIC , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.RG   = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/RG'  , RG  , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.RNE  = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/RNE' , RNE , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.OC   = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/OC'  , OC  , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.CNH  = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/CNH' , CNH , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.CTPS = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/documentos/CTPS', CTPS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.RIC  = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/documentos/RIC' , RIC , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.RG   = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/documentos/RG'  , RG  , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.RNE  = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/documentos/RNE' , RNE , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.OC   = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/documentos/OC'  , OC  , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.CNH  = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/documentos/CNH' , CNH , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -924,13 +926,13 @@ class Documentos(XMLNFe):
 class Nascimento(XMLNFe):
     def __init__(self):
         super(Nascimento, self).__init__()
-        self.dtNascto    = TagData(    nome='dtNascto'  ,                  raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codMunic    = TagCaracter(nome='codMunic'  , tamanho=[1, 7] , raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.uf          = TagCaracter(nome='uf'        , tamanho=[1, 2] , raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.paisNascto  = TagCaracter(nome='paisNascto', tamanho=[1, 3] , raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.paisNac     = TagCaracter(nome='paisNac'   , tamanho=[1, 3] , raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nmMae       = TagCaracter(nome='nmMae'     , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nmPai       = TagCaracter(nome='nmPai'     , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.dtNascto    = TagData(    nome='dtNascto', raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codMunic    = TagCaracter(nome='codMunic', tamanho=[1, 7] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.uf          = TagCaracter(nome='uf', tamanho=[1, 2] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.paisNascto  = TagCaracter(nome='paisNascto', tamanho=[1, 3] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.paisNac     = TagCaracter(nome='paisNac', tamanho=[1, 3] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nmMae       = TagCaracter(nome='nmMae', tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmPai       = TagCaracter(nome='nmPai', tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -961,14 +963,14 @@ class Nascimento(XMLNFe):
 class Trabalhador(XMLNFe):
     def __init__(self):
         super(Trabalhador, self).__init__()
-        self.cpfTrab    = TagCaracter(nome='cpfTrab'   , tamanho=[1, 11], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab    = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nmTrab     = TagCaracter(nome='nmTrab'    , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.sexo       = TagCaracter(nome='sexo'      , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.racaCor    = TagCaracter(nome='racaCor'   , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.estCiv     = TagCaracter(nome='estCiv'    , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.grauInstr  = TagCaracter(nome='grauInstr' , tamanho=[1, 2] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nmSoc      = TagCaracter(nome='nmSoc'     , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.cpfTrab    = TagCaracter(nome='cpfTrab'   , tamanho=[1, 11], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nisTrab    = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nmTrab     = TagCaracter(nome='nmTrab'    , tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.sexo       = TagCaracter(nome='sexo'      , tamanho=[1, 1] , raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.racaCor    = TagCaracter(nome='racaCor'   , tamanho=[1, 1] , raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.estCiv     = TagCaracter(nome='estCiv'    , tamanho=[1, 1] , raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.grauInstr  = TagCaracter(nome='grauInstr' , tamanho=[1, 2] , raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nmSoc      = TagCaracter(nome='nmSoc'     , tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nascimento = Nascimento()
         self.documentos = Documentos()
         self.endereco   = Endereco()
@@ -1023,11 +1025,11 @@ class Trabalhador(XMLNFe):
             self.nascimento.xml = arquivo
             self.documentos.xml = arquivo
             self.endereco.xml = arquivo
-            self.trabEstrangeiro = self.le_grupo('//eSocial/evtAdmissao/trabalhador/trabEstrangeiro', TrabEstrangeiro, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoDeficiencia = self.le_grupo('//eSocial/evtAdmissao/trabalhador/infoDeficiencia', InfoDeficiencia, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.dependente = self.le_grupo('//eSocial/evtAdmissao/trabalhador/dependente', Dependente, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.aposentadoria = self.le_grupo('//eSocial/evtAdmissao/trabalhador/aposentadoria', Aposentadoria, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.contato = self.le_grupo('//eSocial/evtAdmissao/trabalhador/contato', Contato, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.trabEstrangeiro = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/trabEstrangeiro', TrabEstrangeiro, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoDeficiencia = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/infoDeficiencia', InfoDeficiencia, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.dependente = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/dependente', Dependente, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.aposentadoria = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/aposentadoria', Aposentadoria, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.contato = self.le_grupo('//eSocial/evtTSVInicio/trabalhador/contato', Contato, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -1035,8 +1037,8 @@ class Trabalhador(XMLNFe):
 class IdeEmpregador(XMLNFe):
     def __init__(self):
         super(IdeEmpregador, self).__init__()
-        self.tpInsc = TagCaracter(nome='tpInsc', raiz='//eSocial/evtAdmissao/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
-        self.nrInsc = TagCaracter(nome='nrInsc', raiz='//eSocial/evtAdmissao/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc = TagCaracter(nome='tpInsc', raiz='//eSocial/evtTSVInicio/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//eSocial/evtTSVInicio/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -1057,11 +1059,11 @@ class IdeEmpregador(XMLNFe):
 class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
-        self.indRetif = TagInteiro( nome='indRetif', raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
-        self.nrRecibo = TagCaracter(nome='nrRecibo', raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.tpAmb    = TagInteiro( nome='tpAmb'   , raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
-        self.procEmi  = TagInteiro( nome='procEmi' , raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
-        self.verProc  = TagCaracter(nome='verProc' , raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indRetif = TagInteiro( nome='indRetif', raiz='//eSocial/evtTSVInicio/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
+        self.nrRecibo = TagCaracter(nome='nrRecibo', raiz='//eSocial/evtTSVInicio/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tpAmb    = TagInteiro( nome='tpAmb'   , raiz='//eSocial/evtTSVInicio/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
+        self.procEmi  = TagInteiro( nome='procEmi' , raiz='//eSocial/evtTSVInicio/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
+        self.verProc  = TagCaracter(nome='verProc' , raiz='//eSocial/evtTSVInicio/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -1150,7 +1152,7 @@ class S2300(XMLNFe):
             self.evtTSVInicio.xml = arquivo
             # self.Signature.xml = self._le_noh('//eSocial/sig:Signature')
 
-    def gera_id_evento(self, data_hora):
+    def gera_id_evento(self, data_hora, sequencia=False):
         #A identificação única do evento (Id) é composta por 36 caracteres, conforme o que segue: IDTNNNNNNNNNNNNNNAAAAMMDDHHMMSSQQQQQ
         #ID - Texto Fixo "ID";
         #T - Tipo de Inscrição do Empregador (1 - CNPJ; 2 - CPF);

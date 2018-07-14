@@ -51,7 +51,7 @@ NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTSVTermino/v02_04_0
 class Quarentena(XMLNFe):
     def __init__(self):
         super(Quarentena, self).__init__()
-        self.dtFimQuar = TagData(name='dtFimQuar', raiz='//quarentena', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtFimQuar = TagData(name='dtFimQuar', raiz='//dtFimQuar', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -71,10 +71,10 @@ class Quarentena(XMLNFe):
 class RemunOutrEmpr(XMLNFe):
     def __init__(self):
         super(RemunOutrEmpr, self).__init__()
-        self.tpInsc = TagInteiro(name='tpInsc', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInsc = TagCaracter(name='nrInsc', tamanho=[1, 15], raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codCateg = TagInteiro(name='codCateg', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vlrRemunOE = TagInteiro(name='vlrRemunOE', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc = TagInteiro(name='tpInsc', raiz='//tpInsc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInsc = TagCaracter(name='nrInsc', tamanho=[1, 15], raiz='//nrInsc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codCateg = TagInteiro(name='codCateg', raiz='//codCateg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vlrRemunOE = TagInteiro(name='vlrRemunOE', raiz='//vlrRemunOE', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -117,7 +117,7 @@ class InfoMV(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.indMV.xml = arquivo
-            self.remunOutrEmpr = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/infoMV/remunOutrEmpr', RemunOutrEmpr, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.remunOutrEmpr = self.le_grupo('//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/infoMV/remunOutrEmpr', RemunOutrEmpr, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -125,9 +125,9 @@ class InfoMV(XMLNFe):
 class ProcJudTrab(XMLNFe):
     def __init__(self):
         super(ProcJudTrab, self).__init__()
-        self.tpTrib = TagInteiro(name='tpTrib', raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrProcJud = TagCaracter(name='nrProcJud', tamanho=[1, 20], raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codSusp = TagInteiro(name='codSusp', raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tpTrib = TagInteiro(name='tpTrib', raiz='//tpTrib', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrProcJud = TagCaracter(name='nrProcJud', tamanho=[1, 20], raiz='//nrProcJud', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codSusp = TagInteiro(name='codSusp', raiz='//codSusp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -191,12 +191,12 @@ class InfoAgNocivo(XMLNFe):
 class DetVerbas(XMLNFe):
     def __init__(self):
         super(DetVerbas, self).__init__()
-        self.codRubr = TagCaracter(nome='codRubr', tamanho=[1, 30], raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8], raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdRubr = TagInteiro(nome='qtdRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.fatorRubr = TagInteiro(nome='fatorRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrUnit = TagInteiro(nome='vrUnit', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrRubr = TagDecimal(nome='vrRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codRubr = TagCaracter(nome='codRubr', tamanho=[1, 30], raiz='//codRubr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8], raiz='//ideTabRubr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.qtdRubr = TagInteiro(nome='qtdRubr', raiz='//qtdRubr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.fatorRubr = TagInteiro(nome='fatorRubr', raiz='//fatorRubr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.vrUnit = TagInteiro(nome='vrUnit', raiz='//vrUnit', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.vrRubr = TagDecimal(nome='vrRubr', raiz='//vrRubr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -225,9 +225,9 @@ class DetVerbas(XMLNFe):
 class IdeEstabLot(XMLNFe):
     def __init__(self):
         super(IdeEstabLot, self).__init__()
-        self.tpInsc = TagInteiro(nome='tpInsc', raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc = TagInteiro(nome='tpInsc', raiz='//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev/infoPerApur/ideEstabLot/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev/infoPerApur/ideEstabLot/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev/infoPerApur/ideEstabLot/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.detVerbas = []
         self.infoAgNocivo = []
         self.infoSimples = []
@@ -256,16 +256,15 @@ class IdeEstabLot(XMLNFe):
             self.tpInsc.xml = arquivo
             self.nrInsc.xml = arquivo
             self.codLotacao.xml = arquivo
-            self.detVerbas = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot/detVerbas', DetVerbas, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoSaudeColet = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot/infoSaudeCelet', InfoSaudeColet, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoAgNocivo = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot/infoAgNocivo', InfoAgNocivo, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoSimples = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev/infoPerApur/ideEstabLot/infoSimples', InfoSimples, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.detVerbas = self.le_grupo(     '//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev/infoPerApur/ideEstabLot/detVerbas', DetVerbas, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoAgNocivo = self.le_grupo(  '//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev/infoPerApur/ideEstabLot/infoAgNocivo', InfoAgNocivo, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoSimples = self.le_grupo(   '//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev/infoPerApur/ideEstabLot/infoSimples', InfoSimples, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
 
 class DmDev(XMLNFe):
     def __init__(self):
         super(DmDev, self).__init__()
-        self.ideDmDev = TagCaracter(nome='ideDmDev', tamanho=[1, 30], raiz='//dmDev', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.ideDmDev = TagCaracter(nome='ideDmDev', tamanho=[1, 30], raiz='//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEstabLot = []
 
     def get_xml(self):
@@ -311,9 +310,9 @@ class VerbasResc(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.dmDev = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/dmDev', DmDev, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.procJudTrab = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/procJudTrab', ProcJudTrab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoMV = self.le_grupo('//eSocial/evtDeslig/inforDeslig/verbasResc/infoMV', HorarioIntervalo, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.dmDev = self.le_grupo('//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev', DmDev, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.procJudTrab = self.le_grupo('//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/procJudTrab', ProcJudTrab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoMV = self.le_grupo('//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/infoMV', HorarioIntervalo, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -321,8 +320,8 @@ class VerbasResc(XMLNFe):
 class InfoTSVTermino(XMLNFe):
     def __init__(self):
         super(InfoTSVTermino, self).__init__()
-        self.dtTermino = TagData(nome='dtTermino', raiz='//dtTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.mtvDesligTSV = TagCaracter(nome='mtvDesligTSV', tamanho=[1, 2], raiz='//mtvDesligTSV', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtTermino = TagData(nome='dtTermino', raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.mtvDesligTSV = TagCaracter(nome='mtvDesligTSV', tamanho=[1, 2], raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.verbasResc = []
 
     def get_xml(self):
@@ -349,9 +348,9 @@ class InfoTSVTermino(XMLNFe):
 class IdeTrabSemVinculo(XMLNFe):
     def __init__(self):
         super(IdeTrabSemVinculo, self).__init__()
-        self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/cpfTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/nisTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codCateg = TagInteiro(nome='codCateg', tamanho=[1, 3], raiz='//eSocial/evtTSVAltContr/codCateg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVTermino/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVTermino/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codCateg = TagInteiro(nome='codCateg', tamanho=[1, 3], raiz='//eSocial/evtTSVTermino/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -374,8 +373,8 @@ class IdeTrabSemVinculo(XMLNFe):
 class IdeEmpregador(XMLNFe):
     def __init__(self):
         super(IdeEmpregador, self).__init__()
-        self.tpInsc = TagCaracter(nome='tpInsc', raiz='//eSocial/evtAdmissao/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
-        self.nrInsc = TagCaracter(nome='nrInsc', raiz='//eSocial/evtAdmissao/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc = TagCaracter(nome='tpInsc', raiz='//eSocial/evtTSVTermino/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.nrInsc = TagCaracter(nome='nrInsc', raiz='//eSocial/evtTSVTermino/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -396,11 +395,11 @@ class IdeEmpregador(XMLNFe):
 class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
-        self.indRetif = TagInteiro( nome='indRetif', raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
-        self.nrRecibo = TagCaracter(nome='nrRecibo', raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.tpAmb    = TagInteiro( nome='tpAmb'   , raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
-        self.procEmi  = TagInteiro( nome='procEmi' , raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
-        self.verProc  = TagCaracter(nome='verProc' , raiz='//eSocial/evtAdmissao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indRetif = TagInteiro( nome='indRetif', raiz='//eSocial/evtTSVTermino/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
+        self.nrRecibo = TagCaracter(nome='nrRecibo', raiz='//eSocial/evtTSVTermino/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tpAmb    = TagInteiro( nome='tpAmb'   , raiz='//eSocial/evtTSVTermino/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
+        self.procEmi  = TagInteiro( nome='procEmi' , raiz='//eSocial/evtTSVTermino/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
+        self.verProc  = TagCaracter(nome='verProc' , raiz='//eSocial/evtTSVTermino/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)

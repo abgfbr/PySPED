@@ -214,6 +214,27 @@ from .evtFechaEvPer_20402 import S1299 as S1299_2
 
 # S-2300
 from .evtTSVInicio_20402 import S2300 as S2300_2
+from .evtTSVInicio_20402 import CTPS as S2300_CTPS_2
+from .evtTSVInicio_20402 import RIC as S2300_RIC_2
+from .evtTSVInicio_20402 import RG as S2300_RG_2
+from .evtTSVInicio_20402 import RNE as S2300_RNE_2
+from .evtTSVInicio_20402 import OC as S2300_OC_2
+from .evtTSVInicio_20402 import CNH as S2300_CNH_2
+from .evtTSVInicio_20402 import Brasil as S2300_Brasil_2
+from .evtTSVInicio_20402 import Dependente as S2300_Dependente_2
+from .evtTSVInicio_20402 import Contato as S2300_Contato_2
+from .evtTSVInicio_20402 import InfoComplementares as S2300_InfoComplementares_2
+from .evtTSVInicio_20402 import CargoFuncao as S2300_CargoFuncao_2
+from .evtTSVInicio_20402 import Remuneracao as S2300_Remuneracao_2
+from .evtTSVInicio_20402 import FGTS as S2300_FGTS_2
+from .evtTSVInicio_20402 import InfoDirigenteSindical as S2300_InfoDirigenteSindical_2
+from .evtTSVInicio_20402 import InfoTrabCedido as S2300_InfoTrabCedido_2
+from .evtTSVInicio_20402 import InfoEstagiario as S2300_InfoEstagiario_2
+from .evtTSVInicio_20402 import InstEnsino as S2300_InstEnsino_2
+from .evtTSVInicio_20402 import AgeIntegracao as S2300_AgeIntegracao_2
+from .evtTSVInicio_20402 import SupervisorEstagio as S2300_SupervisorEstagio_2
+from .evtTSVInicio_20402 import Afastamento as S2300_Afastamento_2
+from .evtTSVInicio_20402 import Termino as S2300_Termino_2
 
 # S-2306
 from .evtTSVAltContr_20402 import S2306 as S2306_2

@@ -195,8 +195,8 @@ class InfoEstagiario(XMLNFe):
             self.vlrBolsa.xml = arquivo
             self.dtPrevTerm.xml = arquivo
             self.instEnsino.xml = arquivo
-            self.ageIntegracao.xml = arquivo
-            self.supervisorEstagio.xml = arquivo
+            self.ageIntegracao.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/infoEstagiario/ageIntegracao', AgeIntegracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.supervisorEstagio.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/infoEstagiario/supervisorEstagio', AgeIntegracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -313,18 +313,18 @@ class InfoComplementares(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.cargoFuncao.xml = self.le_grupo('//eSocial/', CargoFuncao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.remuneracao.xml = self.le_grupo('//eSocial/', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoTrabCedido.xml = arquivo
-            self.infoEstagiario.xml = arquivo
+            self.cargoFuncao.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/cargoFuncao', CargoFuncao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.remuneracao.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/remuneracao', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoTrabCedido.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/infoTrabCedido', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoEstagiario.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/infoTrabCedido', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
 class InfoTSVAlteracao(XMLNFe):
     def __init__(self):
         super(InfoTSVAlteracao, self).__init__()
-        self.dtAlteracao = TagData(nome='dtAlteracao', raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.natAtividade = TagInteiro(nome='natAtividade', raiz='//natAtividade', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtAlteracao = TagData(nome='dtAlteracao', raiz='//eSocial/evtAltContratual/infoTSVAlteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.natAtividade = TagInteiro(nome='natAtividade', raiz='//eSocial/evtAltContratual/infoTSVAlteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.infoComplementares = InfoComplementares()
 
     def get_xml(self):
@@ -348,9 +348,9 @@ class InfoTSVAlteracao(XMLNFe):
 class IdeTrabSemVinculo(XMLNFe):
     def __init__(self):
         super(IdeTrabSemVinculo, self).__init__()
-        self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/cpfTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/nisTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codCateg = TagInteiro(nome='codCateg', tamanho=[1, 3], raiz='//eSocial/evtTSVAltContr/codCateg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codCateg = TagInteiro(nome='codCateg', tamanho=[1, 3], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
