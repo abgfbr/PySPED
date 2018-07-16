@@ -738,7 +738,7 @@ class IdeEvento(XMLNFe):
 class EvtCS(XMLNFe):
     def __init__(self):
         super(EvtCS, self).__init__()
-        self.Id = TagCaracter(nome='evtCS', propriedade='Id', raiz='//eSocial/evtCS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.Id = TagCaracter(nome='evtCS', propriedade='Id', raiz='//eSocial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.infoCS = InfoCS()

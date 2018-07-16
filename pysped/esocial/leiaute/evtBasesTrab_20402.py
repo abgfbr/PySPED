@@ -132,8 +132,8 @@ class InfoCategIncid(XMLNFe):
             self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
             self.indSimples.xml = arquivo
-            self.infoBaseCS = self.le_grupo('//eSocial/evtBasesTrab/infoCp/ideEstabLot/infoCategIncid/infoBaseCS', InfoBaseCS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.calcTerc = self.le_grupo('//eSocial/evtBasesTrab/infoCp/ideEstabLot/infoCategIncid/calcTerc', CalcTerc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoBaseCS = self.le_grupo('//infoCategIncid/infoBaseCS', InfoBaseCS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.calcTerc = self.le_grupo('//infoCategIncid/calcTerc', CalcTerc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -163,7 +163,7 @@ class IdeEstabLot(XMLNFe):
             self.tpInsc.xml = arquivo
             self.nrInsc.xml = arquivo
             self.codLotacao.xml = arquivo
-            self.infoCategIncid = self.le_grupo('//eSocial/evtBasesTrab/infoCp/ideEstabLot/infoCategIncid', InfoCategIncid, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoCategIncid = self.le_grupo('//ideEstabLot/infoCategIncid', InfoCategIncid, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -310,7 +310,7 @@ class IdeEvento(XMLNFe):
 class EvtBasesTrab(XMLNFe):
     def __init__(self):
         super(EvtBasesTrab, self).__init__()
-        self.Id = TagCaracter(nome='evtBasesTrab', propriedade='Id', raiz='//eSocial/evtBasesTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.Id = TagCaracter(nome='evtBasesTrab', propriedade='Id', raiz='//eSocial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.ideTrabalhador = IdeTrabalhador()

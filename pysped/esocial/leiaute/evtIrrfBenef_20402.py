@@ -50,7 +50,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evrIrrfBenef/v02_04_02'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtIrrfBenef/v02_04_02'
 
 
 class EndExt(XMLNFe):
@@ -300,7 +300,7 @@ class IdeEvento(XMLNFe):
 class EvtIrrfBenef(XMLNFe):
     def __init__(self):
         super(EvtIrrfBenef, self).__init__()
-        self.Id = TagCaracter(nome='evtIrrfBenef', propriedade='Id', raiz='//eSocial/evtIrrfBenef', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.Id = TagCaracter(nome='evtIrrfBenef', propriedade='Id', raiz='//eSocial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.ideTrabalhador = IdeTrabalhador()

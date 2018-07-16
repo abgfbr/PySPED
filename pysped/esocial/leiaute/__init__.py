@@ -283,3 +283,4 @@ from .evtCS_20402 import InfoCREstab as S5011_InfoCREstab_2
 
 # S-5012
 from .evtIrrf import S5012 as S5012_2
+from .evtIrrf import InfoCRContrib as S5012_InfoCRContrib_2

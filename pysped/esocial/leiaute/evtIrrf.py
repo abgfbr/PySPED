@@ -146,7 +146,7 @@ class IdeEvento(XMLNFe):
 class EvtIrrf(XMLNFe):
     def __init__(self):
         super(EvtIrrf, self).__init__()
-        self.Id = TagCaracter(nome='evtIrrf', propriedade='Id', raiz='//eSocial/evtIrrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.Id = TagCaracter(nome='evtIrrf', propriedade='Id', raiz='//eSocial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.infoIrrf = InfoIrrf()

@@ -46,11 +46,19 @@ from builtins import str
 import os
 from pysped.xml_sped import *
 from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
+from .evtBasesTrab_20402 import S5001
+from .evtIrrfBenef_20402 import S5002
+from .evtCS_20402 import S5011
+from .evtIrrf import S5012
 
 DIRNAME = os.path.dirname(__file__)
 
 NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/lote/eventos/envio/retornoProcessamento/v1_3_0'
 NAMESPACE_ESOCIAL_RETORNO_EVENTO = 'http://www.esocial.gov.br/schema/evt/retornoEvento/v1_2_0'
+NAMESPACE_ESOCIAL_S5001 = 'http://www.esocial.gov.br/schema/evt/evtBasesTrab/v02_04_02'
+NAMESPACE_ESOCIAL_S5002 = 'http://www.esocial.gov.br/schema/evt/evtIrrfBenef/v02_04_02'
+NAMESPACE_ESOCIAL_S5011 = 'http://www.esocial.gov.br/schema/evt/evtCS/v02_04_02'
+NAMESPACE_ESOCIAL_S5012 = 'http://www.esocial.gov.br/schema/evt/evtIrrf/v02_04_02'
 
 
 class Recibo(XMLNFe):
@@ -225,6 +233,35 @@ class RetornoEvento2(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
+class Tot(XMLNFe):
+    def __init__(self):
+        super(Tot, self).__init__()
+        self.tipo = TagCaracter(nome='tot', propriedade='tipo', raiz='//evento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.eSocial = S5001()
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += self.tipo.xml
+        xml += self.eSocial.xml
+        xml += '</tot>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.tipo.xml = arquivo
+            if self.tipo.valor == 'S5001':
+                self.eSocial = S5001()
+            if self.tipo.valor == 'S5002':
+                self.eSocial = S5002()
+            if self.tipo.valor == 'S5011':
+                self.eSocial = S5011()
+            if self.tipo.valor == 'S5012':
+                self.eSocial = S5012()
+            self.eSocial.xml = self._le_nohs('//evento/tot', ns=NAMESPACE_ESOCIAL)[0][0]
+
+    xml = property(get_xml, set_xml)
+
+
 class ESocial(XMLNFe):
     def __init__(self):
         super(ESocial, self).__init__()
@@ -268,6 +305,7 @@ class Evento(XMLNFe):
         super(Evento, self).__init__()
         self.Id = TagCaracter(nome='evento', propriedade='Id', raiz='/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.retornoEvento = RetornoEvento()
+        self.tot = Tot()
         self.resposta = self.retornoEvento.eSocial.retornoEvento.processamento.cdResposta.valor
         self.descricao = self.retornoEvento.eSocial.retornoEvento.processamento.descResposta.valor
         self.ocorrencias = self.retornoEvento.eSocial.retornoEvento.processamento.ocorrencias
@@ -276,6 +314,7 @@ class Evento(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += self.Id.xml
         xml += self.retornoEvento.xml
+        xml += self.tot.xml
         xml += '</evento>'
         return xml
 
@@ -283,6 +322,7 @@ class Evento(XMLNFe):
         if self._le_xml(arquivo):
             self.Id.xml = arquivo
             self.retornoEvento.xml = arquivo
+            self.tot.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
