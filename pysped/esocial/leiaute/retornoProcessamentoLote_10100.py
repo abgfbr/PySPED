@@ -316,6 +316,10 @@ class Evento(XMLNFe):
 
         return ocorrencias
 
+    @property
+    def dh_processamento(self):
+        return self.retornoEvento.eSocial.retornoEvento.processamento.dhProcessamento.valor
+
 
 class DadosProcessamentoLote(XMLNFe):
     def __init__(self):
