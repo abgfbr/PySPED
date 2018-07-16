@@ -113,6 +113,9 @@ from .evtAltContratual_20402 import HorContratual as S2206_HorContratual_2
 from .evtAltContratual_20402 import Horario as S2206_Horario_2
 from .evtAltContratual_20402 import FiliacaoSindical as S2206_FiliacaoSindical_2
 
+# S-2230
+from .evtAfastTemp_20402 import S2230 as S2230_2
+
 # S-2299
 from .evtDeslig_20402 import S2299 as S2299_2
 from .evtDeslig_20402 import IdeEstabLot as S2299_IdeEstabLot_2
