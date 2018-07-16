@@ -50,188 +50,186 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtbasesTrab/v02_04_02'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evrIrrfBenef/v02_04_02'
 
 
-class CalcTerc(XMLNFe):
+class EndExt(XMLNFe):
     def __init__(self):
-        super(CalcTerc, self).__init__()
-        self.tpCR        = TagCaracter(nome='tpCR',        tamanho=[1, 6],     raiz='//calcTerc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vrCsSegTerc = TagCaracter(nome='vrCsSegTerc', tamanho=[1, 14, 2], raiz='//calcTerc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vrDescTerc  = TagDecimal( nome='vrDescTerc',  tamanho=[1, 14, 2], raiz='//calcTerc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        super(EndExt, self).__init__()
+        self.dscLograd = TagCaracter(nome='dscLograd', tamanho=[1, 80], raiz='//idePgtoExt/endExt', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrLograd  = TagCaracter(nome='nrLograd',  tamanho=[1, 10], raiz='//idePgtoExt/endExt', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.complem   = TagCaracter(nome='complem',   tamanho=[1, 30], raiz='//idePgtoExt/endExt', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.bairro    = TagCaracter(nome='bairro',    tamanho=[1, 60], raiz='//idePgtoExt/endExt', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmCid     = TagCaracter(nome='nmCid',     tamanho=[1, 50], raiz='//idePgtoExt/endExt', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codPostal = TagCaracter(nome='codPostal', tamanho=[1, 12], raiz='//idePgtoExt/endExt', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<calcTerc>'
-        xml += self.tpCR.xml
-        xml += self.vrCsSegTerc.xml
-        xml += self.vrDescTerc.xml
-        xml += '</calcTerc>'
+        xml += '<endExt>'
+        xml += self.dscLograd.xml
+        xml += self.nrLograd.xml
+        xml += self.complem.xml
+        xml += self.bairro.xml
+        xml += self.nmCid.xml
+        xml += self.codPostal.xml
+        xml += '</endExt>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.tpCR.xml = arquivo
-            self.vrCsSegTerc.xml = arquivo
-            self.vrDescTerc.xml = arquivo
+            self.dscLograd.xml = arquivo
+            self.nrLograd.xml = arquivo
+            self.complem.xml = arquivo
+            self.bairro.xml = arquivo
+            self.nmCid.xml = arquivo
+            self.codPostal.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
 
-class InfoBaseCS(XMLNFe):
+class IdePais(XMLNFe):
     def __init__(self):
-        super(InfoBaseCS, self).__init__()
-        self.ind13     = TagCaracter(nome='ind13',    tamanho=[1, 1],     raiz='//infoBaseCS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.tpValor   = TagCaracter(nome='tpValor',  tamanho=[1, 2],     raiz='//infoBaseCS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.valor     = TagDecimal( nome='valor',    tamanho=[1, 14, 2], raiz='//infoBaseCS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        super(IdePais, self).__init__()
+        self.codPais    = TagCaracter(nome='codPais',  tamanho=[1, 30], raiz='//idePgtoExt/idePais', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indNIF     = TagCaracter(nome='indNIF',   tamanho=[1, 1],  raiz='//idePgtoExt/idePais', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nifBenif   = TagCaracter(nome='nifBenif', tamanho=[1, 20], raiz='//idePgtoExt/idePais', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<infoBaseCS>'
-        xml += self.ind13.xml
-        xml += self.tpValor.xml
-        xml += self.valor.xml
-        xml += '</infoBaseCS>'
+        xml += '<idePais>'
+        xml += self.codPais.xml
+        xml += self.indNIF.xml
+        xml += self.nifBenif.xml
+        xml += '</idePais>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.ind13.xml = arquivo
+            self.codPais.xml = arquivo
+            self.indNIF.xml = arquivo
+            self.nifBenif.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class IdePgtoExt(XMLNFe):
+    def __init__(self):
+        super(IdePgtoExt, self).__init__()
+        self.idePais = IdePais()
+        self.endExt  = EndExt()
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<idePgtoExt>'
+        xml += self.idePais.xml
+        xml += self.endExt.xml
+        xml += '</idePgtoExt>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.idePais.xml = arquivo
+            self.endExt.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class Irrf(XMLNFe):
+    def __init__(self):
+        super(Irrf, self).__init__()
+        self.tpCr       = TagCaracter(nome='tpCr',       tamanho=[1, 6],     raiz='//irrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vrIrrfDesc = TagDecimal( nome='vrIrrfDesc', tamanho=[1, 14, 2], raiz='//irrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<irrf>'
+        xml += self.tpCr.xml
+        xml += self.vrIrrfDesc.xml
+        xml += '</irrf>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.tpCr.xml = arquivo
+            self.vrIrrfDesc.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class BasesIrrf(XMLNFe):
+    def __init__(self):
+        super(BasesIrrf, self).__init__()
+        self.tpValor = TagCaracter(nome='tpValor', tamanho=[1, 2],     raiz='//basesIrrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.valor   = TagDecimal( nome='valor',   tamanho=[1, 14, 2], raiz='//basesIrrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<basesIrrf>'
+        xml += self.tpValor.xml
+        xml += self.valor.xml
+        xml += '</basesIrrf>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
             self.tpValor.xml = arquivo
             self.valor.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
 
-class InfoCategIncid(XMLNFe):
+class InfoIrrf(XMLNFe):
     def __init__(self):
-        super(InfoCategIncid, self).__init__()
-        self.matricula  = TagCaracter(nome='matricula',  tamanho=[1, 30],    raiz='//infoCategIncid', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codCateg   = TagCaracter(nome='codCateg',   tamanho=[1, 3],     raiz='//infoCategIncid', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.indSimples = TagCaracter(nome='indSimples', tamanho=[1, 1],     raiz='//infoCategIncid', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.infoBaseCS = []
-        self.calcTerc   = []
+        super(InfoIrrf, self).__init__()
+        self.codCateg   = TagCaracter(nome='codCateg', tamanho=[1, 3], raiz='//infoIrrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.indResBr   = TagCaracter(nome='indResBr', tamanho=[1, 1], raiz='//infoIrrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.basesIrrf  = []
+        self.irrf       = []
+        self.idePgtoExt = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<infoCategIncid>'
-        xml += self.matricula.xml
+        xml += '<infoIrrf>'
         xml += self.codCateg.xml
-        xml += self.indSimples.xml
-        if len(self.infoBaseCS):
-            for i in self.infoBaseCS:
+        xml += self.indResBr.xml
+        if len(self.basesIrrf):
+            for b in self.basesIrrf:
+                xml += b.xml
+        if len(self.irrf):
+            for i in self.irrf:
                 xml += i.xml
-        if len(self.calcTerc):
-            for c in self.calcTerc:
-                xml += c.xml
-        xml += '</infoCategIncid>'
+        if len(self.idePgtoExt):
+            for i in self.idePgtoExt:
+                xml += i.xml
+        xml += '</infoIrrf>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
-            self.indSimples.xml = arquivo
-            self.infoBaseCS = self.le_grupo('//eSocial/evtBasesTrab/infoCp/ideEstabLot/infoCategIncid/infoBaseCS', InfoBaseCS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.calcTerc = self.le_grupo('//eSocial/evtBasesTrab/infoCp/ideEstabLot/infoCategIncid/calcTerc', CalcTerc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.indResBr.xml = arquivo
+            self.basesIrrf = self.le_grupo('//eSocial/evtIrrfBenef/infoIrrf/basesIrrf', BasesIrrf, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.irrf = self.le_grupo('//eSocial/evtIrrfBenef/infoIrrf/irrf', Irrf, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.idePgtoExt = self.le_grupo('//eSocial/evtIrrfBenef/infoIrrf/idePgtoExt', IdePgtoExt, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
 
-class IdeEstabLot(XMLNFe):
+class InfoDep(XMLNFe):
     def __init__(self):
-        super(IdeEstabLot, self).__init__()
-        self.tpInsc     = TagCaracter(nome='tpInsc',     tamanho=[1, 1],  raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
-        self.nrInsc     = TagCaracter(nome='nrInsc',     tamanho=[1, 15], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz='//ideEstabLot', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.infoCategIncid = []
+        super(InfoDep, self).__init__()
+        self.vrDedDep = TagDecimal(nome='vrDedDep', tamanho=[1, 14, 2], raiz='//infoDep', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<ideEstabLot>'
-        xml += self.tpInsc.xml
-        xml += self.nrInsc.xml
-        xml += self.codLotacao.xml
-        if len(self.infoCategIncid) > 0:
-            for i in self.infoCategIncid:
-                xml += i.xml
-        xml += '</ideEstabLot>'
+        xml += '<infoDep>'
+        xml += self.vrDedDep.xml
+        xml += '</infoDep>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.tpInsc.xml = arquivo
-            self.nrInsc.xml = arquivo
-            self.codLotacao.xml = arquivo
-            self.infoCategIncid = self.le_grupo('//eSocial/evtBasesTrab/infoCp/ideEstabLot/infoCategIncid', InfoCategIncid, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-
-    xml = property(get_xml, set_xml)
-
-
-class InfoCp(XMLNFe):
-    def __init__(self):
-        super(InfoCp, self).__init__()
-        self.ideEstabLot = []
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<infoCp>'
-        if len(self.ideEstabLot) > 0:
-            for p in self.ideEstabLot:
-                xml += p.xml
-        xml += '</infoCp>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.ideEstabLot = self.le_grupo('//eSocial/evtBasesTrab/infoCp/ideEstabLot', IdeEstabLot, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-
-    xml = property(get_xml, set_xml)
-
-
-class InfoCpCalc(XMLNFe):
-    def __init__(self):
-        super(InfoCpCalc, self).__init__()
-        self.tpCR      = TagCaracter(nome='tpCR',      tamanho=[1, 6],     raiz='//infoCpCalc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vrCpSeg   = TagDecimal( nome='vrCpSeg',   tamanho=[1, 14, 2], raiz='//infoCpCalc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vrDescSeg = TagDecimal( nome='vrDescSeg', tamanho=[1, 14, 2], raiz='//infoCpCalc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<infoCpCalc>'
-        xml += self.tpCR.xml
-        xml += self.vrCpSeg.xml
-        xml += self.vrDescSeg.xml
-        xml += '</infoCpCalc>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.tpCR.xml = arquivo
-            self.vrCpSeg.xml = arquivo
-            self.vrDescSeg.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
-class ProcJudTrab(XMLNFe):
-    def __init__(self):
-        super(ProcJudTrab, self).__init__()
-        self.nrProcJud = TagCaracter(nome='nrProdJuc', tamanho=[1, 20], raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codSusp   = TagCaracter(nome='codSusp',   tamanho=[1, 14], raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<procJudTrab>'
-        xml += self.nrProcJud.xml
-        xml += self.codSusp.xml
-        xml += '</procJudTrab>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.nrProcJud.xml = arquivo
-            self.codSusp.xml = arquivo
+            self.vrDedDep.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -239,23 +237,18 @@ class ProcJudTrab(XMLNFe):
 class IdeTrabalhador(XMLNFe):
     def __init__(self):
         super(IdeTrabalhador, self).__init__()
-        self.cpfTrab     = TagCaracter(nome='cpfTrab', tamanho=[1, 11],    raiz='//eSocial/evtBasesTrab/ideTrabalhador',      namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.procJudTrab = []
+        self.cpfTrab     = TagCaracter(nome='cpfTrab', tamanho=[1, 11],    raiz='//eSocial/evtIrrfBenef/ideTrabalhador',      namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideTrabalhador>'
         xml += self.cpfTrab.xml
-        if len(self.procJudTrab) > 0:
-            for p in self.procJudTrab:
-                xml += p.xml
         xml += '</ideTrabalhador>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.procJudTrab = self.le_grupo('//eSocial/evtBasesTrab/ideTrabalhador/procJudTrab', ProcJudTrab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -263,8 +256,8 @@ class IdeTrabalhador(XMLNFe):
 class IdeEmpregador(XMLNFe):
     def __init__(self):
         super(IdeEmpregador, self).__init__()
-        self.tpInsc = TagCaracter(nome='tpInsc', tamanho=[1, 1],  raiz='//eSocial/evtBasesTrab/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
-        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//eSocial/evtBasesTrab/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc = TagCaracter(nome='tpInsc', tamanho=[1, 1],  raiz='//eSocial/evtIrrfBenef/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz='//eSocial/evtIrrfBenef/ideEmpregador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -285,15 +278,13 @@ class IdeEmpregador(XMLNFe):
 class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
-        self.nrRecArqBase = TagCaracter(nome='nrRecArqBase', tamanho=[1, 40], raiz='//eSocial/evtBasesTrab/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indApuracao  = TagCaracter(nome='indApuracao',  tamanho=[1,  1], raiz='//eSocial/evtBasesTrab/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.perApur      = TagCaracter(nome='perApur',      tamanho=[1,  7], raiz='//eSocial/evtBasesTrab/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrRecArqBase = TagCaracter(nome='nrRecArqBase', tamanho=[1, 40], raiz='//eSocial/evtIrrfBenef/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.perApur      = TagCaracter(nome='perApur',      tamanho=[1,  7], raiz='//eSocial/evtIrrfBenef/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideEvento>'
         xml += self.nrRecArqBase.xml
-        xml += self.indApuracao.xml
         xml += self.perApur.xml
         xml += '</ideEvento>'
         return xml
@@ -301,21 +292,20 @@ class IdeEvento(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.nrRecArqBase.xml = arquivo
-            self.indApuracao.xml = arquivo
             self.perApur.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
 
-class EvtBasesTrab(XMLNFe):
+class EvtIrrfBenef(XMLNFe):
     def __init__(self):
-        super(EvtBasesTrab, self).__init__()
-        self.Id = TagCaracter(nome='evtBasesTrab', propriedade='Id', raiz='//eSocial/evtBasesTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        super(EvtIrrfBenef, self).__init__()
+        self.Id = TagCaracter(nome='evtIrrfBenef', propriedade='Id', raiz='//eSocial/evtIrrfBenef', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
         self.ideTrabalhador = IdeTrabalhador()
-        self.infoCpCalc = []
-        self.infoCp = InfoCp()
+        self.infoDep = []
+        self.infoIrrf = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -323,11 +313,13 @@ class EvtBasesTrab(XMLNFe):
         xml += self.ideEvento.xml
         xml += self.ideEmpregador.xml
         xml += self.ideTrabalhador.xml
-        if len(self.infoCpCalc):
-            for i in self.infoCpCalc:
+        if len(self.infoDep):
+            for i in self.infoDep:
                 xml += i.xml
-        xml += self.infoCp.xml
-        xml += '</evtBasesTrab>'
+        if len(self.infoIrrf):
+            for i in self.infoIrrf:
+                xml += i.xml
+        xml += '</evtIrrfBenef>'
         return xml
 
     def set_xml(self, arquivo):
@@ -336,30 +328,30 @@ class EvtBasesTrab(XMLNFe):
             self.ideEvento.xml = arquivo
             self.ideEmpregador.xml = arquivo
             self.ideTrabalhador.xml = arquivo
-            self.infoCpCalc = self.le_grupo('//eSocial/evtBasesTrab/infoCpCalc', InfoCpCalc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoCp.xml = arquivo
+            self.infoDep = self.le_grupo('//eSocial/evtIrrfBenef/infoDep', InfoDep, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoIrrf = self.le_grupo('//eSocial/evtIrrfBenef/infoIrrf', InfoIrrf, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
 
-class S5001(XMLNFe):
+class S5002(XMLNFe):
     def __init__(self):
-        super(S5001, self).__init__()
-        self.evtBasesTrab = EvtPgtos()
+        super(S5002, self).__init__()
+        self.evtIrrfBenef = EvtIrrfBenef()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
-        self.arquivo_esquema = 'evtBasesTrab.xsd'
+        self.arquivo_esquema = 'evtIrrfBenef.xsd'
         self.id_evento = ''
         self.tpInsc = ''
         self.nrInsc = ''
         # self.Signature = Signature()
-        self.evento = self.evtBasesTrab
+        self.evento = self.evtIrrfBenef
         self.xml_assinado = ''
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         #xml += ABERTURA
         xml += '<eSocial xmlns="' + NAMESPACE_ESOCIAL + '">'
-        xml += self.evtPgtos.xml
+        xml += self.evtIrrfBenef.xml
 
         #
         # Define a URI a ser assinada
@@ -374,7 +366,7 @@ class S5001(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.evtBasesTrab.xml = arquivo
+            self.evtIrrfBenef.xml = arquivo
             # self.Signature.xml = self._le_noh('//eSocial/sig:Signature')
 
     def gera_id_evento(self, data_hora, sequencia=False):
@@ -404,7 +396,7 @@ class S5001(XMLNFe):
 
         # Define o Id
         #
-        self.evtPgtos.Id.valor = id_evento
+        self.evtIrrfBenef.Id.valor = id_evento
         self.id_evento = id_evento
 
     xml = property(get_xml, set_xml)

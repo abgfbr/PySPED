@@ -241,3 +241,42 @@ from .evtTSVAltContr_20402 import S2306 as S2306_2
 
 # S-2399
 from .evtTSVTermino_20402 import S2399 as S2399_2
+
+# S-5001
+from .evtBasesTrab_20402 import S5001 as S5001_2
+from .evtBasesTrab_20402 import ProcJudTrab as S5001_ProcJudTrab_2
+from .evtBasesTrab_20402 import IdeEstabLot as S5001_IdeEstabLot_2
+from .evtBasesTrab_20402 import InfoCategIncid as S5001_InfoCategIncid_2
+from .evtBasesTrab_20402 import InfoBaseCS as S5001_InfoBaseCS_2
+from .evtBasesTrab_20402 import CalcTerc as S5001_CalcTerc_2
+
+# S-5002
+from .evtIrrfBenef_20402 import S5002 as S5002_2
+from .evtIrrfBenef_20402 import InfoDep as S5002_InfoDep_2
+from .evtIrrfBenef_20402 import InfoIrrf as S5002_InfoIrrf_2
+from .evtIrrfBenef_20402 import BasesIrrf as S5002_BasesIrrf_2
+from .evtIrrfBenef_20402 import Irrf as S5002_Irr2_2
+from .evtIrrfBenef_20402 import IdePgtoExt as S5002_IdePgtoExt_2
+
+# S-5011
+from .evtCS_20402 import S5011 as S5011_2
+from .evtCS_20402 import InfoCPSeg as S5011_InfoCPSeg_2
+from .evtCS_20402 import IdeEstab as S5011_IdeEstab_2
+from .evtCS_20402 import InfoCRContrib as S5011_InfoCRContrib_2
+from .evtCS_20402 import InfoPJ as S5011_InfoPJ_2
+from .evtCS_20402 import InfoAtConc as S5011_InfoAtConc_2
+from .evtCS_20402 import InfoEstab as S5011_InfoEstab_2
+from .evtCS_20402 import IdeLotacao as S5011_IdeLotacao_2
+from .evtCS_20402 import BasesAquis as S5011_BasesAquis_2
+from .evtCS_20402 import BasesComerc as S5011_BasesComerc_2
+from .evtCS_20402 import InfoComplObra as S5011_InfoComplObra_2
+from .evtCS_20402 import InfoTercSusp as S5011_InfoTercSusp_2
+from .evtCS_20402 import InfoEmprParcial as S5011_InfoEmprParcial_2
+from .evtCS_20402 import DadosOpPort as S5011_DadosOpPort_2
+from .evtCS_20402 import BasesRemun as S5011_BasesRemun_2
+from .evtCS_20402 import BasesAvNPort as S5011_BasesAvNPort_2
+from .evtCS_20402 import InfoSubstPatrOpPort as S5011_InfoSubstPatrOpPort_2
+from .evtCS_20402 import InfoCREstab as S5011_InfoCREstab_2
+
+# S-5012
+from .evtIrrf import S5012 as S5012_2
