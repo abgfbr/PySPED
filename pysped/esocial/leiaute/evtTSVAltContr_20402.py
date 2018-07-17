@@ -243,7 +243,7 @@ class Remuneracao(XMLNFe):
         super(Remuneracao, self).__init__()
         self.vrSalFx = TagDecimal(nome='vrSalFx', tamanho=[1, 14, 2], raiz='//vrSalFx', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.undSalFixo = TagInteiro(nome='undSalFixo', tamanho=[1, 1], raiz='//undSalFixo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dscSalVar = TagCaracter(nome='dscSalVar', raiz='//dscSalVar', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dscSalVar = TagCaracter(nome='dscSalVar', tamanho=[0, 255], raiz='//dscSalVar', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -266,8 +266,8 @@ class Remuneracao(XMLNFe):
 class CargoFuncao(XMLNFe):
     def __init__(self):
         super(CargoFuncao, self).__init__()
-        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[0, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -319,6 +319,7 @@ class InfoComplementares(XMLNFe):
             self.infoEstagiario.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/infoTrabCedido', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
+
 
 class InfoTSVAlteracao(XMLNFe):
     def __init__(self):
@@ -477,7 +478,7 @@ class S2306(XMLNFe):
         if self._le_xml(arquivo):
             self.evtTSVAltContr.xml = arquivo
 
-    def gera_id_evento(self, data_hora):
+    def gera_id_evento(self, data_hora, sequencia=False):
         #A identificação única do evento (Id) é composta por 36 caracteres, conforme o que segue: IDTNNNNNNNNNNNNNNAAAAMMDDHHMMSSQQQQQ
         #ID - Texto Fixo "ID";
         #T - Tipo de Inscrição do Empregador (1 - CNPJ; 2 - CPF);
