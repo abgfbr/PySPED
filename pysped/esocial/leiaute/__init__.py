@@ -243,9 +243,28 @@ from .evtTSVInicio_20402 import Termino as S2300_Termino_2
 
 # S-2306
 from .evtTSVAltContr_20402 import S2306 as S2306_2
+from .evtTSVAltContr_20402 import CargoFuncao as S2306_CargoFuncao_2
+from .evtTSVAltContr_20402 import Remuneracao as S2306_Remuneracao_2
+from .evtTSVAltContr_20402 import InfoTrabCedido as S2306_InfoTrabCedido_2
+from .evtTSVAltContr_20402 import InfoEstagiario as S2306_InfoEstagiario_2
+from .evtTSVAltContr_20402 import InstEnsino as S2306_InstEnsino_2
+from .evtTSVAltContr_20402 import AgeIntegracao as S2306_AgeIntegracao_2
+from .evtTSVAltContr_20402 import SupervisorEstagio as S2306_SupervisorEstagio_2
 
 # S-2399
 from .evtTSVTermino_20402 import S2399 as S2399_2
+from .evtTSVTermino_20402 import IdeEstabLot as S2399_IdeEstabLot_2
+from .evtTSVTermino_20402 import RemunOutrEmpr as S2399_RemunOutrEmpr_2
+from .evtTSVTermino_20402 import InfoMV as S2399_InfoMV_2
+from .evtTSVTermino_20402 import ProcJudTrab as S2399_ProcJudTrab_2
+from .evtTSVTermino_20402 import InfoSimples as S2399_InfoSimples_2
+from .evtTSVTermino_20402 import InfoAgNocivo as S2399_InfoAgNocivo_2
+from .evtTSVTermino_20402 import DetVerbas as S2399_DetVerbas_2
+from .evtTSVTermino_20402 import Quarentena as S2399_Quarentena_2
+from .evtTSVTermino_20402 import DmDev as S2399_DmDev_2
+from .evtTSVTermino_20402 import VerbasResc as S2399_VerbasResc_2
+from .evtTSVTermino_20402 import IdeEmpregador as S2399_DetOper_2
+from .evtTSVTermino_20402 import IdeEvento as S2399_IdeEvento_2
 
 # S-5001
 from .evtBasesTrab_20402 import S5001 as S5001_2
