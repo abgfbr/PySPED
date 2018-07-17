@@ -260,6 +260,7 @@ class IdeEstabLot(XMLNFe):
             self.infoAgNocivo = self.le_grupo(  '//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev/infoPerApur/ideEstabLot/infoAgNocivo', InfoAgNocivo, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoSimples = self.le_grupo(   '//eSocial/evtTSVTermino/infoTSVTermino/verbasResc/dmDev/infoPerApur/ideEstabLot/infoSimples', InfoSimples, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
+    xml = property(get_xml, set_xml)
 
 class DmDev(XMLNFe):
     def __init__(self):
@@ -320,14 +321,14 @@ class VerbasResc(XMLNFe):
 class InfoTSVTermino(XMLNFe):
     def __init__(self):
         super(InfoTSVTermino, self).__init__()
-        self.dtTermino = TagData(nome='dtTermino', raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.mtvDesligTSV = TagCaracter(nome='mtvDesligTSV', tamanho=[1, 2], raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtTerm = TagData(nome='dtTerm', raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.mtvDesligTSV = TagCaracter(nome='mtvDesligTSV', tamanho=[0, 2], raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.verbasResc = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<infoTSVTermino>'
-        xml += self.dtTermino.xml
+        xml += self.dtTerm.xml
         xml += self.mtvDesligTSV.xml
         if self.verbasResc:
             for verba in self.verbasResc:
@@ -337,7 +338,7 @@ class InfoTSVTermino(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.dtTermino.xml = arquivo
+            self.dtTerm.xml = arquivo
             self.mtvDesligTSV.xml = arquivo
             if self._le_xml(arquivo):
                 self.verbasResc = self.le_grupo('//eSocial/evtTSVTermino/infoTSVTermino/verbasResc', DmDev, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
@@ -488,7 +489,7 @@ class S2399(XMLNFe):
             self.evtTSVTermino.xml = arquivo
             # self.Signature.xml = self._le_noh('//eSocial/sig:Signature')
 
-    def gera_id_evento(self, data_hora):
+    def gera_id_evento(self, data_hora, sequencia=False):
         #A identificação única do evento (Id) é composta por 36 caracteres, conforme o que segue: IDTNNNNNNNNNNNNNNAAAAMMDDHHMMSSQQQQQ
         #ID - Texto Fixo "ID";
         #T - Tipo de Inscrição do Empregador (1 - CNPJ; 2 - CPF);
