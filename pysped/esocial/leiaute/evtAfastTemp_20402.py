@@ -329,7 +329,7 @@ class IdeEvento(XMLNFe):
         self.nrRecibo = TagCaracter(nome='nrRecibo', tamanho=[1, 40], raiz='//eSocial/evtAfastTemp/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpAmb = TagInteiro(nome='tpAmb', raiz='//eSocial/evtAfastTemp/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.procEmi = TagInteiro(nome='procEmi', raiz='//eSocial/evtAfastTemp/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.verProc = TagCaracter(nome='ideEvento', tamanho=[1, 20], raiz='//eSocial/evtAfastTemp/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.verProc = TagCaracter(nome='verProc', tamanho=[1, 20], raiz='//eSocial/evtAfastTemp/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
