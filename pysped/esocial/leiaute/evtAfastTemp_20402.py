@@ -69,7 +69,7 @@ class FimAfastamento(XMLNFe):
         if self._le_xml(arquivo):
             self.dtTermAfast.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoRetif(XMLNFe):
@@ -92,7 +92,7 @@ class InfoRetif(XMLNFe):
             self.origRetif.xml = arquivo
             self.tpProc.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoMandSind(XMLNFe):
@@ -115,7 +115,7 @@ class InfoMandSind(XMLNFe):
             self.cnpjSind.xml = arquivo
             self.infOnusRemun.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoCessao(XMLNFe):
@@ -138,7 +138,7 @@ class InfoCessao(XMLNFe):
             self.cnpjCess.xml = arquivo
             self.infOnus.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class Emitente(XMLNFe):
@@ -167,7 +167,7 @@ class Emitente(XMLNFe):
             self.nrOc.xml = arquivo
             self.ufOC.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoAtestado(XMLNFe):
@@ -194,7 +194,7 @@ class InfoAtestado(XMLNFe):
             self.qtdDiasAfast.xml = arquivo
             self.emitente.xml = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/infoAtestado/emitente', Emitente, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class IniAfastamento(XMLNFe):
@@ -238,7 +238,7 @@ class IniAfastamento(XMLNFe):
             self.infoCessao.xml = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/infoCessao', InfoCessao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoMandSind.xml = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/infoMandSind', InfoMandSind, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class InfoAfastamento(XMLNFe):
@@ -267,6 +267,8 @@ class InfoAfastamento(XMLNFe):
             self.infoRetif = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/infoRetif', InfoRetif, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.fimAfastamento = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/fimAfastamento', FimAfastamento, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
+    xml = property(get_xml, set_xml)
+
 
 class IdeVinculo(XMLNFe):
     def __init__(self):
@@ -294,7 +296,7 @@ class IdeVinculo(XMLNFe):
             self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
 
-    property(get_xml, set_xml)
+    xml = property(get_xml, set_xml)
 
 
 class IdeEmpregador(XMLNFe):
@@ -363,6 +365,7 @@ class EvtAfastTemp(XMLNFe):
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
+        xml += self.Id.xml
         xml += self.ideEvento.xml
         xml += self.ideEmpregador.xml
         xml += self.ideVinculo.xml
