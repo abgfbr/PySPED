@@ -257,7 +257,8 @@ class Tot(XMLNFe):
                 self.eSocial = S5011()
             if self.tipo.valor == 'S5012':
                 self.eSocial = S5012()
-            self.eSocial.xml = self._le_nohs('//evento/tot', ns=NAMESPACE_ESOCIAL)[0][0]
+            if self.tipo.valor:
+                self.eSocial.xml = self._le_nohs('//evento/tot', ns=NAMESPACE_ESOCIAL)[0][0]
 
     xml = property(get_xml, set_xml)
 
