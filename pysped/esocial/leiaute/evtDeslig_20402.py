@@ -42,8 +42,6 @@
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
-from mercurial.namespaces import namespace
-
 from builtins import str
 import os
 from pysped.xml_sped import *
