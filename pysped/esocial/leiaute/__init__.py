@@ -266,6 +266,11 @@ from .evtTSVTermino_20402 import VerbasResc as S2399_VerbasResc_2
 from .evtTSVTermino_20402 import IdeEmpregador as S2399_DetOper_2
 from .evtTSVTermino_20402 import IdeEvento as S2399_IdeEvento_2
 
+# S-3000
+from .evtExclusao import S3000 as S3000_2
+from .evtExclusao import IdeTrabalhador as S3000_IdeTrabalhador_2
+from .evtExclusao import IdeFolhaPagto as S3000_IdeFolhaPagto_2
+
 # S-5001
 from .evtBasesTrab_20402 import S5001 as S5001_2
 from .evtBasesTrab_20402 import ProcJudTrab as S5001_ProcJudTrab_2
