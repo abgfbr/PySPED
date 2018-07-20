@@ -137,20 +137,20 @@ class IdePgtoExt(XMLNFe):
 class Irrf(XMLNFe):
     def __init__(self):
         super(Irrf, self).__init__()
-        self.tpCr       = TagCaracter(nome='tpCr',       tamanho=[1, 6],     raiz='//irrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpCR       = TagCaracter(nome='tpCR',                           raiz='//irrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.vrIrrfDesc = TagDecimal( nome='vrIrrfDesc', tamanho=[1, 14, 2], raiz='//irrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<irrf>'
-        xml += self.tpCr.xml
+        xml += self.tpCR.xml
         xml += self.vrIrrfDesc.xml
         xml += '</irrf>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.tpCr.xml = arquivo
+            self.tpCR.xml = arquivo
             self.vrIrrfDesc.xml = arquivo
 
     xml = property(get_xml, set_xml)
@@ -208,9 +208,9 @@ class InfoIrrf(XMLNFe):
         if self._le_xml(arquivo):
             self.codCateg.xml = arquivo
             self.indResBr.xml = arquivo
-            self.basesIrrf = self.le_grupo('//eSocial/evtIrrfBenef/infoIrrf/basesIrrf', BasesIrrf, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.irrf = self.le_grupo('//eSocial/evtIrrfBenef/infoIrrf/irrf', Irrf, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.idePgtoExt = self.le_grupo('//eSocial/evtIrrfBenef/infoIrrf/idePgtoExt', IdePgtoExt, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.basesIrrf = self.le_grupo('//infoIrrf/basesIrrf', BasesIrrf, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.irrf = self.le_grupo('//infoIrrf/irrf', Irrf, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.idePgtoExt = self.le_grupo('//infoIrrf/idePgtoExt', IdePgtoExt, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
