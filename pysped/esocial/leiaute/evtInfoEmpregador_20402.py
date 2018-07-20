@@ -57,9 +57,9 @@ class Contato(XMLNFe):
         super(Contato, self).__init__()
         self.nmCtt = TagCaracter(nome='nmCtt', tamanho=[ 1, 70]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.cpfCtt = TagCaracter(nome='cpfCtt', tamanho=[ 1, 11]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.foneFixo = TagCaracter(nome='foneFixo', tamanho=[ 1, 11]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.foneCel = TagCaracter(nome='foneCel', tamanho=[ 1, 11]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.email = TagCaracter(nome='email', tamanho=[ 1, 11]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.foneFixo = TagCaracter(nome='foneFixo', tamanho=[1, 13]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.foneCel = TagCaracter(nome='foneCel', tamanho=[0, 13]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.email = TagCaracter(nome='email', tamanho=[0, 60]   , raiz='//eSocial/evtInfoEmpregador/infoEmpregador/infoCadastro/contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
