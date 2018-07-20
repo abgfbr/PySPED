@@ -330,10 +330,11 @@ class Evento(XMLNFe):
             self.Id.xml = arquivo
             self.retornoEvento.xml = arquivo
             self.totalizadores = self._le_nohs('//tot', ns=NAMESPACE_ESOCIAL)
-            for t in self.totalizadores:
-                tot = Tot()
-                tot.xml = t
-                self.tot.append(tot)
+            if self.totalizadores and len(self.totalizadores) > 0:
+                for t in self.totalizadores:
+                    tot = Tot()
+                    tot.xml = t
+                    self.tot.append(tot)
 
     xml = property(get_xml, set_xml)
 
