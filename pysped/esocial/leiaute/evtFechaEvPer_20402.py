@@ -63,21 +63,28 @@ class InfoFech(XMLNFe):
         self.evtInfoComplPer = TagCaracter(nome='evtInfoComplPer', tamanho=[1, 1], raiz='//eSocial/evrFechaEvPer/infoFech', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.compSemMovto    = TagCaracter(nome='compSemMovto',    tamanho=[1, 1], raiz='//eSocial/evrFechaEvPer/infoFech', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
-        self.iniValid  = TagCaracter(nome='iniValid', raiz='//eSocial/evtInfoEmpregador/infoEmpregador/novaValidade', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.fimValid  = TagCaracter(nome='fimValid', raiz='//eSocial/evtInfoEmpregador/infoEmpregador/novaValidade', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<novaValidade>'
-        xml += self.iniValid.xml
-        xml += self.fimValid.xml
-        xml += '</novaValidade>'
+        xml += '<infoFech>'
+        xml += self.evtRemun.xml
+        xml += self.evtPgtos.xml
+        xml += self.evtAqProd.xml
+        xml += self.evtComProd.xml
+        xml += self.evtContratAvNP.xml
+        xml += self.evtInfoComplPer.xml
+        xml += self.compSemMovto.xml
+        xml += '</infoFech>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.iniValid.xml = arquivo
-            self.fimValid.xml = arquivo
+            self.evtRemun.xml = arquivo
+            self.evtPgtos.xml = arquivo
+            self.evtAqProd.xml = arquivo
+            self.evtComProd.xml = arquivo
+            self.evtContratAvNP.xml = arquivo
+            self.evtInfoComplPer.xml = arquivo
+            self.compSemMovto.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
