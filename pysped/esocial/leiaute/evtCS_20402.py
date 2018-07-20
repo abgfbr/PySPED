@@ -397,10 +397,10 @@ class InfoTercSusp(XMLNFe):
 class IdeLotacao(XMLNFe):
     def __init__(self):
         super(IdeLotacao, self).__init__()
-        self.codLotacao = TagCaracter(nome='tpCR',        tamanho=[1, 6],     raiz='//calcTerc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.fpas  = TagCaracter(nome='vrCsSegTerc', tamanho=[1, 14, 2], raiz='//calcTerc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codTercs = TagDecimal( nome='vrDescTerc',  tamanho=[1, 14, 2], raiz='//calcTerc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codTercsSusp = TagDecimal( nome='vrDescTerc',  tamanho=[1, 14, 2], raiz='//calcTerc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codLotacao   = TagCaracter(nome='codLotacao',   tamanho=[1, 30], raiz='//ideLotacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.fpas         = TagCaracter(nome='fpas',         tamanho=[1, 3],  raiz='//ideLotacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codTercs     = TagCaracter(nome='codTercs',     tamanho=[1, 4],  raiz='//ideLotacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codTercsSusp = TagCaracter(nome='codTercSsusp', tamanho=[1, 4],  raiz='//ideLotacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.infoTercSusp = []
         self.infoEmprParcial = []
         self.dadosOpPort = []
@@ -442,12 +442,12 @@ class IdeLotacao(XMLNFe):
             self.fpas.xml = arquivo
             self.codTercs.xml = arquivo
             self.codTercsSusp.xml = arquivo
-            self.infoTercSusp = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/ideLotacao/infoTercSusp', InfoTercSusp, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoEmprParcial = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/ideLotacao/infoEmprParcial', InfoEmprParcial, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.dadosOpPort = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/ideLotacao/dadosOpPort', DadosOpPort, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.basesRemun = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/ideLotacao/basesRemun', BasesRemun, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.basesAvNPort = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/ideLotacao/basesAvNPort', BasesAvNPort, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.infoSubstPatrOpPort = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/ideLotacao/infoSubstPatrOpPort', InfoSubstPatrOpPort, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoTercSusp = self.le_grupo('//ideLotacao/infoTercSusp', InfoTercSusp, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoEmprParcial = self.le_grupo('//ideLotacao/infoEmprParcial', InfoEmprParcial, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.dadosOpPort = self.le_grupo('//ideLotacao/dadosOpPort', DadosOpPort, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.basesRemun = self.le_grupo('//ideLotacao/basesRemun', BasesRemun, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.basesAvNPort = self.le_grupo('//ideLotacao/basesAvNPort', BasesAvNPort, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoSubstPatrOpPort = self.le_grupo('//ideLotacao/infoSubstPatrOpPort', InfoSubstPatrOpPort, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -499,7 +499,7 @@ class InfoEstab(XMLNFe):
             self.aliqRat.xml = arquivo
             self.fap.xml = arquivo
             self.aliqRatAjust.xml = arquivo
-            self.infoComplObra = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/infoEstab/infoComplObra', InfoComplObra, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoComplObra = self.le_grupo('//infoEstab/infoComplObra', InfoComplObra, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -542,10 +542,10 @@ class IdeEstab(XMLNFe):
         if self._le_xml(arquivo):
             self.tpInsc.xml = arquivo
             self.nrInsc.xml = arquivo
-            self.infoEstab = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/infoEstab', InfoEstab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.ideLotacao = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/ideLotacao', IdeLotacao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.basesAquis = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/basesAquis', BasesAquis, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.basesComerc = self.le_grupo('//eSocial/evtCS/infoCS/ideEstab/basesComerc', BasesComerc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoEstab = self.le_grupo('//ideEstab/infoEstab', InfoEstab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.ideLotacao = self.le_grupo('//ideEstab/ideLotacao', IdeLotacao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.basesAquis = self.le_grupo('//ideEstab/basesAquis', BasesAquis, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.basesComerc = self.le_grupo('//ideEstab/basesComerc', BasesComerc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -600,7 +600,7 @@ class InfoPJ(XMLNFe):
             self.indConstr.xml = arquivo
             self.indSubstPatr.xml = arquivo
             self.percRedContrib.xml = arquivo
-            self.infoAtConc = self.le_grupo('//eSocial/evtCS/infoCS/infoContrib/infoPJ/infoAtConc', InfoAtConc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoAtConc = self.le_grupo('//infoPJ/infoAtConc', InfoAtConc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
