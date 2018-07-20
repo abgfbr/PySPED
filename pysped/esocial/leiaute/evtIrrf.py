@@ -50,7 +50,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evrIrrf/v02_04_02'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtIrrf/v02_04_02'
 
 
 class InfoCRContrib(XMLNFe):
@@ -75,29 +75,29 @@ class InfoCRContrib(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class InfoIrrf(XMLNFe):
+class InfoIRRF(XMLNFe):
     def __init__(self):
-        super(InfoIrrf, self).__init__()
-        self.nrRecArqBase  = TagCaracter(nome='nrRecArqBase', tamanho=[1, 40], raiz='//eSocial/evtIrrf/infoIrrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indExistInfo  = TagCaracter(nome='indExistInfo', tamanho=[1, 1],  raiz='//eSocial/evtIrrf/infoIrrf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        super(InfoIRRF, self).__init__()
+        self.nrRecArqBase  = TagCaracter(nome='nrRecArqBase', tamanho=[1, 40], raiz='//eSocial/evtIrrf/infoIRRF', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.indExistInfo  = TagCaracter(nome='indExistInfo', tamanho=[1, 1],  raiz='//eSocial/evtIrrf/infoIRRF', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.infoCRContrib = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<infoIrrf>'
+        xml += '<infoIRRF>'
         xml += self.nrRecArqBase.xml
         xml += self.indExistInfo.xml
         if len(self.infoCRContrib) > 0:
             for i in self.infoCRContrib:
                 xml += i.xml
-        xml += '</infoIrrf>'
+        xml += '</infoIRRF>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.nrRecArqBase.xml = arquivo
             self.indExistInfo.xml = arquivo
-            self.infoCRContrib = self.le_grupo('//eSocial/evtIrrf/infoIrrf/infoCRContrib', InfoCRContrib, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.infoCRContrib = self.le_grupo('//eSocial/evtIrrf/infoIRRF/infoCRContrib', InfoCRContrib, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -149,14 +149,14 @@ class EvtIrrf(XMLNFe):
         self.Id = TagCaracter(nome='evtIrrf', propriedade='Id', raiz='//eSocial', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
-        self.infoIrrf = InfoIrrf()
+        self.infoIRRF = InfoIRRF()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += self.Id.xml
         xml += self.ideEvento.xml
         xml += self.ideEmpregador.xml
-        xml += self.infoIrrf.xml
+        xml += self.infoIRRF.xml
         xml += '</evtIrrf>'
         return xml
 
@@ -165,7 +165,7 @@ class EvtIrrf(XMLNFe):
             self.Id.xml = arquivo
             self.ideEvento.xml = arquivo
             self.ideEmpregador.xml = arquivo
-            self.infoIrrf.xml = arquivo
+            self.infoIRRF.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -179,7 +179,7 @@ class S5012(XMLNFe):
         self.id_evento = ''
         self.tpInsc = ''
         self.nrInsc = ''
-        # self.Signature = Signature()
+        self.Signature = Signature()
         self.evento = self.evtIrrf
         self.xml_assinado = ''
 
@@ -192,8 +192,8 @@ class S5012(XMLNFe):
         #
         # Define a URI a ser assinada
         #
-        # self.Signature.URI = '#' + self.evtInfoEmpregador.Id.valor
-        # xml += self.Signature.xml
+        self.Signature.URI = '#' + self.evtIrrf.Id.valor
+        xml += self.Signature.xml
         xml += '</eSocial>'
 
         # Define o método de assinatura
@@ -203,7 +203,7 @@ class S5012(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.evtIrrf.xml = arquivo
-            # self.Signature.xml = self._le_noh('//eSocial/sig:Signature')
+            self.Signature.xml = self._le_noh('//sig:Signature')
 
     def gera_id_evento(self, data_hora, sequencia=False):
         #A identificação única do evento (Id) é composta por 36 caracteres, conforme o que segue: IDTNNNNNNNNNNNNNNAAAAMMDDHHMMSSQQQQQ

@@ -236,7 +236,7 @@ class RetornoEvento2(XMLNFe):
 class Tot(XMLNFe):
     def __init__(self):
         super(Tot, self).__init__()
-        self.tipo = TagCaracter(nome='tot', propriedade='tipo', raiz='//evento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tipo = TagCaracter(nome='tot', propriedade='tipo', raiz='/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.eSocial = S5001()
 
     def get_xml(self):
@@ -258,7 +258,7 @@ class Tot(XMLNFe):
             if self.tipo.valor == 'S5012':
                 self.eSocial = S5012()
             if self.tipo.valor:
-                self.eSocial.xml = self._le_nohs('//evento/tot', ns=NAMESPACE_ESOCIAL)[0][0]
+                self.eSocial.xml = self._le_nohs('//tot', ns=NAMESPACE_ESOCIAL)[0][0]
 
     xml = property(get_xml, set_xml)
 
@@ -267,17 +267,20 @@ class ESocial(XMLNFe):
     def __init__(self):
         super(ESocial, self).__init__()
         self.retornoEvento = RetornoEvento2()
+        self.Signature = Signature()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<eSocial xmlns="' + NAMESPACE_ESOCIAL_RETORNO_EVENTO + '">'
         xml += self.retornoEvento.xml
+        xml += self.Signature.xml
         xml += '</eSocial>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.retornoEvento.xml = arquivo
+            self.Signature.xml = self._le_noh('//sig:Signature')
 
     xml = property(get_xml, set_xml)
 
@@ -306,16 +309,19 @@ class Evento(XMLNFe):
         super(Evento, self).__init__()
         self.Id = TagCaracter(nome='evento', propriedade='Id', raiz='/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.retornoEvento = RetornoEvento()
-        self.tot = Tot()
+        self.tot = []
         self.resposta = self.retornoEvento.eSocial.retornoEvento.processamento.cdResposta.valor
         self.descricao = self.retornoEvento.eSocial.retornoEvento.processamento.descResposta.valor
         self.ocorrencias = self.retornoEvento.eSocial.retornoEvento.processamento.ocorrencias
+        self.totalizadores = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += self.Id.xml
         xml += self.retornoEvento.xml
-        xml += self.tot.xml
+        if len(self.tot) > 0:
+            for t in self.tot:
+                xml += t.xml
         xml += '</evento>'
         return xml
 
@@ -323,7 +329,11 @@ class Evento(XMLNFe):
         if self._le_xml(arquivo):
             self.Id.xml = arquivo
             self.retornoEvento.xml = arquivo
-            self.tot.xml = arquivo
+            self.totalizadores = self._le_nohs('//tot', ns=NAMESPACE_ESOCIAL)
+            for t in self.totalizadores:
+                tot = Tot()
+                tot.xml = t
+                self.tot.append(tot)
 
     xml = property(get_xml, set_xml)
 

@@ -771,7 +771,7 @@ class S5011(XMLNFe):
         self.id_evento = ''
         self.tpInsc = ''
         self.nrInsc = ''
-        # self.Signature = Signature()
+        self.Signature = Signature()
         self.evento = self.evtCS
         self.xml_assinado = ''
 
@@ -784,8 +784,8 @@ class S5011(XMLNFe):
         #
         # Define a URI a ser assinada
         #
-        # self.Signature.URI = '#' + self.evtInfoEmpregador.Id.valor
-        # xml += self.Signature.xml
+        self.Signature.URI = '#' + self.evtCS.Id.valor
+        xml += self.Signature.xml
         xml += '</eSocial>'
 
         # Define o método de assinatura
@@ -795,7 +795,7 @@ class S5011(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.evtCS.xml = arquivo
-            # self.Signature.xml = self._le_noh('//eSocial/sig:Signature')
+            self.Signature.xml = self._le_noh('//sig:Signature')
 
     def gera_id_evento(self, data_hora, sequencia=False):
         #A identificação única do evento (Id) é composta por 36 caracteres, conforme o que segue: IDTNNNNNNNNNNNNNNAAAAMMDDHHMMSSQQQQQ
