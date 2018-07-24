@@ -95,7 +95,7 @@ class ProcessadorEFDReinf(ProcessadorNFe):
         self._soap_retorno.metodo     = self._soap_envio.metodo
         self._soap_retorno.resposta   = resposta
 
-    def enviar_lote(self, lista_eventos=[]):
+    def enviar_lote(self, lista_eventos=[], grupo='1'):
         envio = LoteEventoEFDReinf_v1_03_02()
         resposta = RetornoLoteEventosEFDReinf_v1_03_02()
         processo = ProcessoEFDReinf(webservice=WS_EFDREINF_ENVIO, envio=envio, resposta=resposta)
