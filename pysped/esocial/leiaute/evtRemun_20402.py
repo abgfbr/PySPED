@@ -99,7 +99,7 @@ class RemunPerAntInfoTrabInterm(XMLNFe):
 class RemunPerAntInfoAgNocivo(XMLNFe):
     def __init__(self):
         super(RemunPerAntInfoAgNocivo, self).__init__()
-        self.grauExp = TagCaracter(nome='grauExp', tamanho=[1, 1], raiz='//infoAgNocivo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.grauExp = TagInteiro(nome='grauExp', tamanho=[1, 1], raiz='//infoAgNocivo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -314,7 +314,7 @@ class InfoTrabInterm(XMLNFe):
 class InfoAgNocivo(XMLNFe):
     def __init__(self):
         super(InfoAgNocivo, self).__init__()
-        self.grauExp = TagCaracter(nome='grauExp',  tamanho=[1, 1], raiz='//infoAgNocivo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.grauExp = TagInteiro(nome='grauExp',  tamanho=[1, 1], raiz='//infoAgNocivo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
