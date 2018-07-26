@@ -50,27 +50,27 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evrExclusao/v02_04_02'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtExclusao/v02_04_02'
 
 
 class IdeFolhaPagto(XMLNFe):
     def __init__(self):
         super(IdeFolhaPagto, self).__init__()
         self.indApuracao = TagCaracter(nome='indApuracao', tamanho=[1, 1], raiz='//ideFolhaPagto', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.perApuracao = TagCaracter(nome='perApur',     tamanho=[1, 7], raiz='//ideFolhaPagto', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.perApur = TagCaracter(nome='perApur',     tamanho=[1, 7], raiz='//ideFolhaPagto', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideFolhaPagto>'
         xml += self.indApuracao.xml
-        xml += self.perApuracao.xml
+        xml += self.perApur.xml
         xml += '</ideFolhaPagto>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.indApuracao.xml = arquivo
-            self.perApuracao.xml = arquivo
+            self.perApur.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -154,7 +154,7 @@ class IdeEmpregador(XMLNFe):
 class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
-        self.tpAmb   = TagCaracter(nome='verProc', tamanho=[1, 1],  raiz='//eSocial/evtExclusao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='2')
+        self.tpAmb   = TagCaracter(nome='tpAmb', tamanho=[1, 1],  raiz='//eSocial/evtExclusao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='2')
         self.procEmi = TagCaracter(nome='procEmi', tamanho=[1, 1],  raiz='//eSocial/evtExclusao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
         self.verProc = TagCaracter(nome='verProc', tamanho=[1, 20], raiz='//eSocial/evtExclusao/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
