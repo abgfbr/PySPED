@@ -61,6 +61,8 @@ from .evtInfoEmpregador_20402 import S1000 as S1000_2
 # S-1005
 from .evtTabEstab_20402 import S1005 as S1005_2
 from .evtTabEstab_20402 import InfoEntEduc as InfoEntEduc_2
+from .evtTabEstab_20402 import InfoCaepf as S1005_InfoCaepf_2
+from .evtTabEstab_20402 import InfoPCD as S1005_InfoPCD_2
 
 # S-1010
 from . evtTabRubrica_20402 import S1010 as S1010_2
