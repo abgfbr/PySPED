@@ -219,6 +219,7 @@ class DetPgtoFer(XMLNFe):
         self.codCateg  = TagCaracter(nome='codCateg',  tamanho=[1, 3],     raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30],    raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtIniGoz  = TagData(    nome='dtIniGoz',                      raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.qtDias    = TagCaracter(nome='qtDias',    tamanho=[1, 2],     raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.vrLiq     = TagDecimal( nome='vrLiq',     tamanho=[1, 14, 2], raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.detRubrFer = []
 
@@ -228,6 +229,7 @@ class DetPgtoFer(XMLNFe):
         xml += self.codCateg.xml
         xml += self.matricula.xml
         xml += self.dtIniGoz.xml
+        xml += self.qtDias.xml
         xml += self.vrLiq.xml
         if len(self.detRubrFer) > 0 :
             for r in self.detRubrFer:
@@ -240,6 +242,7 @@ class DetPgtoFer(XMLNFe):
             self.codCateg.xml = arquivo
             self.matricula.xml = arquivo
             self.dtIniGoz.xml = arquivo
+            self.qtDias.xml = arquivo
             self.vrLiq.xml = arquivo
             self.detRubrFer = self.le_grupo('//eSocial/evtPgtos/ideBenef/infoPgto/detPgtoFer/detRubrFer', DetRubrFer, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
