@@ -217,7 +217,7 @@ class DetPgtoFer(XMLNFe):
     def __init__(self):
         super(DetPgtoFer, self).__init__()
         self.codCateg  = TagCaracter(nome='codCateg',  tamanho=[1, 3],     raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30],    raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30],    raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.dtIniGoz  = TagData(    nome='dtIniGoz',                      raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.qtDias    = TagCaracter(nome='qtDias',    tamanho=[1, 2],     raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.vrLiq     = TagDecimal( nome='vrLiq',     tamanho=[1, 14, 2], raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
