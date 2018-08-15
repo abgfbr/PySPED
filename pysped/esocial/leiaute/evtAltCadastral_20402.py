@@ -182,7 +182,7 @@ class TrabEstrangeiro(XMLNFe):
         self.dtChegada        = TagData(    nome='dtChegada'       ,                 raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.classTrabEstrang = TagCaracter(nome='classTrabEstrang', tamanho=[1, 2], raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.casadoBr         = TagCaracter(nome='casadoBr'        , tamanho=[1, 1], raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.filhoBr          = TagCaracter(nome='filhosBr'        , tamanho=[1, 1], raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.filhosBr          = TagCaracter(nome='filhosBr'        , tamanho=[1, 1], raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -190,7 +190,7 @@ class TrabEstrangeiro(XMLNFe):
         xml += self.dtChegada.xml
         xml += self.classTrabEstrang.xml
         xml += self.casadoBr.xml
-        xml += self.filhoBr.xml
+        xml += self.filhosBr.xml
         xml += '</trabEstrangeiro>'
         return xml
 
@@ -199,7 +199,7 @@ class TrabEstrangeiro(XMLNFe):
             self.dtChegada.xml = arquivo
             self.classTrabEstrang.xml = arquivo
             self.casadoBr.xml = arquivo
-            self.filhoBr.xml = arquivo
+            self.filhosBr.xml = arquivo
 
     xml = property(get_xml, set_xml)
 

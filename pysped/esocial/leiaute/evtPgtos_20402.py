@@ -179,7 +179,7 @@ class DetRubrFer(XMLNFe):
         super(DetRubrFer, self).__init__()
         self.codRubr    = TagCaracter(nome='codRubr',    tamanho=[1, 30],    raiz='//detRubrFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8],     raiz='//detRubrFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdRubr    = TagDecimal( nome='ideTabRubr', tamanho=[1, 6, 2],  raiz='//detRubrFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.qtdRubr    = TagDecimal( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//detRubrFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagDecimal( nome='fatorRubr' , tamanho=[1, 5, 2],  raiz='//detRubrFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagDecimal( nome='vrUnit'    , tamanho=[1, 14, 2], raiz='//detRubrFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr'    , tamanho=[1, 14, 2], raiz='//detRubrFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
@@ -187,7 +187,7 @@ class DetRubrFer(XMLNFe):
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<infoPgtoParc>'
+        xml += '<detRubrFer>'
         xml += self.codRubr.xml
         xml += self.ideTabRubr.xml
         xml += self.qtdRubr.xml
@@ -197,7 +197,7 @@ class DetRubrFer(XMLNFe):
         if len(self.penAlim) > 0:
             for p in self.penAlim:
                 xml += p.xml
-        xml += '</infoPgtoParc>'
+        xml += '</detRubrFer>'
         return xml
 
     def set_xml(self, arquivo):
@@ -217,8 +217,9 @@ class DetPgtoFer(XMLNFe):
     def __init__(self):
         super(DetPgtoFer, self).__init__()
         self.codCateg  = TagCaracter(nome='codCateg',  tamanho=[1, 3],     raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30],    raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30],    raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.dtIniGoz  = TagData(    nome='dtIniGoz',                      raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.qtDias    = TagCaracter(nome='qtDias',    tamanho=[1, 2],     raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.vrLiq     = TagDecimal( nome='vrLiq',     tamanho=[1, 14, 2], raiz='//detPgtoFer', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.detRubrFer = []
 
@@ -228,6 +229,7 @@ class DetPgtoFer(XMLNFe):
         xml += self.codCateg.xml
         xml += self.matricula.xml
         xml += self.dtIniGoz.xml
+        xml += self.qtDias.xml
         xml += self.vrLiq.xml
         if len(self.detRubrFer) > 0 :
             for r in self.detRubrFer:
@@ -240,6 +242,7 @@ class DetPgtoFer(XMLNFe):
             self.codCateg.xml = arquivo
             self.matricula.xml = arquivo
             self.dtIniGoz.xml = arquivo
+            self.qtDias.xml = arquivo
             self.vrLiq.xml = arquivo
             self.detRubrFer = self.le_grupo('//eSocial/evtPgtos/ideBenef/infoPgto/detPgtoFer/detRubrFer', DetRubrFer, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
@@ -251,7 +254,7 @@ class DetPgtoBenPrInfoPgtoParc(XMLNFe):
         super(DetPgtoBenPrInfoPgtoParc, self).__init__()
         self.codRubr    = TagCaracter(nome='codRubr',    tamanho=[1, 30],    raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8],     raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdRubr    = TagDecimal( nome='ideTabRubr', tamanho=[1, 6, 2],  raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.qtdRubr    = TagDecimal( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagDecimal( nome='fatorRubr' , tamanho=[1, 5, 2],  raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagDecimal( nome='vrUnit'    , tamanho=[1, 14, 2], raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr'    , tamanho=[1, 14, 2], raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
@@ -358,7 +361,7 @@ class InfoPgtoParc(XMLNFe):
         self.matricula  = TagCaracter(nome='matricula',  tamanho=[1, 30],    raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.codRubr    = TagCaracter(nome='codRubr',    tamanho=[1, 30],    raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8],     raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdRubr    = TagDecimal( nome='ideTabRubr', tamanho=[1, 6, 2],  raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.qtdRubr    = TagDecimal( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagDecimal( nome='fatorRubr' , tamanho=[1, 5, 2],  raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagDecimal( nome='vrUnit'    , tamanho=[1, 14, 2], raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr'    , tamanho=[1, 14, 2], raiz='//infoPgtoParc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)

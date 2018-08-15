@@ -423,7 +423,7 @@ class InfoTSVInicio(XMLNFe):
         self.cadIni = TagCaracter(nome='cadIni', tamanho=[1, 1], raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.codCateg = TagInteiro(nome='codCateg', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.dtInicio = TagData(nome='dtInicio', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.natAtividade = TagInteiro(nome='natAtividade', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.natAtividade = TagInteiro(nome='natAtividade', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.infoComplementares = []
         self.afastamento = []
         self.termino = []
@@ -590,7 +590,7 @@ class TrabEstrangeiro(XMLNFe):
         self.dtChegada        = TagData(    nome='dtChegada'       ,                 raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.classTrabEstrang = TagCaracter(nome='classTrabEstrang', tamanho=[1, 2], raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.casadoBr         = TagCaracter(nome='casadoBr'        , tamanho=[1, 1], raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.filhoBr          = TagCaracter(nome='filhosBr'        , tamanho=[1, 1], raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.filhosBr         = TagCaracter(nome='filhosBr'        , tamanho=[1, 1], raiz='//trabEstrangeiro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -598,7 +598,7 @@ class TrabEstrangeiro(XMLNFe):
         xml += self.dtChegada.xml
         xml += self.classTrabEstrang.xml
         xml += self.casadoBr.xml
-        xml += self.filhoBr.xml
+        xml += self.filhosBr.xml
         xml += '</trabEstrangeiro>'
         return xml
 
@@ -607,7 +607,7 @@ class TrabEstrangeiro(XMLNFe):
             self.dtChegada.xml = arquivo
             self.classTrabEstrang.xml = arquivo
             self.casadoBr.xml = arquivo
-            self.filhoBr.xml = arquivo
+            self.filhosBr.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -1019,7 +1019,7 @@ class Trabalhador(XMLNFe):
             self.nmTrab.xml = arquivo
             self.sexo.xml = arquivo
             self.racaCor.xml = arquivo
-            self.estCivil.xml = arquivo
+            self.estCiv.xml = arquivo
             self.grauInstr.xml = arquivo
             self.nmSoc.xml = arquivo
             self.nascimento.xml = arquivo
@@ -1168,11 +1168,14 @@ class S2300(XMLNFe):
         #OBS.: No caso de pessoas jurídicas, o CNPJ informado deverá conter 8 ou 14 posições de
         #acordo com o enquadramento do contribuinte para preenchimento do campo {ideEmpregador/nrInsc} do evento S-1000, completando-se com zeros à direita, se necessário.
 
+        if not sequencia:
+            sequencia=1
+
         id_evento = 'ID'
         id_evento += self.tpInsc
         id_evento += self.nrInsc[0:8] + '000000'
         id_evento += data_hora
-        id_evento += str(1).zfill(5)
+        id_evento += str(sequencia).zfill(5)
 
         # Define o Id
         #
