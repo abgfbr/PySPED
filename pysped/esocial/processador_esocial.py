@@ -179,16 +179,16 @@ class ProcessadorESocial(ProcessadorNFe):
         envio.consultaLoteEventos.protocoloEnvio.valor = protocolo
 
         envio.validar()
-        # if self.salvar_arquivos:
-        #     arq = open(self.caminho + '/' + protocolo + '/consulta.xml', 'w')
-        #     arq.write(envio.xml)
-        #     arq.close()
+        if self.salvar_arquivos:
+            arq = open(self.caminho + '/' + protocolo + '/consulta.xml', 'w')
+            arq.write(envio.xml)
+            arq.close()
 
         self._conectar_servico(WS_ESOCIAL_CONSULTA, envio, resposta)
 
-        # if self.salvar_arquivos:
-        #     arq = open(self.caminho + '/' + protocolo + '/resposta.xml', 'w')
-        #     arq.write(envio.xml)
-        #     arq.close()
+        if self.salvar_arquivos:
+            arq = open(self.caminho + '/' + protocolo + '/resposta.xml', 'w')
+            arq.write(envio.xml)
+            arq.close()
 
         return processo
