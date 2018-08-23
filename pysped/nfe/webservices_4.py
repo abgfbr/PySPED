@@ -47,11 +47,11 @@ from .webservices_flags import *
 METODO_WS = {
     WS_NFE_INUTILIZACAO: {
         'webservice': 'NFeInutilizacao4',
-        'metodo'    : 'nfeInutilizacaoNF2',
+        'metodo'    : 'nfeInutilizacaoNF',
     },
     WS_NFE_CONSULTA: {
         'webservice': 'NFeConsultaProtocolo4',
-        'metodo'    : 'nfeConsultaNF2',
+        'metodo'    : 'nfeConsultaNF',
     },
     WS_NFE_SITUACAO: {
         'webservice': 'NFeStatusServico4',
@@ -73,14 +73,6 @@ METODO_WS = {
         'webservice': 'NFeRetAutorizacao4',
         'metodo'    : 'NfeRetAutorizacao',
     },
-    #WS_NFE_DOWNLOAD: {
-        #'webservice': 'NfeDownloadNF',
-        #'metodo'    : 'nfeDownloadNF',
-    #},
-    #WS_NFE_CONSULTA_DESTINADAS: {
-        #'webservice': 'NfeConsultaDest',
-        #'metodo'    : 'nfeConsultaNFDest',
-    #},
     WS_DFE_DISTRIBUICAO: {
         'webservice': 'NFeDistribuicaoDFe',
         'metodo'    : 'nfeDistDFeInteresse'
@@ -195,16 +187,12 @@ AN = {
     NFE_AMBIENTE_PRODUCAO: {
         'servidor'                : 'www.nfe.fazenda.gov.br',
         'servidor%s' % WS_DFE_DISTRIBUICAO: 'www1.nfe.fazenda.gov.br',
-        WS_NFE_RECEPCAO_EVENTO    : 'RecepcaoEvento/RecepcaoEvento.asmx',
-        #WS_NFE_CONSULTA_DESTINADAS: 'NFeConsultaDest/NFeConsultaDest.asmx',
-        #WS_NFE_DOWNLOAD           : 'NfeDownloadNF/NfeDownloadNF.asmx',
+        WS_NFE_RECEPCAO_EVENTO    : 'NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx',
         WS_DFE_DISTRIBUICAO       : 'NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx',
     },
     NFE_AMBIENTE_HOMOLOGACAO: {
         'servidor'                : 'hom.nfe.fazenda.gov.br',
-        WS_NFE_RECEPCAO_EVENTO    : 'RecepcaoEvento/RecepcaoEvento.asmx',
-        #WS_NFE_CONSULTA_DESTINADAS: 'NFeConsultaDest/NFeConsultaDest.asmx',
-        #WS_NFE_DOWNLOAD           : 'NfeDownloadNF/NfeDownloadNF.asmx',
+        WS_NFE_RECEPCAO_EVENTO    : 'NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx',
         WS_DFE_DISTRIBUICAO       : 'NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx',
     },
 }
@@ -263,7 +251,7 @@ UFCE = {
         WS_NFE_CONSULTA            : 'nfe4/services/NFeConsultaProtocolo4',
         WS_NFE_SITUACAO            : 'nfe4/services/NFeStatusServico4',
         WS_NFE_CONSULTA_CADASTRO   : 'nfe2/services/CadConsultaCadastro2',
-        WS_NFE_RECEPCAO_EVENTO     : 'nfe2/services/RecepcaoEvento',
+        WS_NFE_RECEPCAO_EVENTO     : 'nfe4/services/NFeRecepcaoEvento4',
         WS_NFE_AUTORIZACAO         : 'nfe4/services/NFeAutorizacao4',
         WS_NFE_CONSULTA_AUTORIZACAO: 'nfe4/services/NFeRetAutorizacao4',
     },
@@ -273,7 +261,7 @@ UFCE = {
         WS_NFE_CONSULTA            : 'nfe4/services/NFeConsultaProtocolo4',
         WS_NFE_SITUACAO            : 'nfe4/services/NFeStatusServico4',
         WS_NFE_CONSULTA_CADASTRO   : 'nfe2/services/CadConsultaCadastro2',
-        WS_NFE_RECEPCAO_EVENTO     : 'nfe2/services/RecepcaoEvento',
+        WS_NFE_RECEPCAO_EVENTO     : 'nfe4/services/NFeRecepcaoEvento4',
         WS_NFE_AUTORIZACAO         : 'nfe4/services/NFeAutorizacao4',
         WS_NFE_CONSULTA_AUTORIZACAO: 'nfe4/services/NFeRetAutorizacao4',
     }

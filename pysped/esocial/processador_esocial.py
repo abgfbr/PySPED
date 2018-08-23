@@ -136,8 +136,10 @@ class ProcessadorESocial(ProcessadorNFe):
         for evento in lista_eventos:
             evento.xml_assinado = self.certificado.assina_xml(evento.xml, assinar_raiz=True, metodo='sha256')
 
+        print(envio.xml)
         envio.envioLoteEventos.eventos = lista_eventos
         envio.validar()
+        print(resposta.xml)
 
         # Salva os registros enviados pelo Lote
         if self.salvar_arquivos:
@@ -154,7 +156,7 @@ class ProcessadorESocial(ProcessadorNFe):
             # arq.write(envio.xml)
             # arq.close()
 
-        self._conectar_servico(WS_ESOCIAL_ENVIO, envio, resposta)
+        # self._conectar_servico(WS_ESOCIAL_ENVIO, envio, resposta)
 
         # Salva o XML de envio do próprio Lote
         if self.salvar_arquivos:

@@ -531,7 +531,7 @@ class ICMS(nfe_200.ICMS):
         #
         self.vICMSDeson = TagDecimal(nome='vICMSDeson', codigo='N27a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
         self.vICMSOp = TagDecimal(nome='vICMSOp', codigo='P16a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
-        self.pDif = TagDecimal(nome='pDif', codigo='P16b', tamanho=[1, 7, 1], decimais=[0, 2, 4], raiz='', obrigatorio=False)
+        self.pDif = TagDecimal(nome='pDif', codigo='P16b', tamanho=[1, 7, 1], decimais=[0, 4, 2], raiz='', obrigatorio=False)
         self.vICMSDif = TagDecimal(nome='vICMSDif', codigo='P16b', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
 
         #
@@ -2192,7 +2192,7 @@ class NFe(nfe_200.NFe):
     def serie_formatada(self):
         if str(self.infNFe.ide.mod.valor) == '65':
             return 'Série ' + str(self.infNFe.ide.serie.valor).zfill(3)
-        elif str(self.infNFe.ide.mod.valor) == '65':
+        elif str(self.infNFe.ide.mod.valor) == '55':
             return 'SÉRIE ' + str(self.infNFe.ide.serie.valor).zfill(3)
         else:
             return str(self.infNFe.ide.serie.valor).zfill(3)
@@ -2279,6 +2279,7 @@ class NFSe(NFe):
         self.assinatura_servico = ''
         self.codigo_verificacao = ''
         self.cancelada = False
+        self.motivo_cancelamento = ''
 
         #
         # Marca as tags de ISS e retenções como obrigatórias
@@ -2311,9 +2312,10 @@ class NFSe(NFe):
         nome_cidade = nome_cidade.replace(' ', '_').lower()
 
         nome_cidade = nome_cidade.replace('°','o')
+        nome_cidade = nome_cidade.replace('’','')
 
         if sys.version_info.major == 2:
-            nome_cidade = unicodedata.normalize(b'NFKD', nome_cidade).encode('ascii', 'ignore').encode('utf-8')
+            nome_cidade = unicodedata.normalize(b'NFKD', nome_cidade).encode('ascii', 'ignore').decode('utf-8')
         else:
             nome_cidade = unicodedata.normalize('NFKD', nome_cidade).encode('ascii', 'ignore').decode('utf-8')
 
