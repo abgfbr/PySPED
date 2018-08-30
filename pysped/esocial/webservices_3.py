@@ -58,7 +58,7 @@ METODO_WS = {
 SVESOCIAL = {
     # o servidor da consulta de cadastro é diferente dos demais...
     ESOCIAL_AMBIENTE_PRODUCAO: {
-        'servidor'                 : 'webservices.producaorestrita.esocial.gov.br',
+        'servidor'                 : 'webservices.envio.esocial.gov.br',
         WS_ESOCIAL_ENVIO           : 'servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc',        
         WS_ESOCIAL_CONSULTA        : 'servicos/empregador/consultarloteeventos/WsConsultarLoteEventos.svc',
         
