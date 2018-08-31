@@ -76,13 +76,15 @@ class ProcessadorESocial(ProcessadorNFe):
         # Se for Consulta deve usar o SOAPConsulta ao invés do SOAPEnvio
         if servico == WS_ESOCIAL_CONSULTA:
             self._soap_envio = SOAPConsulta_10100()
+            servidor = 'consulta'
         else:
             self._soap_envio = SOAPEnvio_10100()
+            servidor = 'envio'
         self._soap_retorno = SOAPRetorno_10100()
 
         ws_a_usar = webservices.SVESOCIAL
 
-        self._servidor = ws_a_usar[ambiente]['servidor']
+        self._servidor = ws_a_usar[ambiente][servidor]
         self._url      = ws_a_usar[ambiente][servico]
 
         self._soap_envio.webservice = metodo_ws[servico]['webservice']
