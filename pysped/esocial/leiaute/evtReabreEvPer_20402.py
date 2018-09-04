@@ -117,7 +117,7 @@ class EvtReabreEvPer(XMLNFe):
         xml += self.Id.xml
         xml += self.ideEvento.xml
         xml += self.ideEmpregador.xml
-        xml += '</evtFechaEvPer>'
+        xml += '</evtReabreEvPer>'
         return xml
 
     def set_xml(self, arquivo):
