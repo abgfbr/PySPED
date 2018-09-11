@@ -154,7 +154,7 @@ class EvtReabreEvPer(XMLNFe):
 
 class R2098(XMLNFe):
     def __init__(self):
-        super(R2099, self).__init__()
+        super(R2098, self).__init__()
         self.evtReabreEvPer = EvtReabreEvPer()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/',
                                             ESQUEMA_ATUAL + '/')
