@@ -159,7 +159,7 @@ class EvtReabreEvPer(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class R2099(XMLNFe):
+class R2098(XMLNFe):
     def __init__(self):
         super(R2099, self).__init__()
         self.evtReabreEvPer = EvtReabreEvPer()
