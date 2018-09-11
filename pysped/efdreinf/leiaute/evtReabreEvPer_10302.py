@@ -49,13 +49,6 @@ from builtins import str
 from pysped.efdreinf.leiaute import ESQUEMA_ATUAL_VERSAO_1 as ESQUEMA_ATUAL
 from pysped.xml_sped import *
 
-PYBRASIL = False
-# try:
-
-PYBRASIL = True
-# except:
-# pass
-
 DIRNAME = os.path.dirname(__file__)
 
 NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtReabreEvPer/v1_03_02'
