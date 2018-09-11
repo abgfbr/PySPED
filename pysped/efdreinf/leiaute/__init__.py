@@ -65,4 +65,5 @@ from .evtTomadorServicos_10302 import R2010 as R2010_1
 from .evtTomadorServicos_10302 import NFS as NFS_1
 from .evtTomadorServicos_10302 import InfoTpServ as InfoTpServ_1
 
+from .evtReabreEvPer_10302 import R2098 as R2098_1
 from .evtFechamento_10302 import R2099 as R2099_1
