@@ -218,6 +218,10 @@ from .evtPgtos_20402 import DetPgtoAnt as S1210_DetPgtoAnt_2
 from .evtPgtos_20402 import IdePgtoExt as S1210_IdePgtoExt_2
 from .evtPgtos_20402 import InfoPgtoAnt as S1210_InfoPgtoAnt_2
 
+# S-1295
+from .evtTotContig_20402 import IdeRespInf as S1295_IdeRespInf_2
+from .evtTotContig_20402 import S1295 as S1295_2
+
 # S-1298
 from .evtReabreEvPer_20402 import S1298 as S1298_2
 
