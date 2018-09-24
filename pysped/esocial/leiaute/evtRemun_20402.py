@@ -682,7 +682,7 @@ class RemunOutrEmpr(XMLNFe):
         self.tpInsc     = TagCaracter(nome='tpInsc',     tamanho=[1, 1],  raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
         self.nrInsc     = TagCaracter(nome='nrInsc',     tamanho=[1, 15], raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codCateg   = TagCaracter(nome='codCateg',   tamanho=[1, 3],  raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vlrRemunOE = TagCaracter(nome='vlrRemunOE', tamanho=[1, 3],  raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vlrRemunOE = TagCaracter(nome='vlrRemunOE', tamanho=[1, 14],  raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
