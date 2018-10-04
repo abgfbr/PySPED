@@ -476,7 +476,7 @@ class RemunOutrEmpr(XMLNFe):
         self.tpInsc = TagInteiro(name='tpInsc', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nrInsc = TagCaracter(name='nrInsc', tamanho=[1, 15], raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codCateg = TagInteiro(name='codCateg', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vlrRemunOE = TagInteiro(name='vlrRemunOE', raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vlrRemunOE = TagCaracter(nome='vlrRemunOE', tamanho=[1, 14],  raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -502,7 +502,7 @@ class RemunOutrEmpr(XMLNFe):
 class InfoMV(XMLNFe):
     def __init__(self):
         super(InfoMV, self).__init__()
-        self.indMV = TagInteiro(name='indMV', raiz='//infoMV', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indMV = TagCaracter(nome='indMV', tamanho=[1, 1], raiz='//infoMV', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.remunOutrEmpr = []
 
     def get_xml(self):
