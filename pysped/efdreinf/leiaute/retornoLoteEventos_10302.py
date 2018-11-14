@@ -50,7 +50,7 @@ from .retornoTotalizadorEvento_10302 import RetornoTotalizadorEvento
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_LOTE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/retornoLoteEventos/v1_03_02'
+NAMESPACE_LOTE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/retornoLoteEventos/v1_04_00'
 
 
 # class Evento(XMLNFe):
@@ -222,8 +222,8 @@ class RetornoLoteEventos(XMLNFe):
         self.ocorrencias = []
         self.retornoEventos = []
         self.eventos = []
-        # self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
-        # self.arquivo_esquema = 'RetornoLoteEventos.xsd'
+        self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
+        self.arquivo_esquema = 'RetornoLoteEventos.xsd'
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
