@@ -60,7 +60,7 @@ PYBRASIL = True
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtTotal/v1_03_02'
+NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtTotal/v1_04_00'
 
 
 class RRecEspetDesp(XMLNFe):
