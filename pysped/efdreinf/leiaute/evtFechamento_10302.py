@@ -60,7 +60,7 @@ PYBRASIL = True
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtFechamento/v1_03_02'
+NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtFechamento/v1_04_00'
 
 
 class InfoFech(XMLNFe):
@@ -72,7 +72,7 @@ class InfoFech(XMLNFe):
         self.evtAssDespRep = TagCaracter(nome='evtAssDespRep', tamanho=[1, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.evtComProd = TagCaracter(nome='evtComProd', tamanho=[1, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.evtCPRB = TagCaracter(nome='evtCPRB', tamanho=[1, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
-        self.evtPgtos = TagCaracter(nome='evtPgtos', tamanho=[1, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
+        self.evtPgtos = TagCaracter(nome='evtPgtos', tamanho=[0, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.compSemMovto = TagCaracter(nome='compSemMovto', tamanho=[0, 7], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
 
     def get_xml(self):
@@ -84,7 +84,8 @@ class InfoFech(XMLNFe):
         xml += self.evtAssDespRep.xml
         xml += self.evtComProd.xml
         xml += self.evtCPRB.xml
-        xml += self.evtPgtos.xml
+        if self.evtPgtos.valor:
+            xml += self.evtPgtos.xml
         if self.compSemMovto.valor:
             xml += self.compSemMovto.xml
         xml += '</infoFech>'
