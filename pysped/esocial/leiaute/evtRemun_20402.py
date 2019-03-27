@@ -196,12 +196,12 @@ class IdePeriodoIdeEstabLot(XMLNFe):
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<idePeriodo>'
+        xml += '<ideEstabLot>'
         xml += self.tpInsc.xml
         xml += self.nrInsc.xml
         xml += self.codLotacao.xml
         xml += self.remunPerAnt.xml
-        xml += '</idePeriodo>'
+        xml += '</ideEstabLot>'
         return xml
 
     def set_xml(self, arquivo):
