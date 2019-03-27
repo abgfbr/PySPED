@@ -59,13 +59,13 @@ SVEFDREINF = {
     EFDREINF_AMBIENTE_PRODUCAO: {
         'servidor'                  : 'reinf.receita.fazenda.gov.br',
         WS_EFDREINF_ENVIO           : 'WsREINF/RecepcaoLoteReinf.svc',
-        WS_EFDREINF_CONSULTA        : 'WsREINF/ConsultasReinf.svc',
+        WS_EFDREINF_CONSULTA        : 'WsReinfConsultas/ConsultasReinf.svc',
         
     },
     EFDREINF_AMBIENTE_HOMOLOGACAO: {
         'servidor'                  : 'preprodefdreinf.receita.fazenda.gov.br',
         WS_EFDREINF_ENVIO           : 'WsREINF/RecepcaoLoteReinf.svc',
-        WS_EFDREINF_CONSULTA        : 'WsREINF/ConsultasReinf.svc',
+        WS_EFDREINF_CONSULTA        : 'WsReinfConsultas/ConsultasReinf.svc',
        
     }
 }
