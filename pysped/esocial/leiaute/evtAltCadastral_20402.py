@@ -49,7 +49,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAltCadastral/v02_04_02'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAltCadastral/v02_05_00'
 
 
 class Contato(XMLNFe):

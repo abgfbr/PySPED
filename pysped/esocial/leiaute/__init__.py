@@ -42,9 +42,9 @@
 from __future__ import division, print_function, unicode_literals
 
 #
-# Versão 2.04.02
+# Versão 2.05.00
 #
-ESQUEMA_ATUAL_VERSAO_2 = 'v2.04.02'
+ESQUEMA_ATUAL_VERSAO_2 = 'v2.05.00'
 
 from .soap_10100 import SOAPEnvio as SOAPEnvio_10100
 from .soap_10100 import SOAPRetorno as SOAPRetorno_10100
