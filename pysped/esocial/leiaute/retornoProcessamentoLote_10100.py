@@ -55,10 +55,10 @@ DIRNAME = os.path.dirname(__file__)
 
 NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/lote/eventos/envio/retornoProcessamento/v1_3_0'
 NAMESPACE_ESOCIAL_RETORNO_EVENTO = 'http://www.esocial.gov.br/schema/evt/retornoEvento/v1_2_1'
-NAMESPACE_ESOCIAL_S5001 = 'http://www.esocial.gov.br/schema/evt/evtBasesTrab/v02_04_02'
-NAMESPACE_ESOCIAL_S5002 = 'http://www.esocial.gov.br/schema/evt/evtIrrfBenef/v02_04_02'
-NAMESPACE_ESOCIAL_S5011 = 'http://www.esocial.gov.br/schema/evt/evtCS/v02_04_02'
-NAMESPACE_ESOCIAL_S5012 = 'http://www.esocial.gov.br/schema/evt/evtIrrf/v02_04_02'
+NAMESPACE_ESOCIAL_S5001 = 'http://www.esocial.gov.br/schema/evt/evtBasesTrab/v02_05_00'
+NAMESPACE_ESOCIAL_S5002 = 'http://www.esocial.gov.br/schema/evt/evtIrrfBenef/v02_05_00'
+NAMESPACE_ESOCIAL_S5011 = 'http://www.esocial.gov.br/schema/evt/evtCS/v02_05_00'
+NAMESPACE_ESOCIAL_S5012 = 'http://www.esocial.gov.br/schema/evt/evtIrrf/v02_05_00'
 
 
 class Recibo(XMLNFe):
