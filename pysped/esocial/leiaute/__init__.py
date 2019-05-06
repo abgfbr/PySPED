@@ -132,6 +132,13 @@ from .evtAfastTemp_20402 import S2230 as S2230_2
 from .evtAfastTemp_20402 import IniAfastamento as S2230_IniAfastamento_2
 from .evtAfastTemp_20402 import FimAfastamento as S2230_FimAfastamento_2
 
+# S-2240
+from .evtExpRisco_20500 import S2240 as S2240_2
+from .evtExpRisco_20500 import InfoAmb as S2240_InfoAmb_2
+from .evtExpRisco_20500 import FatRisco as S2240_FatRisco_2
+from .evtExpRisco_20500 import Obs as S2240_Obs_2
+from .evtExpRisco_20500 import Epi as S2240_Epi_2
+
 # S-2299
 from .evtDeslig_20402 import S2299 as S2299_2
 from .evtDeslig_20402 import IdeEstabLot as S2299_IdeEstabLot_2
