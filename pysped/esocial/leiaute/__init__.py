@@ -123,6 +123,10 @@ from .evtAltContratual_20402 import HorContratual as S2206_HorContratual_2
 from .evtAltContratual_20402 import Horario as S2206_Horario_2
 from .evtAltContratual_20402 import FiliacaoSindical as S2206_FiliacaoSindical_2
 
+# S-2220
+from .evtMonit_20500 import S2220 as S2220_2
+from .evtMonit_20500 import Exame as S2220_Exame_2
+
 # S-2230
 from .evtAfastTemp_20402 import S2230 as S2230_2
 from .evtAfastTemp_20402 import IniAfastamento as S2230_IniAfastamento_2
