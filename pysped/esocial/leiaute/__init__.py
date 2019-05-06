@@ -78,6 +78,12 @@ from .evtTabCargo_20402 import CargoPublico as S1030_CargoPublico_2
 from .evtTabHorTur_20402 import S1050 as S1050_2
 from .evtTabHorTur_20402 import HorarioIntervalo as HorarioIntervalo_2
 
+# S-1060
+from .evtTabAmbiente_20500 import S1060 as S1060_2
+from .evtTabAmbiente_20500 import Inclusao as S1060_Inclusao
+from .evtTabAmbiente_20500 import Alteracao as S1060_alteracao
+from .evtTabAmbiente_20500 import Exclusao as S1060_exclusao
+
 # S-2200
 from .evtAdmissao_20402 import S2200 as S2200_2
 from .evtAdmissao_20402 import CTPS as S2200_CTPS_2
