@@ -139,6 +139,11 @@ from .evtExpRisco_20500 import FatRisco as S2240_FatRisco_2
 from .evtExpRisco_20500 import Obs as S2240_Obs_2
 from .evtExpRisco_20500 import Epi as S2240_Epi_2
 
+# S-2245
+from .evtTreiCap_20500 import S2245 as S2245_2
+from .evtTreiCap_20500 import InfoComplem as S2245_InfoComplem_2
+from .evtTreiCap_20500 import IdeProfResp as S2245_IdeProfResp_2
+
 # S-2299
 from .evtDeslig_20402 import S2299 as S2299_2
 from .evtDeslig_20402 import IdeEstabLot as S2299_IdeEstabLot_2

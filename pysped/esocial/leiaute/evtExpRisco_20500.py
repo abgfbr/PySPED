@@ -432,7 +432,7 @@ class EvtExpRisco(XMLNFe):
 
 class S2240(XMLNFe):
     def __init__(self):
-        super(S2220, self).__init__()
+        super(S2240, self).__init__()
         self.evtExpRisco = EvtExpRisco()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
         self.arquivo_esquema = 'evtExpRisco.xsd'
