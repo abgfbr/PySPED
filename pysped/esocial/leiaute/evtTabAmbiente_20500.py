@@ -54,7 +54,7 @@ NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTabAmbiente/v02_05_
 
 class DadosAmbiente(XMLNFe):
     def __init__(self, tipo):
-        super(DadosAmbiente_inclusao, self).__init__(tipo)
+        super(DadosAmbiente, self).__init__(tipo)
         raiz_tipo = '//eSocial/evtTabAmbiente/infoAmbiente/{}/nmAmb'.format(tipo)
         self.nmAmb = TagCaracter(nome='nmAmb', tamanho=[1, 100], raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dscAmb = TagCaracter(nome='dscAmb', tamanho=[1, 8000], raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -65,12 +65,14 @@ class DadosAmbiente(XMLNFe):
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
+        xml += '<dadosAmbiente>'
         xml += self.nmAmb.xml
         xml += self.dscAmb.xml
         xml += self.localAmb.xml
         xml += self.tpInsc.xml
         xml += self.nrInsc.xml
         xml += self.codLotacao.xml
+        xml += '</dadosAmbiente>'
         return xml
 
     def set_xml(self, arquivo):
@@ -87,7 +89,7 @@ class DadosAmbiente(XMLNFe):
 
 class IdeAmbiente(XMLNFe):
     def __init__(self, tipo):
-        super(IdeAmbiente_inclusao, self).__init__(tipo)
+        super(IdeAmbiente, self).__init__(tipo)
         raiz_tipo = '//eSocial/evtTabAmbiente/infoAmbiente/{}/ideAmbiente'.format(tipo)
         self.codAmb = TagCaracter(nome='codAmb', raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.iniValid = TagCaracter(nome='iniValid', raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -115,7 +117,6 @@ class Exclusao(XMLNFe):
     def __init__(self):
         super(Exclusao, self).__init__()
         self.ideAmbiente = IdeAmbiente(tipo='exclusao')
-        self.dadosAmbiente = DadosAmbiente(tipo='exclusao')
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -133,17 +134,42 @@ class Exclusao(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
+class NovaValidade(XMLNFe):
+    def __init__(self):
+        super(NovaValidade, self).__init__()
+        self.iniValid = TagCaracter(nome='iniValid', raiz='//iniValid', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.fimValid = TagCaracter(nome='fimValid', raiz='//fimValid', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<novaValidade>'
+        xml += self.iniValid.xml
+        xml += self.fimValid.xml
+        xml += '</novaValidade>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.iniValid.xml = arquivo
+            self.fimValid.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
 class Alteracao(XMLNFe):
     def __init__(self):
         super(Alteracao, self).__init__()
         self.ideAmbiente = IdeAmbiente(tipo='alteracao')
         self.dadosAmbiente = DadosAmbiente(tipo='alteracao')
+        self.novaValidade = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<alteracao>'
         xml += self.ideAmbiente.xml
         xml += self.dadosAmbiente.xml
+        for nova_validade in self.novaValidade:
+            xml += nova_validade.xml
         xml += '</alteracao>'
         return xml
 
@@ -151,6 +177,7 @@ class Alteracao(XMLNFe):
         if self._le_xml(arquivo):
             self.ideAmbiente.xml = arquivo
             self.dadosAmbiente.xml = arquivo
+            self.novaValidade.xml = self.le_grupo('//eSocial/evtTabAmbiente/infoAmbiente/alteracao/novaValidade', NovaValidade, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -254,7 +281,7 @@ class IdeEvento(XMLNFe):
 
 class EvtTabAmbiente(XMLNFe):
     def __init__(self):
-        super(EvtTabHorTur, self).__init__()
+        super(EvtTabAmbiente, self).__init__()
         self.Id = TagCaracter(nome='evtTabAmbiente', propriedade='Id', raiz='//eSocial/evtTabAmbiente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
@@ -289,7 +316,7 @@ class S1060(XMLNFe):
         self.tpInsc = ''
         self.nrInsc = ''
         # self.Signature = Signature()
-        self.evento = self.evtTabHorTur
+        self.evento = self.evtTabAmbiente
         self.xml_assinado = ''
 
     def get_xml(self):
@@ -341,7 +368,7 @@ class S1060(XMLNFe):
 
         # Define o Id
         #
-        self.evtTabHorTur.Id.valor = id_evento
+        self.evtTabAmbiente.Id.valor = id_evento
         self.id_evento = id_evento
 
     xml = property(get_xml, set_xml)

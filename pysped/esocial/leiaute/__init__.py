@@ -81,8 +81,8 @@ from .evtTabHorTur_20402 import HorarioIntervalo as HorarioIntervalo_2
 # S-1060
 from .evtTabAmbiente_20500 import S1060 as S1060_2
 from .evtTabAmbiente_20500 import Inclusao as S1060_Inclusao
-from .evtTabAmbiente_20500 import Alteracao as S1060_alteracao
-from .evtTabAmbiente_20500 import Exclusao as S1060_exclusao
+from .evtTabAmbiente_20500 import Alteracao as S1060_Alteracao
+from .evtTabAmbiente_20500 import Exclusao as S1060_Exclusao
 
 # S-2200
 from .evtAdmissao_20402 import S2200 as S2200_2
