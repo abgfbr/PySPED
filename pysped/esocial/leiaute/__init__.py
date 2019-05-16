@@ -83,7 +83,7 @@ from .evtTabAmbiente_20500 import S1060 as S1060_2
 from .evtTabAmbiente_20500 import Inclusao as S1060_Inclusao
 from .evtTabAmbiente_20500 import Alteracao as S1060_Alteracao
 from .evtTabAmbiente_20500 import Exclusao as S1060_Exclusao
-
+from .evtTabAmbiente_20500 import NovaValidade as S1060_NovaValidade_2
 # S-2200
 from .evtAdmissao_20402 import S2200 as S2200_2
 from .evtAdmissao_20402 import CTPS as S2200_CTPS_2
@@ -135,7 +135,9 @@ from .evtAfastTemp_20402 import FimAfastamento as S2230_FimAfastamento_2
 # S-2240
 from .evtExpRisco_20500 import S2240 as S2240_2
 from .evtExpRisco_20500 import InfoAmb as S2240_InfoAmb_2
+from .evtExpRisco_20500 import AtivPericInsal as S2240_AtivPericInsal_2
 from .evtExpRisco_20500 import FatRisco as S2240_FatRisco_2
+from .evtExpRisco_20500 import RespReg as S2240_RespReg_2
 from .evtExpRisco_20500 import Obs as S2240_Obs_2
 from .evtExpRisco_20500 import Epi as S2240_Epi_2
 
