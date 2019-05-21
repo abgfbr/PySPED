@@ -61,7 +61,7 @@ class DadosAmbiente(XMLNFe):
         self.localAmb = TagCaracter(nome='localAmb', tamanho=[1, 1], raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpInsc = TagCaracter(nome='tpInsc', tamanho=[1, 1], raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 15], raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codLotacao = TagCaracter(nome='codLotacao', tamanho=[1, 30], raiz=raiz_tipo, namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
