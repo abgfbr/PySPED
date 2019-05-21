@@ -123,6 +123,14 @@ from .evtAltContratual_20402 import HorContratual as S2206_HorContratual_2
 from .evtAltContratual_20402 import Horario as S2206_Horario_2
 from .evtAltContratual_20402 import FiliacaoSindical as S2206_FiliacaoSindical_2
 
+# S-2210
+from .evtCat_20500 import S2210 as S2210_2
+from .evtCat_20500 import ParteAtingida as S2210_ParteAtingida_2
+from .evtCat_20500 import AgenteCausador as S2210_AgenteCausador_2
+from .evtCat_20500 import Atestado as S2210_Atestado_2
+from .evtCat_20500 import CatOrigem as S2210_CatOrigem_2
+from .evtCat_20500 import IdeLocalAcid as S2210_IdeLocalAcid_2
+
 # S-2220
 from .evtMonit_20500 import S2220 as S2220_2
 from .evtMonit_20500 import Exame as S2220_Exame_2
