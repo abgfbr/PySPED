@@ -157,9 +157,9 @@ class Epi(XMLNFe):
 class EpcEpi(XMLNFe):
     def __init__(self):
         super(EpcEpi, self).__init__()
-        self.utilizEPC = TagInteiro(nome='utilizEPC', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco/epcEpi', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.utilizEPC = TagCaracter(nome='utilizEPC', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco/epcEpi', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, ignora_validacao=True)
         self.eficEpc = TagCaracter(nome='eficEpc', tamanho=[1, 9], raiz='//eSocial/evtExpRisco/InfoExpRisco/epcEpi', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.utilizEPI = TagInteiro(nome='utilizEPI', raiz='//eSocial/evtExpRisco/InfoExpRisco/epcEpi', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.utilizEPI = TagCaracter(nome='utilizEPI', raiz='//eSocial/evtExpRisco/InfoExpRisco/epcEpi', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, ignora_validacao=True)
         self.epi = []
 
     def get_xml(self):
