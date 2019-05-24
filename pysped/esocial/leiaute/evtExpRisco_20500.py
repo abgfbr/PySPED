@@ -335,7 +335,7 @@ class IdeVinculo(XMLNFe):
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codCateg = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codCateg = TagCaracter(nome='codCateg', tamanho=[1, 30], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
