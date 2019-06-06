@@ -188,7 +188,7 @@ class FatRisco(XMLNFe):
         super(FatRisco, self).__init__()
         self.codFatRis = TagCaracter(nome='codFatRis', tamanho=[1, 9], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpAval = TagInteiro(nome='tpAval', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.initConc = TagInteiro(nome='initConc', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.intConc = TagInteiro(nome='intConc', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.limTol = TagInteiro(nome='limTol', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.unMed = TagInteiro(nome='unMed', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tecMedicao = TagCaracter(nome='tecMedicao', tamanho=[1, 40], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
@@ -202,7 +202,7 @@ class FatRisco(XMLNFe):
         xml += '<fatRisco>'
         xml += self.codFatRis.xml
         xml += self.tpAval.xml
-        xml += self.initConc.xml
+        xml += self.intConc.xml
         xml += self.limTol.xml
         xml += self.unMed.xml
         xml += self.tecMedicao.xml
@@ -217,7 +217,7 @@ class FatRisco(XMLNFe):
         if self._le_xml(arquivo):
             self.codFatRis.xml = arquivo
             self.tpAval.xml = arquivo
-            self.initConc.xml = arquivo
+            self.intConc.xml = arquivo
             self.limTol.xml = arquivo
             self.unMed.xml = arquivo
             self.tecMedicao.xml = arquivo
@@ -225,7 +225,6 @@ class FatRisco(XMLNFe):
             self.periculosidade.xml = arquivo
             self.aposentEsp.xml = arquivo
             self.epcEpi.xml = arquivo
-
 
     xml = property(get_xml, set_xml)
 
