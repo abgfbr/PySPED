@@ -78,6 +78,12 @@ from .evtTabCargo_20402 import CargoPublico as S1030_CargoPublico_2
 from .evtTabHorTur_20402 import S1050 as S1050_2
 from .evtTabHorTur_20402 import HorarioIntervalo as HorarioIntervalo_2
 
+# S-1060
+from .evtTabAmbiente_20500 import S1060 as S1060_2
+from .evtTabAmbiente_20500 import Inclusao as S1060_Inclusao
+from .evtTabAmbiente_20500 import Alteracao as S1060_alteracao
+from .evtTabAmbiente_20500 import Exclusao as S1060_exclusao
+
 # S-2200
 from .evtAdmissao_20402 import S2200 as S2200_2
 from .evtAdmissao_20402 import CTPS as S2200_CTPS_2
@@ -117,10 +123,26 @@ from .evtAltContratual_20402 import HorContratual as S2206_HorContratual_2
 from .evtAltContratual_20402 import Horario as S2206_Horario_2
 from .evtAltContratual_20402 import FiliacaoSindical as S2206_FiliacaoSindical_2
 
+# S-2220
+from .evtMonit_20500 import S2220 as S2220_2
+from .evtMonit_20500 import Exame as S2220_Exame_2
+
 # S-2230
 from .evtAfastTemp_20402 import S2230 as S2230_2
 from .evtAfastTemp_20402 import IniAfastamento as S2230_IniAfastamento_2
 from .evtAfastTemp_20402 import FimAfastamento as S2230_FimAfastamento_2
+
+# S-2240
+from .evtExpRisco_20500 import S2240 as S2240_2
+from .evtExpRisco_20500 import InfoAmb as S2240_InfoAmb_2
+from .evtExpRisco_20500 import FatRisco as S2240_FatRisco_2
+from .evtExpRisco_20500 import Obs as S2240_Obs_2
+from .evtExpRisco_20500 import Epi as S2240_Epi_2
+
+# S-2245
+from .evtTreiCap_20500 import S2245 as S2245_2
+from .evtTreiCap_20500 import InfoComplem as S2245_InfoComplem_2
+from .evtTreiCap_20500 import IdeProfResp as S2245_IdeProfResp_2
 
 # S-2299
 from .evtDeslig_20402 import S2299 as S2299_2
