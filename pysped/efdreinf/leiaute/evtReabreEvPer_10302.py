@@ -158,7 +158,7 @@ class R2098(XMLNFe):
         self.evtReabreEvPer = EvtReabreEvPer()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/',
                                             ESQUEMA_ATUAL + '/')
-        self.arquivo_esquema = 'evtReabreEvPer-v1_03_02.xsd'
+        self.arquivo_esquema = 'evtReabreEvPer-v1_04_00.xsd'
         self.id_evento = ''
         self.Signature = Signature()
         self.evento = self.evtReabreEvPer
