@@ -187,6 +187,7 @@ class FatRisco(XMLNFe):
     def __init__(self):
         super(FatRisco, self).__init__()
         self.codFatRis = TagCaracter(nome='codFatRis', tamanho=[1, 9], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dscFatRisc = TagCaracter(nome='dscFatRisc', tamanho=[1, 999], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpAval = TagInteiro(nome='tpAval', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.intConc = TagInteiro(nome='intConc', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.limTol = TagInteiro(nome='limTol', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
@@ -201,6 +202,7 @@ class FatRisco(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<fatRisco>'
         xml += self.codFatRis.xml
+        xml += self.dscFatRisc.xml
         xml += self.tpAval.xml
         xml += self.intConc.xml
         xml += self.limTol.xml
@@ -216,6 +218,7 @@ class FatRisco(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.codFatRis.xml = arquivo
+            self.dscFatRisc.xml = arquivo
             self.tpAval.xml = arquivo
             self.intConc.xml = arquivo
             self.limTol.xml = arquivo
