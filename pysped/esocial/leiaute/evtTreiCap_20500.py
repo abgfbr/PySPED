@@ -55,7 +55,7 @@ NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTreiCap/v02_05_00'
 class IdeProfResp(XMLNFe):
     def __init__(self):
         super(IdeProfResp, self).__init__()
-        self.cpfProf = TagCaracter(nome='cpfProf', tamanho=[1, 11], raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.cpfProf = TagCaracter(nome='cpfProf', tamanho=[1, 12], raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nmProf = TagCaracter(nome='nmProf', tamanho=[1, 70], raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpProf = TagInteiro(nome='tpProf', raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.formProf = TagCaracter(nome='formProf', tamanho=[1, 255], raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
