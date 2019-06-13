@@ -145,12 +145,16 @@ class Exame(XMLNFe):
 class Aso(XMLNFe):
     def __init__(self):
         super(Aso, self).__init__()
+        self.dtAso = TagData(nome='dtAso', raiz='//eSocial/evtMonit/exMedOcup/aso', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.resAso = TagInteiro(nome='resAso', raiz='//eSocial/evtMonit/exMedOcup/aso', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.exame = []
         self.medico = Medico()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<aso>'
+        xml += self.dtAso.xml
+        xml += self.resAso.xml
         for e in self.exame:
             xml += e.xml
         xml += self.medico.xml
@@ -162,16 +166,20 @@ class Aso(XMLNFe):
             self.exame.xml = self.le_grupo('//eSocial/evtMonit/exMedOcup/aso/exame', Exame, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.medico.xml = arquivo
 
+    xml = property(get_xml, set_xml)
+
 
 class ExMedOcup(XMLNFe):
     def __init__(self):
         super(ExMedOcup, self).__init__()
+        self.tpExameOcup = TagCaracter(nome='tpExameOcup', tamanho=[1, 1], raiz='//eSocial/evtMonit/exMedOcup', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, ignora_validacao=True)
         self.aso = Aso()
         self.respMonit = RespMonit()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<exMedOcup>'
+        xml += self.tpExameOcup.xml
         xml += self.aso.xml
         xml += self.respMonit.xml
         xml += '</exMedOcup>'
@@ -191,7 +199,7 @@ class IdeVinculo(XMLNFe):
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codCateg = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codCateg = TagCaracter(nome='codCateg', tamanho=[1, 30], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -239,6 +247,7 @@ class IdeEmpregador(XMLNFe):
 class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
+        self.indRetif = TagInteiro(nome='indRetif', tamanho=[1, 1], raiz='//eSocial/evtExpRisco/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
         self.tpAmb = TagInteiro(nome='tpAmb', raiz='//eSocial/evtMonit/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
         self.procEmi = TagInteiro(nome='procEmi', raiz='//eSocial/evtMonit/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
         self.verProc = TagCaracter(nome='verProc', raiz='//eSocial/evtMonit/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -246,6 +255,7 @@ class IdeEvento(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideEvento>'
+        xml += self.indRetif.xml
         xml += self.tpAmb.xml
         xml += self.procEmi.xml
         xml += self.verProc.xml
@@ -254,6 +264,7 @@ class IdeEvento(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
+            self.indRetif.xml = arquivo
             self.tpAmb.xml = arquivo
             self.procEmi.xml = arquivo
             self.verProc.xml = arquivo
@@ -263,7 +274,7 @@ class IdeEvento(XMLNFe):
 
 class EvtMonit(XMLNFe):
     def __init__(self):
-        super(EvtTabHorTur, self).__init__()
+        super(EvtMonit, self).__init__()
         self.Id = TagCaracter(nome='evtMonit', propriedade='Id', raiz='//eSocial/evtMonit', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideEmpregador = IdeEmpregador()
@@ -301,7 +312,7 @@ class S2220(XMLNFe):
         self.tpInsc = ''
         self.nrInsc = ''
         # self.Signature = Signature()
-        self.evento = self.evtTabHorTur
+        self.evento = self.evtMonit
         self.xml_assinado = ''
 
     def get_xml(self):
@@ -353,7 +364,7 @@ class S2220(XMLNFe):
 
         # Define o Id
         #
-        self.evtTabHorTur.Id.valor = id_evento
+        self.evtMonit.Id.valor = id_evento
         self.id_evento = id_evento
 
     xml = property(get_xml, set_xml)

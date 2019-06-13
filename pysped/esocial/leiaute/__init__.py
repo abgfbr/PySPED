@@ -81,9 +81,9 @@ from .evtTabHorTur_20402 import HorarioIntervalo as HorarioIntervalo_2
 # S-1060
 from .evtTabAmbiente_20500 import S1060 as S1060_2
 from .evtTabAmbiente_20500 import Inclusao as S1060_Inclusao
-from .evtTabAmbiente_20500 import Alteracao as S1060_alteracao
-from .evtTabAmbiente_20500 import Exclusao as S1060_exclusao
-
+from .evtTabAmbiente_20500 import Alteracao as S1060_Alteracao
+from .evtTabAmbiente_20500 import Exclusao as S1060_Exclusao
+from .evtTabAmbiente_20500 import NovaValidade as S1060_NovaValidade_2
 # S-2200
 from .evtAdmissao_20402 import S2200 as S2200_2
 from .evtAdmissao_20402 import CTPS as S2200_CTPS_2
@@ -123,6 +123,14 @@ from .evtAltContratual_20402 import HorContratual as S2206_HorContratual_2
 from .evtAltContratual_20402 import Horario as S2206_Horario_2
 from .evtAltContratual_20402 import FiliacaoSindical as S2206_FiliacaoSindical_2
 
+# S-2210
+from .evtCat_20500 import S2210 as S2210_2
+from .evtCat_20500 import ParteAtingida as S2210_ParteAtingida_2
+from .evtCat_20500 import AgenteCausador as S2210_AgenteCausador_2
+from .evtCat_20500 import Atestado as S2210_Atestado_2
+from .evtCat_20500 import CatOrigem as S2210_CatOrigem_2
+from .evtCat_20500 import IdeLocalAcid as S2210_IdeLocalAcid_2
+
 # S-2220
 from .evtMonit_20500 import S2220 as S2220_2
 from .evtMonit_20500 import Exame as S2220_Exame_2
@@ -135,7 +143,9 @@ from .evtAfastTemp_20402 import FimAfastamento as S2230_FimAfastamento_2
 # S-2240
 from .evtExpRisco_20500 import S2240 as S2240_2
 from .evtExpRisco_20500 import InfoAmb as S2240_InfoAmb_2
+from .evtExpRisco_20500 import AtivPericInsal as S2240_AtivPericInsal_2
 from .evtExpRisco_20500 import FatRisco as S2240_FatRisco_2
+from .evtExpRisco_20500 import RespReg as S2240_RespReg_2
 from .evtExpRisco_20500 import Obs as S2240_Obs_2
 from .evtExpRisco_20500 import Epi as S2240_Epi_2
 
