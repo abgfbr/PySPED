@@ -55,7 +55,7 @@ NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTreiCap/v02_05_00'
 class IdeProfResp(XMLNFe):
     def __init__(self):
         super(IdeProfResp, self).__init__()
-        self.cpfProf = TagCaracter(nome='cpfProf', tamanho=[1, 11], raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.cpfProf = TagCaracter(nome='cpfProf', tamanho=[1, 12], raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nmProf = TagCaracter(nome='nmProf', tamanho=[1, 70], raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpProf = TagInteiro(nome='tpProf', raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.formProf = TagCaracter(nome='formProf', tamanho=[1, 255], raiz='//ideProfResp', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -93,6 +93,7 @@ class InfoComplem(XMLNFe):
         self.durTreiCap = TagInteiro(nome='durTreiCap', raiz='//infoComplem', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
         self.modTreiCap = TagInteiro(nome='modTreiCap', raiz='//infoComplem', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpTreiCap = TagInteiro(nome='tpTreiCap', raiz='//infoComplem', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indTreinAnt = TagCaracter(nome='indTreinAnt', tamanho=[1, 1], raiz='//infoComplem', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideProfResp = []
 
     def get_xml(self):
@@ -102,6 +103,7 @@ class InfoComplem(XMLNFe):
         xml += self.durTreiCap.xml
         xml += self.modTreiCap.xml
         xml += self.tpTreiCap.xml
+        xml += self.indTreinAnt.xml
         for ide_prof_resp in self.ideProfResp:
             xml += ide_prof_resp.xml
         xml += '</infoComplem>'
@@ -113,6 +115,7 @@ class InfoComplem(XMLNFe):
             self.durTreiCap.xml = arquivo
             self.modTreiCap.xml = arquivo
             self.tpTreiCap.xml = arquivo
+            self.indTreinAnt.xml = arquivo
             self.ideProfResp.xml = self.le_grupo('//eSocial/evtTreiCap/TreiCap/infoComplem/ideProfResp', IdeProfResp, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
@@ -129,8 +132,9 @@ class TreiCap(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<treiCap>'
         xml += self.codTreiCap.xml
-        for obs in self.obsTreiCap:
-            xml += obs.xml
+        xml += self.obsTreiCap.xml
+        for info in self.infoComplem:
+            xml += info.xml
         xml += '</treiCap>'
         return xml
 
@@ -197,6 +201,7 @@ class IdeEmpregador(XMLNFe):
 class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
+        self.indRetif = TagInteiro(nome='indRetif', tamanho=[1, 1], raiz='//eSocial/evtExpRisco/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
         self.tpAmb = TagInteiro(nome='tpAmb', raiz='//eSocial/evtTreiCap/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
         self.procEmi = TagInteiro(nome='procEmi', raiz='//eSocial/evtTreiCap/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
         self.verProc = TagCaracter(nome='verProc', raiz='//eSocial/evtTreiCap/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -204,6 +209,7 @@ class IdeEvento(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideEvento>'
+        xml += self.indRetif.xml
         xml += self.tpAmb.xml
         xml += self.procEmi.xml
         xml += self.verProc.xml
@@ -212,6 +218,7 @@ class IdeEvento(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
+            self.indRetif.xml = arquivo
             self.tpAmb.xml = arquivo
             self.procEmi.xml = arquivo
             self.verProc.xml = arquivo
@@ -259,7 +266,7 @@ class S2245(XMLNFe):
         self.tpInsc = ''
         self.nrInsc = ''
         # self.Signature = Signature()
-        self.evento = self.evtTabHorTur
+        self.evento = self.evtTreiCap
         self.xml_assinado = ''
 
     def get_xml(self):
@@ -311,7 +318,7 @@ class S2245(XMLNFe):
 
         # Define o Id
         #
-        self.evtTabHorTur.Id.valor = id_evento
+        self.evtTreiCap.Id.valor = id_evento
         self.id_evento = id_evento
 
     xml = property(get_xml, set_xml)
