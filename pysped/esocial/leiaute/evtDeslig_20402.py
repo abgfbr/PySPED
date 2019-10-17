@@ -694,7 +694,7 @@ class InfoDeslig(XMLNFe):
         self.dtDeslig = TagData(nome='dtDeslig', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.indPagtoAPI = TagCaracter(nome='indPagtoAPI', tamanho=[1, 1], raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtProjFimAPI = TagData(nome='dtProjFimAPI', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.pensAlim = TagInteiro(nome='pensAlim', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.pensAlim = TagCaracter(nome='pensAlim', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.percAliment = TagDecimal(nome='percAliment',  tamanho=[1, 5, 2], raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrAlim = TagDecimal(nome='vrAlim', raiz='//eSocial/evtDeslig/inforDeslig',  tamanho=[1, 14, 2], namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nrCertObito = TagCaracter(nome='nrCertObito', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
