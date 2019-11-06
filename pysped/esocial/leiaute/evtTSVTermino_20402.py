@@ -71,10 +71,10 @@ class Quarentena(XMLNFe):
 class RemunOutrEmpr(XMLNFe):
     def __init__(self):
         super(RemunOutrEmpr, self).__init__()
-        self.tpInsc = TagInteiro(name='tpInsc', raiz='//tpInsc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrInsc = TagCaracter(name='nrInsc', tamanho=[1, 15], raiz='//nrInsc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codCateg = TagInteiro(name='codCateg', raiz='//codCateg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.vlrRemunOE = TagInteiro(name='vlrRemunOE', raiz='//vlrRemunOE', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpInsc     = TagCaracter(nome='tpInsc',     tamanho=[1, 1],  raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
+        self.nrInsc     = TagCaracter(nome='nrInsc',     tamanho=[1, 15], raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codCateg   = TagCaracter(nome='codCateg',   tamanho=[1, 3],  raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.vlrRemunOE = TagCaracter(nome='vlrRemunOE', tamanho=[1, 14],  raiz='//remunOutrEmpr', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -84,7 +84,6 @@ class RemunOutrEmpr(XMLNFe):
         xml += self.codCateg.xml
         xml += self.vlrRemunOE.xml
         xml += '</remunOutrEmpr>'
-
         return xml
 
     def set_xml(self, arquivo):
@@ -100,18 +99,17 @@ class RemunOutrEmpr(XMLNFe):
 class InfoMV(XMLNFe):
     def __init__(self):
         super(InfoMV, self).__init__()
-        self.indMV = TagInteiro(name='indMV', raiz='//infoMV', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indMV         = TagCaracter(nome='indMV', tamanho=[1, 1], raiz='//infoMV', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.remunOutrEmpr = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<infoMV>'
         xml += self.indMV.xml
-        if self.remunOutrEmpr:
-            for remuneracao in self.remunOutrEmpr:
-                xml += remuneracao.xml
+        if len(self.remunOutrEmpr) > 0:
+            for r in self.remunOutrEmpr:
+                xml += r.xml
         xml += '</infoMV>'
-
         return xml
 
     def set_xml(self, arquivo):
