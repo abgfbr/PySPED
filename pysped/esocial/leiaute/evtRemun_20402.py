@@ -624,6 +624,7 @@ class ProcJudTrab(XMLNFe):
 class SucessaoVinc(XMLNFe):
     def __init__(self):
         super(SucessaoVinc, self).__init__()
+        self.tpInscAnt     = TagCaracter(nome='tpInscAnt',     tamanho=[1, 1],  raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor='1')
         self.cnpjEmpregAnt = TagCaracter(nome='cnpjEmpregAnt', tamanho=[1, 14],  raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.matricAnt     = TagCaracter(nome='matricAnt',     tamanho=[1, 30],  raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.dtAdm         = TagData(    nome='dtAdm',                           raiz='//sucessaoVinc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -632,6 +633,7 @@ class SucessaoVinc(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<sucessaoVinc>'
+        xml += self.tpInscAnt.xml
         xml += self.cnpjEmpregAnt.xml
         xml += self.matricAnt.xml
         xml += self.dtAdm.xml
