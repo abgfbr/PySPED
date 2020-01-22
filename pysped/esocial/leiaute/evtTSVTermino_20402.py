@@ -321,6 +321,9 @@ class InfoTSVTermino(XMLNFe):
         super(InfoTSVTermino, self).__init__()
         self.dtTerm = TagData(nome='dtTerm', raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.mtvDesligTSV = TagCaracter(nome='mtvDesligTSV', tamanho=[0, 2], raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.pensAlim = TagCaracter(nome='pensAlim', raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.percAliment = TagDecimal(nome='percAliment',  tamanho=[1, 5, 2], raiz='//eSocial/evtTSVTermino/infoTSVTermino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.vrAlim = TagDecimal(nome='vrAlim', raiz='//eSocial/evtTSVTermino/infoTSVTermino',  tamanho=[1, 14, 2], namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.verbasResc = []
 
     def get_xml(self):
@@ -328,6 +331,9 @@ class InfoTSVTermino(XMLNFe):
         xml += '<infoTSVTermino>'
         xml += self.dtTerm.xml
         xml += self.mtvDesligTSV.xml
+        xml += self.pensAlim.xml
+        xml += self.percAliment.xml
+        xml += self.vrAlim.xml
         if self.verbasResc:
             for verba in self.verbasResc:
                 xml += verba.xml
