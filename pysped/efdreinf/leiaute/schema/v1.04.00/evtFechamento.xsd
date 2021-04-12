@@ -265,6 +265,18 @@
                         </xs:restriction>
                       </xs:simpleType>
                     </xs:element>
+                    <xs:element name="evtAquis" minOccurs="1" maxOccurs="1">
+                      <xs:simpleType>
+                        <xs:annotation>
+                          <xs:documentation> Possui informações sobre a aquisição de produção rural de pessoas físicas? S - Sim; N - Não </xs:documentation>
+                        </xs:annotation>
+                        <xs:restriction base="xs:string">
+                          <xs:length value="1"/>
+                          <xs:enumeration value="S"/>
+                          <xs:enumeration value="N"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
                     <xs:element name="evtPgtos" minOccurs="0" maxOccurs="1">
                       <xs:simpleType>
                         <xs:annotation>
