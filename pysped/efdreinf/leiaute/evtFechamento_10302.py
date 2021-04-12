@@ -60,7 +60,7 @@ PYBRASIL = True
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtFechamento/v1_04_00'
+NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtFechamento/v1_05_01'
 
 
 class InfoFech(XMLNFe):
@@ -72,6 +72,7 @@ class InfoFech(XMLNFe):
         self.evtAssDespRep = TagCaracter(nome='evtAssDespRep', tamanho=[1, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.evtComProd = TagCaracter(nome='evtComProd', tamanho=[1, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.evtCPRB = TagCaracter(nome='evtCPRB', tamanho=[1, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
+        self.evtAquis = TagCaracter(nome='evtAquis', tamanho=[1, 1], raiz='//Reinf/evtFechaEvPer/evtAquis', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.evtPgtos = TagCaracter(nome='evtPgtos', tamanho=[0, 1], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.compSemMovto = TagCaracter(nome='compSemMovto', tamanho=[0, 7], raiz='//Reinf/evtFechaEvPer/infoFech', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
 
@@ -84,6 +85,7 @@ class InfoFech(XMLNFe):
         xml += self.evtAssDespRep.xml
         xml += self.evtComProd.xml
         xml += self.evtCPRB.xml
+        xml += self.evtAquis.xml
         if self.evtPgtos.valor:
             xml += self.evtPgtos.xml
         if self.compSemMovto.valor:
@@ -99,6 +101,7 @@ class InfoFech(XMLNFe):
             self.evtAssDespRep.xml = arquivo
             self.evtComProd.xml = arquivo
             self.evtCPRB.xml = arquivo
+            self.evtAquis.xml = arquivo
             self.evtPgtos.xml = arquivo
             self.compSemMovto.xml = arquivo
         return True
@@ -224,7 +227,7 @@ class R2099(XMLNFe):
     def __init__(self):
         super(R2099, self).__init__()
         self.evtFechaEvPer = EvtFechaEvPer()
-        self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
+        self.caminho_esquema = os.path.join(DIRNAME, 'schema/', 'v1.05.01/')
         self.arquivo_esquema = 'evtFechamento.xsd'
         self.id_evento = ''
         self.Signature = Signature()
