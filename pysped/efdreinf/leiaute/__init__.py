@@ -44,7 +44,7 @@ from __future__ import division, print_function, unicode_literals
 #
 # Versão 1.03.02
 #
-ESQUEMA_ATUAL_VERSAO_1 = 'v1.04.00'
+ESQUEMA_ATUAL_VERSAO_1 = 'v1.05.01'
 
 
 from .soap_10100 import SOAPEnvio as SOAPEnvio_10100

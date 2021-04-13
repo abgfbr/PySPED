@@ -227,7 +227,7 @@ class R2099(XMLNFe):
     def __init__(self):
         super(R2099, self).__init__()
         self.evtFechaEvPer = EvtFechaEvPer()
-        self.caminho_esquema = os.path.join(DIRNAME, 'schema/', 'v1.05.01/')
+        self.caminho_esquema = os.path.join(DIRNAME, 'schema/', ESQUEMA_ATUAL + '/')
         self.arquivo_esquema = 'evtFechamento.xsd'
         self.id_evento = ''
         self.Signature = Signature()

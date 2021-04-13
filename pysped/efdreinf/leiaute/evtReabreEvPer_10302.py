@@ -51,7 +51,7 @@ from pysped.xml_sped import *
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtReabreEvPer/v1_04_00'
+NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtReabreEvPer/v1_05_01'
 
 
 class IdeContri(XMLNFe):
@@ -158,7 +158,7 @@ class R2098(XMLNFe):
         self.evtReabreEvPer = EvtReabreEvPer()
         self.caminho_esquema = os.path.join(DIRNAME, 'schema/',
                                             ESQUEMA_ATUAL + '/')
-        self.arquivo_esquema = 'evtReabreEvPer-v1_04_00.xsd'
+        self.arquivo_esquema = 'evtReabreEvPer-v1_05_01.xsd'
         self.id_evento = ''
         self.Signature = Signature()
         self.evento = self.evtReabreEvPer
