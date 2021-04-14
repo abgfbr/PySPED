@@ -44,14 +44,26 @@ from __future__ import division, print_function, unicode_literals
 from .webservices_flags import *
 
 METODO_WS = {
-    WS_EFDREINF_ENVIO: {
-        'webservice': 'ServicoEnviarLoteEventos',
-        'metodo'    : 'ReceberLoteEventos',
+    EFDREINF_AMBIENTE_PRODUCAO: {
+        WS_EFDREINF_ENVIO: {
+            'webservice': 'ServicoEnviarLoteEventos',
+            'metodo'    : 'ReceberLoteEventos',
+        },
+        WS_EFDREINF_CONSULTA: {
+            'webservice': 'ServicoConsultarLoteEventos',
+            'metodo'    : 'ConsultaInformacoesConsolidadas',
+        },
     },
-    WS_EFDREINF_CONSULTA: {
-        'webservice': 'ServicoConsultarLoteEventos',
-        'metodo'    : 'ConsultaInformacoesConsolidadas',
-    },
+    EFDREINF_AMBIENTE_HOMOLOGACAO: {
+        WS_EFDREINF_ENVIO: {
+            'webservice': 'ServicoEnviarLoteEventos',
+            'metodo'    : 'ReceberLoteEventos',
+        },
+        WS_EFDREINF_CONSULTA: {
+            'webservice': 'ServicoConsultarLoteEventos',
+            'metodo'    : 'ConsultaResultadoFechamento2099',
+        },
+    }
 }
 
 SVEFDREINF = {
@@ -65,7 +77,7 @@ SVEFDREINF = {
     EFDREINF_AMBIENTE_HOMOLOGACAO: {
         'servidor'                  : 'preprodefdreinf.receita.fazenda.gov.br',
         WS_EFDREINF_ENVIO           : 'WsREINF/RecepcaoLoteReinf.svc',
-        WS_EFDREINF_CONSULTA        : 'WsReinfConsultas/ConsultasReinf.svc',
+        WS_EFDREINF_CONSULTA        : 'WsREINFConsultas/ConsultasReinf.svc',
        
     }
 }

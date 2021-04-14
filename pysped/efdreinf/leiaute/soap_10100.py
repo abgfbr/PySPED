@@ -43,6 +43,10 @@ from __future__ import division, print_function, unicode_literals
 
 from pysped.xml_sped import (ABERTURA, TagDecimal, TagInteiro, XMLNFe,
                              tira_abertura)
+
+from pysped.efdreinf.webservices_flags import (
+    EFDREINF_AMBIENTE_PRODUCAO, EFDREINF_AMBIENTE_HOMOLOGACAO)
+
 import os
 
 DIRNAME = os.path.dirname(__file__)
@@ -122,8 +126,9 @@ class SOAPRetorno(XMLNFe):
 
 
 class SOAPConsulta(XMLNFe):
-    def __init__(self):
+    def __init__(self, ambiente=EFDREINF_AMBIENTE_HOMOLOGACAO):
         super(SOAPConsulta, self).__init__()
+        self.ambiente = ambiente
         self.webservice = ''
         self.metodo = ''
         self.cUF    = None
@@ -131,12 +136,13 @@ class SOAPConsulta(XMLNFe):
         self.tipoInscricaoContribuinte = ''
         self.numeroInscricaoContribuinte = ''
         self.numeroProtocoloFechamento = ''
+        soap_action = b'http://sped.fazenda.gov.br/ConsultasReinf/ConsultaInformacoesConsolidadas' if self.ambiente == EFDREINF_AMBIENTE_PRODUCAO else b'http://sped.fazenda.gov.br/ConsultasReinf/ConsultaResultadoFechamento2099'
         self._header = {
             b'Content-Type': b'text/xml; charset=UTF-8',
             b'Accept-Encoding': b'gzip,deflate',
             b'Connection': b'Keep-Alive',
             b'User-Agent': b'Apache-HttpClient/4.1.1 (java 1.5)',
-            b'SOAPAction': b'http://sped.fazenda.gov.br/ConsultasReinf/ConsultaInformacoesConsolidadas'
+            b'SOAPAction': soap_action
         }
 
     def get_xml(self):
@@ -145,12 +151,15 @@ class SOAPConsulta(XMLNFe):
         xml += '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sped="http://sped.fazenda.gov.br/">'
         xml +=     '<soapenv:Header/>'
         xml +=     '<soapenv:Body>'
-        xml +=         '<sped:ConsultaInformacoesConsolidadas>'
-        xml +=             '<sped:tipoInscricaoContribuinte>%s</sped:tipoInscricaoContribuinte>' % self.tipoInscricaoContribuinte
-        xml +=             '<sped:numeroInscricaoContribuinte>%s</sped:numeroInscricaoContribuinte>' % self.numeroInscricaoContribuinte
+        xml +=         '<sped:ConsultaResultadoFechamento2099>'
+        if self.ambiente == EFDREINF_AMBIENTE_PRODUCAO:
+            xml +=             '<sped:tipoInscricaoContribuinte>%s</sped:tipoInscricaoContribuinte>' % self.tipoInscricaoContribuinte
+            xml +=             '<sped:numeroInscricaoContribuinte>%s</sped:numeroInscricaoContribuinte>' % self.numeroInscricaoContribuinte
+        elif self.ambiente == EFDREINF_AMBIENTE_HOMOLOGACAO:
+            xml +=             '<sped:tpInsc>%s</sped:tpInsc>' % self.tipoInscricaoContribuinte
+            xml +=             '<sped:nrInsc>%s</sped:nrInsc>' % self.numeroInscricaoContribuinte
         xml +=             '<sped:numeroProtocoloFechamento>%s</sped:numeroProtocoloFechamento>' % self.numeroProtocoloFechamento
-        # xml +=             '<sped:numeroReciboFechamento>%s</sped:numeroReciboFechamento>' % self.numeroProtocoloFechamento
-        xml +=         '</sped:ConsultaInformacoesConsolidadas>'
+        xml +=         '</sped:ConsultaResultadoFechamento2099>'
         xml +=     '</soapenv:Body>'
         xml += '</soapenv:Envelope>'
         return xml

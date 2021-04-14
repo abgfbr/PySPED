@@ -70,11 +70,11 @@ class ProcessadorEFDReinf(ProcessadorNFe):
             ambiente = self.ambiente
 
         webservices = webservices_3
-        metodo_ws = webservices.METODO_WS
+        metodo_ws = webservices.METODO_WS[ambiente]
 
         # Se for Consulta deve usar o SOAPConsulta ao invés do SOAPEnvio
         if servico == WS_EFDREINF_CONSULTA:
-            self._soap_envio = SOAPConsulta_10100()
+            self._soap_envio = SOAPConsulta_10100(ambiente)
             self._soap_envio.tipoInscricaoContribuinte = self.tipoInscricaoContribuinte
             self._soap_envio.numeroInscricaoContribuinte = self.numeroInscricaoContribuinte
             self._soap_envio.numeroProtocoloFechamento = self.numeroProtocoloFechamento
