@@ -149,21 +149,18 @@ class SOAPConsulta(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += ABERTURA
         xml += '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sped="http://sped.fazenda.gov.br/">'
-        xml +=     '<soapenv:Header/>'
-        xml +=     '<soapenv:Body>'
+        xml += '<soapenv:Header/>'
+        xml += '<soapenv:Body>'
+        xml += '<sped:ConsultaResultadoFechamento2099>'
         if self.ambiente == EFDREINF_AMBIENTE_PRODUCAO:
-            xml +=      '<sped:ConsultaInformacoesConsolidadas>'
-            xml +=          '<sped:tipoInscricaoContribuinte>%s</sped:tipoInscricaoContribuinte>' % self.tipoInscricaoContribuinte
-            xml +=          '<sped:numeroInscricaoContribuinte>%s</sped:numeroInscricaoContribuinte>' % self.numeroInscricaoContribuinte
-            xml +=          '<sped:numeroProtocoloFechamento>%s</sped:numeroProtocoloFechamento>' % self.numeroProtocoloFechamento
-            xml +=      '</sped:ConsultaInformacoesConsolidadas>'
+            xml += '<sped:tipoInscricaoContribuinte>%s</sped:tipoInscricaoContribuinte>' % self.tipoInscricaoContribuinte
+            xml += '<sped:numeroInscricaoContribuinte>%s</sped:numeroInscricaoContribuinte>' % self.numeroInscricaoContribuinte
         elif self.ambiente == EFDREINF_AMBIENTE_HOMOLOGACAO:
-            xml += '<sped:ConsultaResultadoFechamento2099>'
-            xml +=             '<sped:tpInsc>%s</sped:tpInsc>' % self.tipoInscricaoContribuinte
-            xml +=             '<sped:nrInsc>%s</sped:nrInsc>' % self.numeroInscricaoContribuinte
-            xml +=             '<sped:numeroProtocoloFechamento>%s</sped:numeroProtocoloFechamento>' % self.numeroProtocoloFechamento
-            xml +=         '</sped:ConsultaResultadoFechamento2099>'
-        xml +=     '</soapenv:Body>'
+            xml += '<sped:tpInsc>%s</sped:tpInsc>' % self.tipoInscricaoContribuinte
+            xml += '<sped:nrInsc>%s</sped:nrInsc>' % self.numeroInscricaoContribuinte
+        xml += '<sped:numeroProtocoloFechamento>%s</sped:numeroProtocoloFechamento>' % self.numeroProtocoloFechamento
+        xml += '</sped:ConsultaResultadoFechamento2099>'
+        xml += '</soapenv:Body>'
         xml += '</soapenv:Envelope>'
         return xml
 

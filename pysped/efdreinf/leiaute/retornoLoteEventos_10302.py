@@ -50,9 +50,7 @@ from .retornoTotalizadorEvento_10302 import RetornoTotalizadorEvento
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_LOTE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/retornoLoteEventos/v1_04_00'
-# Disponível a partir de 21/05/2021
-# NAMESPACE_LOTE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/retornoLoteEventos/v1_05_01'
+NAMESPACE_LOTE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/retornoLoteEventos/v1_05_01'
 
 
 # class Evento(XMLNFe):
