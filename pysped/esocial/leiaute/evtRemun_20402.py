@@ -49,7 +49,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtRemun/v02_05_00'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtRemun/v_S_01_00_00'
 
 
 class InfoComplCont(XMLNFe):
@@ -122,8 +122,8 @@ class RemunPerAntItensRemun(XMLNFe):
         self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.qtdRubr    = TagInteiro( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrUnit     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indApurIR = TagCaracter(nome='indApurIR',  tamanho=[1, 1], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -132,8 +132,8 @@ class RemunPerAntItensRemun(XMLNFe):
         xml += self.ideTabRubr.xml
         xml += self.qtdRubr.xml
         xml += self.fatorRubr.xml
-        xml += self.vrUnit.xml
         xml += self.vrRubr.xml
+        xml += self.indApurIR.xml
         xml += '</itensRemun>'
         return xml
 
@@ -143,8 +143,8 @@ class RemunPerAntItensRemun(XMLNFe):
             self.ideTabRubr.xml = arquivo
             self.qtdRubr.xml = arquivo
             self.fatorRubr.xml = arquivo
-            self.vrUnit.xml = arquivo
             self.vrRubr.xml = arquivo
+            self.indApurIR.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -419,8 +419,8 @@ class ItensRemun(XMLNFe):
         self.ideTabRubr = TagCaracter(nome='ideTabRubr', tamanho=[1, 8],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.qtdRubr    = TagInteiro( nome='qtdRubr',    tamanho=[1, 6, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrUnit     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indApurIR = TagCaracter(nome='indApurIR', tamanho=[1, 1], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -429,8 +429,8 @@ class ItensRemun(XMLNFe):
         xml += self.ideTabRubr.xml
         xml += self.qtdRubr.xml
         xml += self.fatorRubr.xml
-        xml += self.vrUnit.xml
         xml += self.vrRubr.xml
+        xml += self.indApurIR.xml
         xml += '</itensRemun>'
         return xml
 
@@ -440,8 +440,8 @@ class ItensRemun(XMLNFe):
             self.ideTabRubr.xml = arquivo
             self.qtdRubr.xml = arquivo
             self.fatorRubr.xml = arquivo
-            self.vrUnit.xml = arquivo
             self.vrRubr.xml = arquivo
+            self.indApurIR.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -732,7 +732,6 @@ class IdeTrabalhador(XMLNFe):
     def __init__(self):
         super(IdeTrabalhador, self).__init__()
         self.cpfTrab        = TagCaracter(nome='cpfTrab'   , tamanho=[1, 11], raiz='//eSocial/evtRemun/ideTrabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab        = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtRemun/ideTrabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.infoMV         = []
         self.infoComplement = []
         self.procJudTrab    = []
@@ -742,7 +741,6 @@ class IdeTrabalhador(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<ideTrabalhador>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
         if len(self.infoMV) > 0:
             for i in self.infoMV:
                 xml += i.xml
@@ -761,7 +759,6 @@ class IdeTrabalhador(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
             self.infoMV = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/infoMV', InfoMV, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoComplement = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/infoComplem', InfoComplem, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.procJudTrab = self.le_grupo('//eSocial/evtRemun/ideTrabalhador/procJudTrab', ProcJudTrab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')

@@ -50,13 +50,13 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtExclusao/v02_05_00'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtExclusao/v_S_01_00_00'
 
 
 class IdeFolhaPagto(XMLNFe):
     def __init__(self):
         super(IdeFolhaPagto, self).__init__()
-        self.indApuracao = TagCaracter(nome='indApuracao', tamanho=[1, 1], raiz='//ideFolhaPagto', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indApuracao = TagCaracter(nome='indApuracao', tamanho=[1, 1], raiz='//ideFolhaPagto', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.perApur = TagCaracter(nome='perApur',     tamanho=[1, 7], raiz='//ideFolhaPagto', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
