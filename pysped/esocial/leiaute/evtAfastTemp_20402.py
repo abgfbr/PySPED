@@ -49,7 +49,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAfastTemp/v02_05_00'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAfastTemp/v_S_01_00_00'
 
 
 class FimAfastamento(XMLNFe):
@@ -197,6 +197,29 @@ class InfoAtestado(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
+class PerAquis(XMLNFe):
+    def __init__(self):
+        super(PerAquis, self).__init__()
+        self.dtInicio = TagData(nome='dtInicio', raiz='//perAquis', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtFim = TagData(nome='dtFim', raiz='//perAquis', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<perAquis>'
+        xml += self.dtInicio.xml
+        xml += self.dtFim.xml
+        xml += '</perAquis>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.dtInicio.xml = arquivo
+            self.dtFim.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
 class IniAfastamento(XMLNFe):
     def __init__(self):
         super(IniAfastamento, self).__init__()
@@ -205,6 +228,7 @@ class IniAfastamento(XMLNFe):
         self.infoMesmoMtv = TagCaracter(nome='infoMesmoMtv', tamanho=[1, 1], raiz='//iniAfastamento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpAcidTransito = TagInteiro(nome='iniAfastamento', raiz='//iniAfastamento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.observacao = TagCaracter(nome='observacao', raiz='//iniAfastamento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.perAquis = []
         self.infoAtestado = []
         self.infoCessao = []
         self.infoMandSind = []
@@ -217,6 +241,8 @@ class IniAfastamento(XMLNFe):
         xml += self.infoMesmoMtv.xml
         xml += self.tpAcidTransito.xml
         xml += self.observacao.xml
+        for per_aquis in self.perAquis:
+            xml += per_aquis.xml
         for info_atestado in self.infoAtestado:
             xml += info_atestado.xml
         for info_cessao in self.infoCessao:
@@ -234,6 +260,7 @@ class IniAfastamento(XMLNFe):
             self.infoMesmoMtv.xml = arquivo
             self.tpAcidTransito.xml = arquivo
             self.observacao.xml = arquivo
+            self.perAquis.xml = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/perAquis', PerAquis, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoAtestado.xml = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/infoAtestado', InfoAtestado, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoCessao.xml = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/infoCessao', InfoCessao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoMandSind.xml = self.le_grupo('//eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/infoMandSind', InfoMandSind, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
@@ -274,7 +301,6 @@ class IdeVinculo(XMLNFe):
     def __init__(self):
         super(IdeVinculo, self).__init__()
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtAfastTemp/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtAfastTemp/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtAfastTemp/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.codCateg = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtAfastTemp/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
@@ -282,7 +308,6 @@ class IdeVinculo(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<ideVinculo>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
         xml += self.matricula.xml
         xml += self.codCateg.xml
         xml += '</ideVinculo>'
@@ -292,7 +317,6 @@ class IdeVinculo(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
             self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
 

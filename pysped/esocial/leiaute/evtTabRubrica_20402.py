@@ -49,7 +49,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTabRubrica/v02_05_00'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTabRubrica/v_S_01_00_00'
 
 
 class NovaValidade(XMLNFe):
@@ -70,25 +70,6 @@ class NovaValidade(XMLNFe):
         if self._le_xml(arquivo):
             self.iniValid.xml = arquivo
             self.fimValid.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
-class IdeProcessoSIND(XMLNFe):
-    def __init__(self):
-        super(IdeProcessoSIND, self).__init__()
-        self.nrProc = TagCaracter(nome='nrProc', tamanho=[1, 21], raiz='//eSocial/evtTabRubrica/infoRubrica/dadosRubrica/ideProcessoFGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<ideProcessoSIND>'
-        xml += self.nrProc.xml
-        xml += '</ideProcessoSIND>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.nrProc.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -171,7 +152,7 @@ class DadosRubrica(XMLNFe):
         self.codIncCP = TagCaracter(nome='codIncCP', tamanho=[1, 2], raiz='//eSocial/evtTabRubrica/infoRubrica/dadosRubrica', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codIncIRRF = TagCaracter(nome='codIncIRRF', tamanho=[1, 2], raiz='//eSocial/evtTabRubrica/infoRubrica/dadosRubrica', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codIncFGTS = TagCaracter(nome='codIncFGTS', tamanho=[1, 2], raiz='//eSocial/evtTabRubrica/infoRubrica/dadosRubrica', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codIncSIND = TagCaracter(nome='codIncSIND', tamanho=[1, 2], raiz='//eSocial/evtTabRubrica/infoRubrica/dadosRubrica', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codIncCPRP = TagCaracter(nome='codIncCPRP', tamanho=[1, 2], raiz='//eSocial/evtTabRubrica/infoRubrica/dadosRubrica', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.observacao = TagCaracter(nome='observacao', tamanho=[1, 2], raiz='//eSocial/evtTabRubrica/infoRubrica/dadosRubrica', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.ideProcessoCP = []
         self.ideProcessoIRRF = []
@@ -187,7 +168,7 @@ class DadosRubrica(XMLNFe):
         xml += self.codIncCP.xml
         xml += self.codIncIRRF.xml
         xml += self.codIncFGTS.xml
-        xml += self.codIncSIND.xml
+        xml += self.codIncCPRP.xml
         xml += self.observacao.xml
         if len(self.ideProcessoCP) > 0:
             for p in self.ideProcessoCP:
@@ -212,12 +193,11 @@ class DadosRubrica(XMLNFe):
             self.codIncCP.xml = arquivo
             self.codIncIRRF.xml = arquivo
             self.codIncFGTS.xml = arquivo
-            self.codIncSIND.xml = arquivo
+            self.codIncCPRP.xml = arquivo
             self.observacao.xml = arquivo
             self.ideProcessoCP = self.le_grupo('//eSocial/evtTabRubrica/infoRubrica/dadosRubrica/ideProcessoCP', IdeProcessoCP, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.ideProcessoIRRF = self.le_grupo('//eSocial/evtTabRubrica/infoRubrica/dadosRubrica/ideProcessoIRRF', IdeProcessoIRRF, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.ideProcessoFGTS = self.le_grupo('//eSocial/evtTabRubrica/infoRubrica/dadosRubrica/ideProcessoFGTS', IdeProcessoFGTS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.ideProcessoSIND = self.le_grupo('//eSocial/evtTabRubrica/infoRubrica/dadosRubrica/ideProcessoSIND', IdeProcessoSIND, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 

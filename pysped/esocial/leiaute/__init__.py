@@ -44,7 +44,7 @@ from __future__ import division, print_function, unicode_literals
 #
 # Versão 2.05.00
 #
-ESQUEMA_ATUAL_VERSAO_2 = 'v2.05.00'
+ESQUEMA_ATUAL_VERSAO_2 = 'v1.00.00'
 
 from .soap_10100 import SOAPEnvio as SOAPEnvio_10100
 from .soap_10100 import SOAPRetorno as SOAPRetorno_10100
@@ -86,12 +86,6 @@ from .evtTabAmbiente_20500 import Exclusao as S1060_Exclusao
 from .evtTabAmbiente_20500 import NovaValidade as S1060_NovaValidade_2
 # S-2200
 from .evtAdmissao_20402 import S2200 as S2200_2
-from .evtAdmissao_20402 import CTPS as S2200_CTPS_2
-from .evtAdmissao_20402 import RIC as S2200_RIC_2
-from .evtAdmissao_20402 import RG as S2200_RG_2
-from .evtAdmissao_20402 import RNE as S2200_RNE_2
-from .evtAdmissao_20402 import OC as S2200_OC_2
-from .evtAdmissao_20402 import CNH as S2200_CNH_2
 from .evtAdmissao_20402 import Brasil as S2200_Brasil_2
 from .evtAdmissao_20402 import Dependente as S2200_Dependente_2
 from .evtAdmissao_20402 import TrabEstrangeiro as S2200_TrabEstrangeiro_2
@@ -99,11 +93,13 @@ from .evtAdmissao_20402 import Contato as S2200_Contato_2
 from .evtAdmissao_20402 import InfoCeletista as S2200_InfoCeletista_2
 from .evtAdmissao_20402 import InfoEstatutario as S2200_InfoEstatutario_2
 from .evtAdmissao_20402 import LocalTrabGeral as S2200_LocalTrabGeral_2
-from .evtAdmissao_20402 import HorContratual as S2200_HorContratual_2
-from .evtAdmissao_20402 import Horario as S2200_Horario_2
-from .evtAdmissao_20402 import FiliacaoSindical as S2200_FiliacaoSindical_2
 from .evtAdmissao_20402 import Observacoes as S2200_Observacoes_2
 from .evtAdmissao_20402 import SucessaoVinc as S2200_SucessaoVinc_2
+from .evtAdmissao_20402 import Remuneracao as S2200_Remuneracao_2
+from .evtAdmissao_20402 import HorContratual as S2200_HorContratual_2
+from .evtAdmissao_20402 import Duracao as S2200_Duracao_2
+from .evtAdmissao_20402 import LocalTrabalho as S2200_LocalTrabalho_2
+from .evtAdmissao_20402 import FGTS as S2200_FGTS_2
 
 # S-2205
 from .evtAltCadastral_20402 import S2205 as S2205_2
@@ -138,12 +134,14 @@ from .evtMonit_20500 import Exame as S2220_Exame_2
 # S-2230
 from .evtAfastTemp_20402 import S2230 as S2230_2
 from .evtAfastTemp_20402 import IniAfastamento as S2230_IniAfastamento_2
+from .evtAfastTemp_20402 import PerAquis as S2230_PerAquis_2
 from .evtAfastTemp_20402 import FimAfastamento as S2230_FimAfastamento_2
 
 # S-2240
 from .evtExpRisco_20500 import S2240 as S2240_2
 from .evtExpRisco_20500 import InfoAmb as S2240_InfoAmb_2
 from .evtExpRisco_20500 import AtivPericInsal as S2240_AtivPericInsal_2
+from .evtExpRisco_20500 import agNoc as S2240_agNoc_2
 from .evtExpRisco_20500 import FatRisco as S2240_FatRisco_2
 from .evtExpRisco_20500 import RespReg as S2240_RespReg_2
 from .evtExpRisco_20500 import Obs as S2240_Obs_2
@@ -236,19 +234,6 @@ from .evtBenPrRP_20402 import Itens as S1207_Itens_2
 # S-1210
 from .evtPgtos_20402 import S1210 as S1210_2
 from .evtPgtos_20402 import InfoPgto as S1210_InfoPgto_2
-from .evtPgtos_20402 import DetPgtoFl as S1210_DetPgtoFl_2
-from .evtPgtos_20402 import RetPgtoTot as S1210_RetPgtoTot_2
-from .evtPgtos_20402 import PenAlim as S1210_PenAlim_2
-from .evtPgtos_20402 import InfoPgtoParc as S1210_InfoPgtoParc_2
-from .evtPgtos_20402 import DetPgtoBenPr as S1210_DetPgtoBenPr_2
-from .evtPgtos_20402 import DetPgtoBenPrRetPgtoTot as S1210_DetPgtoBenPrRetPgtoTot_2
-from .evtPgtos_20402 import DetPgtoBenPrInfoPgtoParc as S1210_DetPgtoBenPrInfoPgtoParc_2
-from .evtPgtos_20402 import DetPgtoFer as S1210_DetPgtoFer_2
-from .evtPgtos_20402 import DetRubrFer as S1210_DetRubrFer_2
-from .evtPgtos_20402 import DetRubrFerPenAlim as S1210_DetRubrFerPenAlim_2
-from .evtPgtos_20402 import DetPgtoAnt as S1210_DetPgtoAnt_2
-from .evtPgtos_20402 import IdePgtoExt as S1210_IdePgtoExt_2
-from .evtPgtos_20402 import InfoPgtoAnt as S1210_InfoPgtoAnt_2
 
 # S-1295
 from .evtTotContig_20402 import IdeRespInf as S1295_IdeRespInf_2

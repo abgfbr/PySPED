@@ -49,7 +49,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAdmissao/v02_05_00'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtAdmissao/v_S_01_00_00'
 
 
 class Observacoes(XMLNFe):
@@ -184,66 +184,23 @@ class AlvaraJudicial(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class FiliacaoSindical(XMLNFe):
-    def __init__(self):
-        super(FiliacaoSindical, self).__init__()
-        self.cnpjSindTrab = TagCaracter(nome='cnpjSindTrab', tamanho=[1, 14], raiz='//filiacaoSindical', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<filiacaoSindical>'
-        xml += self.cnpjSindTrab.xml
-        xml += '</filiacaoSindical>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.cnpjSindTrab.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
-class Horario(XMLNFe):
-    def __init__(self):
-        super(Horario, self).__init__()
-        self.dia           = TagCaracter(nome='dia',           tamanho=[1, 1], raiz='//horario', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codHorContrat = TagCaracter(nome='codHorContrat', tamanho=[1, 30], raiz='//horario', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<horario>'
-        xml += self.dia.xml
-        xml += self.codHorContrat.xml
-        xml += '</horario>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.dia.xml = arquivo
-            self.codHorContrat.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
 class HorContratual(XMLNFe):
     def __init__(self):
         super(HorContratual, self).__init__()
         self.qtdHrsSem   = TagDecimal( nome='qtdHrsSem',   tamanho=[1, 4, 2], raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpJornada   = TagCaracter(nome='tpJornada',   tamanho=[1, 1],    raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dscTpJorn   = TagCaracter(nome='dscTpJorn',   tamanho=[1, 100],  raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tmpParc     = TagCaracter(nome='tmpParc',     tamanho=[1, 1],    raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.horario     = []
+        self.horNoturno  = TagCaracter(nome='horNoturno',  tamanho=[1, 1],    raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.dscJorn = TagCaracter(nome='dscJorn', tamanho=[1, 100], raiz='//horContratual', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<horContratual>'
         xml += self.qtdHrsSem.xml
         xml += self.tpJornada.xml
-        xml += self.dscTpJorn.xml
         xml += self.tmpParc.xml
-        if len(self.horario) > 0:
-            for h in self.horario:
-                xml += h.xml
+        xml += self.horNoturno.xml
+        xml += self.dscJorn.xml
         xml += '</horContratual>'
         return xml
 
@@ -251,9 +208,8 @@ class HorContratual(XMLNFe):
         if self._le_xml(arquivo):
             self.qtdHrsSem.xml = arquivo
             self.tpJornada.xml = arquivo
-            self.dscTpJorn.xml = arquivo
+            self.dscJorn.xml = arquivo
             self.tmpParc.xml = arquivo
-            self.horario.xml = self.le_grupo('//horContratual/horario', Horario, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
@@ -346,54 +302,98 @@ class LocalTrabalho(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class InfoContrato(XMLNFe):
+class Remuneracao(XMLNFe):
     def __init__(self):
-        super(InfoContrato, self).__init__()
-        self.codCargo         = TagCaracter(nome='codCargo',    tamanho=[1, 30],    raiz='//eSocial/evtAdmissao/vinculo/infoContrato',             namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codFuncao        = TagCaracter(nome='codFuncao',   tamanho=[1, 30],    raiz='//eSocial/evtAdmissao/vinculo/infoContrato',             namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codCateg         = TagCaracter(nome='codCateg',    tamanho=[1, 3],     raiz='//eSocial/evtAdmissao/vinculo/infoContrato',             namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codCarreira      = TagCaracter(nome='codCarreira', tamanho=[1, 30],    raiz='//eSocial/evtAdmissao/vinculo/infoContrato',             namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.dtIngrCarr       = TagData(    nome='dtIngrCarr',                      raiz='//eSocial/evtAdmissao/vinculo/infoContrato',             namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vrSalFx          = TagDecimal( nome='vrSalFx',     tamanho=[1, 14, 2], raiz='//eSocial/evtAdmissao/vinculo/infoContrato/remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.undSalFixo       = TagCaracter(nome='undSalFixo',  tamanho=[1, 1],     raiz='//eSocial/evtAdmissao/vinculo/infoContrato/remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dscSalVar        = TagCaracter(nome='dscSalVar',   tamanho=[1, 255],   raiz='//eSocial/evtAdmissao/vinculo/infoContrato/remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.tpContr          = TagCaracter(nome='tpContr',     tamanho=[1, 1],     raiz='//eSocial/evtAdmissao/vinculo/infoContrato/duracao',     namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtTerm           = TagData(    nome='dtTerm',                          raiz='//eSocial/evtAdmissao/vinculo/infoContrato/duracao',     namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.clauAssec        = TagCaracter(nome='clauAssec',   tamanho=[1, 1],     raiz='//eSocial/evtAdmissao/vinculo/infoContrato/duracao',     namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.localTrabalho    = LocalTrabalho()
-        self.horContratual    = []
-        self.filiacaoSindical = []
-        self.alvaraJudicial   = []
-        self.observacoes      = []
+        super(Remuneracao, self).__init__()
+        self.vrSalFx = TagDecimal( nome='vrSalFx', tamanho=[1, 14, 2], raiz='//remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.undSalFixo = TagInteiro( nome='undSalFixo', tamanho=[1, 1], raiz='//remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dscSalVar = TagCaracter(nome='dscSalVar', tamanho=[1, 30], raiz='//remuneracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<infoContrato>'
-        xml += self.codCargo.xml
-        xml += self.codFuncao.xml
-        xml += self.codCateg.xml
-        xml += self.codCarreira.xml
-        xml += self.dtIngrCarr.xml
         xml += '<remuneracao>'
         xml += self.vrSalFx.xml
         xml += self.undSalFixo.xml
         xml += self.dscSalVar.xml
         xml += '</remuneracao>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.vrSalFx.xml = arquivo
+            self.undSalFixo.xml = arquivo
+            self.dscSalVar.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class Duracao(XMLNFe):
+    def __init__(self):
+        self.tpContr = TagInteiro( nome='tpContr', tamanho=[1,  1], raiz='//duracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtTerm = TagData(    nome='dtTerm', raiz='//duracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.clauAssec = TagCaracter(nome='clauAssec', tamanho=[1, 100], raiz='//duracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.objDet = TagCaracter(nome='objDet', tamanho=[1, 100], raiz='//duracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
         xml += '<duracao>'
         xml += self.tpContr.xml
         xml += self.dtTerm.xml
         xml += self.clauAssec.xml
+        xml += self.objDet.xml
         xml += '</duracao>'
-        xml += self.localTrabalho.xml
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.tpContr.xml = arquivo
+            self.dtTerm.xml = arquivo
+            self.clauAssec.xml = arquivo
+            self.objDet.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class InfoContrato(XMLNFe):
+    def __init__(self):
+        super(InfoContrato, self).__init__()
+        self.nmCargo          = TagCaracter(nome='nmCargo',       tamanho=[1, 100],    raiz='//eSocial/evtAdmissao/vinculo/infoContrato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.CBOCargo         = TagCaracter(nome='CBOCargo',      tamanho=[1, 6],      raiz='//eSocial/evtAdmissao/vinculo/infoContrato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtIngrCargo      = TagData(    nome='dtIngrCargo',                        raiz='//eSocial/evtAdmissao/vinculo/infoContrato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmFuncao         = TagCaracter(nome='nmFuncao',      tamanho=[1, 30],     raiz='//eSocial/evtAdmissao/vinculo/infoContrato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.CBOFuncao        = TagCaracter(nome='CBOFuncao',     tamanho=[1, 6],      raiz='//eSocial/evtAdmissao/vinculo/infoContrato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.acumCargo        = TagCaracter( nome='acumCargo',    tamanho=[1, 2],      raiz='//eSocial/evtAdmissao/vinculo/infoContrato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codCateg         = TagInteiro( nome='codCateg',      tamanho=[1,  3],     raiz='//eSocial/evtAdmissao/vinculo/infoContrato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.remuneracao      = []
+        self.duracao          = []
+        self.localTrabalho    = []
+        self.horContratual    = []
+        self.observacoes      = []
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<infoContrato>'
+        xml += self.nmCargo.xml
+        xml += self.CBOCargo.xml
+        xml += self.dtIngrCargo.xml
+        xml += self.nmFuncao.xml
+        xml += self.CBOFuncao.xml
+        xml += self.acumCargo.xml
+        xml += self.codCateg.xml
+        if len(self.remuneracao) > 0:
+            for r in self.remuneracao:
+                xml += r.xml
+        if len(self.duracao) > 0:
+            for d in self.duracao:
+                xml += d.xml
+        if len(self.localTrabalho) > 0:
+            for a in self.localTrabalho:
+                xml += a.xml
         if len(self.horContratual) > 0:
             for h in self.horContratual:
                 xml += h.xml
-        if len(self.filiacaoSindical) > 0:
-            for f in self.filiacaoSindical:
-                xml += f.xml
-        if len(self.alvaraJudicial) > 0:
-            for a in self.alvaraJudicial:
-                xml += a.xml
         if len(self.observacoes) > 0:
             for o in self.observacoes:
                 xml += o.xml
@@ -415,8 +415,9 @@ class InfoContrato(XMLNFe):
             self.clauAssec.xml = arquivo
             self.localTrabalho.xml = arquivo
             self.horContratual = self.le_grupo('//eSocial/evtAdmissao/vinculo/infoContrato/horContratual', HorContratual, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.filiacaoSindical = self.le_grupo('//eSocial/evtAdmissao/vinculo/infoContrato/filiacaoSindical', FiliacaoSindical, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.alvaraJudicial = self.le_grupo('//eSocial/evtAdmissao/vinculo/infoContrato/alvaraJudicial', AlvaraJudicial, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.remuneracao = self.le_grupo('//eSocial/evtAdmissao/vinculo/infoContrato/remuneracao', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.duracao = self.le_grupo('//eSocial/evtAdmissao/vinculo/infoContrato/duracao', Duracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.localTrabalho = self.le_grupo('//eSocial/evtAdmissao/vinculo/infoContrato/localTrabalho', LocalTrabalho, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.observacoes = self.le_grupo('//eSocial/evtAdmissao/vinculo/infoContrato/observacoes', Observacoes, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
@@ -585,20 +586,17 @@ class TrabTemporario(XMLNFe):
 class FGTS(XMLNFe):
     def __init__(self):
         super(FGTS, self).__init__()
-        self.opcFGTS   = TagCaracter(nome='opcFGTS'  , tamanho=[1, 1], raiz='//infoCeletista/FGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtOpcFGTS = TagCaracter(nome='dtOpcFGTS',                 raiz='//infoCeletista/FGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.dtOpcFGTS = TagCaracter(nome='dtOpcFGTS',                 raiz='//infoCeletista/FGTS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<FGTS>'
-        xml += self.opcFGTS.xml
         xml += self.dtOpcFGTS.xml
         xml += '</FGTS>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.opcFGTS.xml = arquivo
             self.dtOpcFGTS.xml = arquivo
 
     xml = property(get_xml, set_xml)
@@ -614,7 +612,7 @@ class InfoCeletista(XMLNFe):
         self.natAtividade      = TagCaracter(nome='natAtividade'     , tamanho=[1,  1], raiz='//infoCeletista', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtBase            = TagInteiro( nome='dtBase'           , tamanho=[1,  2], raiz='//infoCeletista', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.cnpjSindCategProf = TagCaracter(nome='cnpjSindCategProf', tamanho=[1, 14], raiz='//infoCeletista', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.FGTS              = FGTS()
+        self.FGTS              = []
         self.trabTemporario    = []
         self.aprend            = []
 
@@ -628,7 +626,9 @@ class InfoCeletista(XMLNFe):
         xml += self.natAtividade.xml
         xml += self.dtBase.xml
         xml += self.cnpjSindCategProf.xml
-        xml += self.FGTS.xml
+        if len(self.FGTS) > 0:
+            for f in self.FGTS:
+                xml += f.xml
         if len(self.trabTemporario) > 0:
             for t in self.trabTemporario:
                 xml += t.xml
@@ -647,7 +647,7 @@ class InfoCeletista(XMLNFe):
             self.natAtividade.xml = arquivo
             self.dtBase.xml = arquivo
             self.cnpjSindCategProf.xml = arquivo
-            self.FGTS.xml = arquivo
+            self.FGTS = self.le_grupo('//infoCeletista/trabTemporario', FGTS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.trabTemporario = self.le_grupo('//infoCeletista/trabTemporario', TrabTemporario, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.aprend = self.le_grupo('//infoCeletista/aprend', Aprend, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
@@ -741,26 +741,20 @@ class Contato(XMLNFe):
     def __init__(self):
         super(Contato, self).__init__()
         self.fonePrinc     = TagCaracter(nome='fonePrinc'    , tamanho=[1, 13], raiz='//contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.foneAlternat  = TagCaracter(nome='foneAlternat' , tamanho=[1, 13], raiz='//contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.emailPrinc    = TagCaracter(nome='emailPrinc'   , tamanho=[1, 60], raiz='//contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.emailAlternat = TagCaracter(nome='emailAlternat', tamanho=[1, 60], raiz='//contato', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<contato>'
         xml += self.fonePrinc.xml
-        xml += self.foneAlternat.xml
         xml += self.emailPrinc.xml
-        xml += self.emailAlternat.xml
         xml += '</contato>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.fonePrinc.xml = arquivo
-            self.foneAlternat.xml = arquivo
             self.emailPrinc.xml = arquivo
-            self.emailAlternat.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -966,168 +960,6 @@ class Brasil(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class CNH(XMLNFe):
-    def __init__(self):
-        super(CNH, self).__init__()
-        self.nrRegCnh     = TagCaracter(nome='nrRegCnh'    , tamanho=[1, 12], raiz='//CNH', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtExped      = TagData(    nome='dtExped'     ,                  raiz='//CNH', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.ufCnh        = TagCaracter(nome='ufCnh'       , tamanho=[1,  2], raiz='//CNH', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtValid      = TagData(    nome='dtValid'     ,                  raiz='//CNH', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtPriHab     = TagData(    nome='dtPriHab'    ,                  raiz='//CNH', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.categoriaCnh = TagCaracter(nome='categoriaCnh', tamanho=[1,  2], raiz='//CNH', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<CNH>'
-        xml += self.nrRegCnh.xml
-        xml += self.dtExped.xml
-        xml += self.ufCnh.xml
-        xml += self.dtValid.xml
-        xml += self.dtPriHab.xml
-        xml += self.categoriaCnh.xml
-        xml += '</CNH>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.nrRegCnh.xml = arquivo
-            self.dtExped.xml = arquivo
-            self.ufCnh.xml = arquivo
-            self.dtValid.xml = arquivo
-            self.dtPriHab.xml = arquivo
-            self.categoriaCnh.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
-class OC(XMLNFe):
-    def __init__(self):
-        super(OC, self).__init__()
-        self.nrOc         = TagCaracter(nome='nrOc'        , tamanho=[1, 14], raiz='//OC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.orgaoEmissor = TagCaracter(nome='orgaoEmissor', tamanho=[1, 20], raiz='//OC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtExped      = TagData(    nome='dtExped'     ,                  raiz='//OC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.dtValid      = TagData(    nome='dtValid'     ,                  raiz='//OC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<OC>'
-        xml += self.nrOc.xml
-        xml += self.orgaoEmissor.xml
-        xml += self.dtExped.xml
-        xml += self.dtValid.xml
-        xml += '</OC>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.nrOc.xml = arquivo
-            self.orgaoEmissor.xml = arquivo
-            self.dtExped.xml = arquivo
-            self.dtValid.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
-class RNE(XMLNFe):
-    def __init__(self):
-        super(RNE, self).__init__()
-        self.nrRne        = TagCaracter(nome='nrRne'       , tamanho=[1, 14], raiz='//RNE', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.orgaoEmissor = TagCaracter(nome='orgaoEmissor', tamanho=[1, 20], raiz='//RNE', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtExped      = TagData(    nome='dtExped'     ,                  raiz='//RNE', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<RNE>'
-        xml += self.nrRne.xml
-        xml += self.orgaoEmissor.xml
-        xml += self.dtExped.xml
-        xml += '</RNE>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.nrRne.xml = arquivo
-            self.orgaoEmissor.xml = arquivo
-            self.dtExped.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
-class RG(XMLNFe):
-    def __init__(self):
-        super(RG, self).__init__()
-        self.nrRg         = TagCaracter(nome='nrRg'        , tamanho=[1, 14], raiz='//RG', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.orgaoEmissor = TagCaracter(nome='orgaoEmissor', tamanho=[1, 20], raiz='//RG', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtExped      = TagData(    nome='dtExped'     ,                  raiz='//RG', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<RG>'
-        xml += self.nrRg.xml
-        xml += self.orgaoEmissor.xml
-        xml += self.dtExped.xml
-        xml += '</RG>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.nrRg.xml = arquivo
-            self.orgaoEmissor.xml = arquivo
-            self.dtExped.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
-class RIC(XMLNFe):
-    def __init__(self):
-        super(RIC, self).__init__()
-        self.nrRic        = TagCaracter(nome='nrRic'       , tamanho=[1, 14], raiz='//RIC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.orgaoEmissor = TagCaracter(nome='orgaoEmissor', tamanho=[1, 20], raiz='//RIC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtExped      = TagData(    nome='dtExped'     ,                  raiz='//RIC', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<RIC>'
-        xml += self.nrRic.xml
-        xml += self.orgaoEmissor.xml
-        xml += self.dtExped.xml
-        xml += '</RIC>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.nrRic.xml = arquivo
-            self.orgaoEmissor.xml = arquivo
-            self.dtExped.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
-class CTPS(XMLNFe):
-    def __init__(self):
-        super(CTPS, self).__init__()
-        self.nrCtps    = TagCaracter(nome='nrCtps'   , tamanho=[1, 11], raiz='//CTPS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.serieCtps = TagCaracter(nome='serieCtps', tamanho=[1,  5], raiz='//CTPS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.ufCtps    = TagCaracter(nome='ufCtps'   , tamanho=[1,  2], raiz='//CTPS', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<CTPS>'
-        xml += self.nrCtps.xml
-        xml += self.serieCtps.xml
-        xml += self.ufCtps.xml
-        xml += '</CTPS>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.nrCtps.xml = arquivo
-            self.serieCtps.xml = arquivo
-            self.ufCtps.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
 class Endereco(XMLNFe):
     def __init__(self):
         super(Endereco, self).__init__()
@@ -1154,85 +986,27 @@ class Endereco(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class Documentos(XMLNFe):
-    def __init__(self):
-        super(Documentos, self).__init__()
-        self.CTPS        = []
-        self.RIC         = []
-        self.RG          = []
-        self.RNE         = []
-        self.OC          = []
-        self.CNH         = []
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<documentos>'
-        if len(self.CTPS) > 0:
-            for c in self.CTPS:
-                xml += c.xml
-        if len(self.RIC) > 0:
-            for r in self.RIC:
-                xml += r.xml
-        if len(self.RG) > 0:
-            for r in self.RG:
-                xml += r.xml
-        if len(self.RNE) > 0:
-            for r in self.RNE:
-                xml += r.xml
-        if len(self.OC) > 0:
-            for o in self.OC:
-                xml += o.xml
-        if len(self.CNH) > 0:
-            for c in self.CNH:
-                xml += c.xml
-        xml += '</documentos>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.CTPS = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/CTPS', CTPS, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.RIC  = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/RIC' , RIC , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.RG   = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/RG'  , RG  , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.RNE  = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/RNE' , RNE , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.OC   = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/OC'  , OC  , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-            self.CNH  = self.le_grupo('//eSocial/evtAdmissao/trabalhador/documentos/CNH' , CNH , namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
-
-    xml = property(get_xml, set_xml)
-
-
 class Nascimento(XMLNFe):
     def __init__(self):
         super(Nascimento, self).__init__()
         self.dtNascto    = TagData(    nome='dtNascto'  ,                  raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codMunic    = TagCaracter(nome='codMunic'  , tamanho=[1, 7] , raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.uf          = TagCaracter(nome='uf'        , tamanho=[1, 2] , raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.paisNascto  = TagCaracter(nome='paisNascto', tamanho=[1, 3] , raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.paisNac     = TagCaracter(nome='paisNac'   , tamanho=[1, 3] , raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nmMae       = TagCaracter(nome='nmMae'     , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nmPai       = TagCaracter(nome='nmPai'     , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<nascimento>'
         xml += self.dtNascto.xml
-        xml += self.codMunic.xml
-        xml += self.uf.xml
         xml += self.paisNascto.xml
         xml += self.paisNac.xml
-        xml += self.nmMae.xml
-        xml += self.nmPai.xml
         xml += '</nascimento>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.dtNascto.xml = arquivo
-            self.codMunic.xml = arquivo
-            self.uf.xml = arquivo
             self.paisNascto.xml = arquivo
             self.paisNac.xml = arquivo
-            self.nmMae.xml = arquivo
-            self.nmPai.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -1241,16 +1015,13 @@ class Trabalhador(XMLNFe):
     def __init__(self):
         super(Trabalhador, self).__init__()
         self.cpfTrab    = TagCaracter(nome='cpfTrab'   , tamanho=[1, 11], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab    = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nmTrab     = TagCaracter(nome='nmTrab'    , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.sexo       = TagCaracter(nome='sexo'      , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.racaCor    = TagCaracter(nome='racaCor'   , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.estCiv     = TagCaracter(nome='estCiv'    , tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.grauInstr  = TagCaracter(nome='grauInstr' , tamanho=[1, 2] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.indPriEmpr = TagCaracter(nome='indPriEmpr', tamanho=[1, 1] , raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nmSoc      = TagCaracter(nome='nmSoc'     , tamanho=[1, 70], raiz='//eSocial/evtAdmissao/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nascimento = Nascimento()
-        self.documentos = Documentos()
         self.endereco   = Endereco()
         self.trabEstrangeiro = []
         self.infoDeficiencia = []
@@ -1262,16 +1033,13 @@ class Trabalhador(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<trabalhador>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
         xml += self.nmTrab.xml
         xml += self.sexo.xml
         xml += self.racaCor.xml
         xml += self.estCiv.xml
         xml += self.grauInstr.xml
-        xml += self.indPriEmpr.xml
         xml += self.nmSoc.xml
         xml += self.nascimento.xml
-        xml += self.documentos.xml
         xml += self.endereco.xml
         if len(self.trabEstrangeiro) > 0:
             for t in self.trabEstrangeiro:
@@ -1294,16 +1062,13 @@ class Trabalhador(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
             self.nmTrab.xml = arquivo
             self.sexo.xml = arquivo
             self.racaCor.xml = arquivo
             self.estCivil.xml = arquivo
             self.grauInstr.xml = arquivo
-            self.indPriEmpr.xml = arquivo
             self.nmSoc.xml = arquivo
             self.nascimento.xml = arquivo
-            self.documentos.xml = arquivo
             self.endereco.xml = arquivo
             self.trabEstrangeiro = self.le_grupo('//eSocial/evtAdmissao/trabalhador/trabEstrangeiro', TrabEstrangeiro, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoDeficiencia = self.le_grupo('//eSocial/evtAdmissao/trabalhador/infoDeficiencia', InfoDeficiencia, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
