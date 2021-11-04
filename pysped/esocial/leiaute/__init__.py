@@ -141,6 +141,7 @@ from .evtAfastTemp_20402 import FimAfastamento as S2230_FimAfastamento_2
 from .evtExpRisco_20500 import S2240 as S2240_2
 from .evtExpRisco_20500 import InfoAmb as S2240_InfoAmb_2
 from .evtExpRisco_20500 import AtivPericInsal as S2240_AtivPericInsal_2
+from .evtExpRisco_20500 import agNoc as S2240_agNoc_2
 from .evtExpRisco_20500 import FatRisco as S2240_FatRisco_2
 from .evtExpRisco_20500 import RespReg as S2240_RespReg_2
 from .evtExpRisco_20500 import Obs as S2240_Obs_2

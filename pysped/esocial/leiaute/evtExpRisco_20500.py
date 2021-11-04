@@ -78,8 +78,8 @@ class RespReg(XMLNFe):
     def __init__(self):
         super(RespReg, self).__init__()
         self.cpfResp = TagCaracter(nome='cpfResp', tamanho=[1, 11], raiz='//eSocial/evtExpRisco/InfoExpRisco/respReg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisResp = TagCaracter(nome='nisResp', tamanho=[1, 11], raiz='//eSocial/evtExpRisco/InfoExpRisco/respReg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nmResp = TagCaracter(nome='nmResp', tamanho=[1, 70], raiz='//eSocial/evtExpRisco/InfoExpRisco/respReg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        #self.nisResp = TagCaracter(nome='nisResp', tamanho=[1, 11], raiz='//eSocial/evtExpRisco/InfoExpRisco/respReg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        #self.nmResp = TagCaracter(nome='nmResp', tamanho=[1, 70], raiz='//eSocial/evtExpRisco/InfoExpRisco/respReg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ideOC = TagCaracter(nome='ideOC', tamanho=[1, 1], raiz='//eSocial/evtExpRisco/InfoExpRisco/respReg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dscOC = TagCaracter(nome='dscOC', tamanho=[1, 20], raiz='//eSocial/evtExpRisco/InfoExpRisco/respReg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nrOC = TagCaracter(nome='nrOC', tamanho=[1, 14], raiz='//eSocial/evtExpRisco/InfoExpRisco/respReg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -89,8 +89,8 @@ class RespReg(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<respReg>'
         xml += self.cpfResp.xml
-        xml += self.nisResp.xml
-        xml += self.nmResp.xml
+        #xml += self.nisResp.xml
+        #xml += self.nmResp.xml
         xml += self.ideOC.xml
         xml += self.dscOC.xml
         xml += self.nrOC.xml
@@ -101,8 +101,8 @@ class RespReg(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfResp.xml = arquivo
-            self.nisResp.xml = arquivo
-            self.nmResp.xml = arquivo
+            #self.nisResp.xml = arquivo
+            #self.nmResp.xml = arquivo
             self.ideOC.xml = arquivo
             self.dscOC.xml = arquivo
             self.nrOC.xml = arquivo
@@ -183,6 +183,47 @@ class EpcEpi(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
+class agNoc(XMLNFe):
+    def __init__(self):
+        super(agNoc, self).__init__()
+        self.codAgNoc = TagCaracter(nome='codAgNoc', tamanho=[1, 9], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dscAgNoc = TagCaracter(nome='dscAgNoc', tamanho=[1, 999], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tpAval = TagInteiro(nome='tpAval', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.intConc = TagInteiro(nome='intConc', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.limTol = TagInteiro(nome='limTol', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.unMed = TagInteiro(nome='unMed', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tecMedicao = TagCaracter(nome='tecMedicao', tamanho=[1, 40], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.epcEpi = EpcEpi()
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<agNoc>'
+        xml += self.codAgNoc.xml
+        xml += self.dscAgNoc.xml
+        xml += self.tpAval.xml
+        xml += self.intConc.xml
+        xml += self.limTol.xml
+        xml += self.unMed.xml
+        xml += self.tecMedicao.xml
+        xml += self.epcEpi.xml
+        xml += '</agNoc>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.codAgNoc.xml = arquivo
+            self.dscAgNoc.xml = arquivo
+            self.tpAval.xml = arquivo
+            self.intConc.xml = arquivo
+            self.limTol.xml = arquivo
+            self.unMed.xml = arquivo
+            self.tecMedicao.xml = arquivo
+            self.epcEpi.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+#depreciated
 class FatRisco(XMLNFe):
     def __init__(self):
         super(FatRisco, self).__init__()
@@ -255,14 +296,14 @@ class InfoAtiv(XMLNFe):
     def __init__(self):
         super(InfoAtiv, self).__init__()
         self.dscAtivDes = TagCaracter(nome='dscAtivDes', tamanho=[1, 999], raiz='//eSocial/evtExpRisco/InfoExpRisco/infoAtiv', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.ativPericInsal = []
+        #self.ativPericInsal = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<infoAtiv>'
         xml += self.dscAtivDes.xml
-        for ativ_peric in self.ativPericInsal:
-            xml += ativ_peric.xml
+        # for ativ_peric in self.ativPericInsal:
+        #     xml += ativ_peric.xml
         xml += '</infoAtiv>'
         return xml
 
@@ -277,12 +318,33 @@ class InfoAtiv(XMLNFe):
 class InfoAmb(XMLNFe):
     def __init__(self):
         super(InfoAmb, self).__init__()
-        self.codAmb = TagCaracter(nome='codAmb', tamanho=[1, 30], raiz='//eSocial/evtExpRisco/InfoExpRisco/InfoAmb', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.localAmb = TagCaracter(nome='localAmb', tamanho=[1, 1],
+                                    raiz='//eSocial/evtExpRisco/InfoExpRisco/InfoAmb',
+                                    namespace=NAMESPACE_ESOCIAL,
+                                    namespace_obrigatorio=False)
+        self.dscSetor = TagCaracter(nome='dscSetor', tamanho=[1, 100],
+                                    raiz='//eSocial/evtExpRisco/InfoExpRisco/InfoAmb',
+                                    namespace=NAMESPACE_ESOCIAL,
+                                    namespace_obrigatorio=False)
+        self.tpInsc = TagCaracter(nome='tpInsc',
+                                  raiz='//eSocial/evtExpRisco/ideEmpregador',
+                                  namespace=NAMESPACE_ESOCIAL,
+                                  namespace_obrigatorio=False, valor='1')
+        self.nrInsc = TagCaracter(nome='nrInsc',
+                                  raiz='//eSocial/evtExpRisco/InfoExpRisco/InfoAmb',
+                                  namespace=NAMESPACE_ESOCIAL,
+                                  namespace_obrigatorio=False)
+
+        #self.codAmb = TagCaracter(nome='codAmb', tamanho=[1, 30], raiz='//eSocial/evtExpRisco/InfoExpRisco/InfoAmb', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<infoAmb>'
-        xml += self.codAmb.xml
+        xml += self.localAmb.xml
+        xml += self.dscSetor.xml
+        xml += self.tpInsc.xml
+        xml += self.nrInsc.xml
         xml += '</infoAmb>'
         return xml
 
@@ -299,7 +361,7 @@ class InfoExpRisco(XMLNFe):
         self.dtIniCondicao = TagData(nome='dtIniCondicao', raiz='//eSocial/evtExpRisco/InfoExpRisco', namespace=NAMESPACE_CTE, namespace_obrigatorio=False)
         self.infoAmb = []
         self.infoAtiv = InfoAtiv()
-        self.fatRisco = []
+        self.agNoc = []
         self.respReg = []
         self.obs = []
 
@@ -310,8 +372,8 @@ class InfoExpRisco(XMLNFe):
         for info_amb in self.infoAmb:
             xml += info_amb.xml
         xml += self.infoAtiv.xml
-        for fat_risco in self.fatRisco:
-            xml += fat_risco.xml
+        for agente_nocivo in self.agNoc:
+            xml += agente_nocivo.xml
         for resp_reg in self.respReg:
             xml += resp_reg.xml
         for obs in self.obs:
@@ -324,7 +386,7 @@ class InfoExpRisco(XMLNFe):
             self.dtIniCondicao.xml = arquivo
             self.infoAmb.xml = self.le_grupo('//eSocial/evtExpRisco/InfoExpRisco/infoAmb', InfoAmb, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoAtiv.xml = arquivo
-            self.fatRisco.xml = self.le_grupo('//eSocial/evtExpRisco/fatRisco', FatRisco, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.agNoc.xml = self.le_grupo('//eSocial/evtExpRisco/agNoc', agNoc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.respReg.xml = self.le_grupo('//eSocial/evtExpRisco/respReg', RespReg, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.obs.xml = self.le_grupo('//eSocial/evtExpRisco/obs', Obs, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
@@ -335,7 +397,7 @@ class IdeVinculo(XMLNFe):
     def __init__(self):
         super(IdeVinculo, self).__init__()
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        #self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.codCateg = TagCaracter(nome='codCateg', tamanho=[1, 30], raiz='//eSocial/evtExpRisco/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
@@ -343,7 +405,7 @@ class IdeVinculo(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<ideVinculo>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
+        #xml += self.nisTrab.xml
         xml += self.matricula.xml
         xml += self.codCateg.xml
         xml += '</ideVinculo>'
@@ -353,7 +415,7 @@ class IdeVinculo(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
+            #self.nisTrab.xml = arquivo
             self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
 
