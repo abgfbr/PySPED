@@ -186,14 +186,14 @@ class EpcEpi(XMLNFe):
 class agNoc(XMLNFe):
     def __init__(self):
         super(agNoc, self).__init__()
-        self.codAgNoc = TagCaracter(nome='codAgNoc', tamanho=[1, 9], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dscAgNoc = TagCaracter(nome='dscAgNoc', tamanho=[1, 999], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.tpAval = TagInteiro(nome='tpAval', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.intConc = TagInteiro(nome='intConc', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.limTol = TagInteiro(nome='limTol', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.unMed = TagInteiro(nome='unMed', raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.tecMedicao = TagCaracter(nome='tecMedicao', tamanho=[1, 40], raiz='//eSocial/evtExpRisco/InfoExpRisco/fatRisco', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.epcEpi = EpcEpi()
+        self.codAgNoc = TagCaracter(nome='codAgNoc', tamanho=[1, 9], raiz='//eSocial/evtExpRisco/InfoExpRisco/agNoc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dscAgNoc = TagCaracter(nome='dscAgNoc', tamanho=[1, 999], raiz='//eSocial/evtExpRisco/InfoExpRisco/agNoc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tpAval = TagInteiro(nome='tpAval', raiz='//eSocial/evtExpRisco/InfoExpRisco/agNoc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.intConc = TagInteiro(nome='intConc', raiz='//eSocial/evtExpRisco/InfoExpRisco/agNoc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.limTol = TagInteiro(nome='limTol', raiz='//eSocial/evtExpRisco/InfoExpRisco/agNoc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.unMed = TagInteiro(nome='unMed', raiz='//eSocial/evtExpRisco/InfoExpRisco/agNoc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.tecMedicao = TagCaracter(nome='tecMedicao', tamanho=[1, 40], raiz='//eSocial/evtExpRisco/InfoExpRisco/agNoc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.epcEpi = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -205,7 +205,8 @@ class agNoc(XMLNFe):
         xml += self.limTol.xml
         xml += self.unMed.xml
         xml += self.tecMedicao.xml
-        xml += self.epcEpi.xml
+        for e in self.epcEpi:
+            xml += e.xml
         xml += '</agNoc>'
         return xml
 
@@ -218,7 +219,7 @@ class agNoc(XMLNFe):
             self.limTol.xml = arquivo
             self.unMed.xml = arquivo
             self.tecMedicao.xml = arquivo
-            self.epcEpi.xml = arquivo
+            self.epcEpi.xml = self.le_grupo('//eSocial/evtExpRisco/InfoExpRisco/agNoc', EpcEpi, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
