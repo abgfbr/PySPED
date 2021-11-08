@@ -79,8 +79,9 @@ class IdeEvento(XMLNFe):
         super(IdeEvento, self).__init__()
         self.indApuracao = TagCaracter(nome='indApuracao', tamanho=[1,  1], raiz='//eSocial/evtReabreEvPer/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.perApur     = TagCaracter(nome='perApur',     tamanho=[1,  7], raiz='//eSocial/evtReabreEvPer/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indGuia     = TagInteiro( nome='indGuia',     tamanho=[1,  1], raiz='//eSocial/evtReabreEvPer/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpAmb       = TagInteiro( nome='tpAmb',       tamanho=[1,  1], raiz='//eSocial/evtReabreEvPer/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
-        self.procEmi     = TagInteiro( nome='procEmi',     tamanho=[1,  1], raiz='//eSocial/evtReabreEvPer/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
+        self.procEmi     = TagInteiro( nome='procEmi',     tamanho=[1,  2], raiz='//eSocial/evtReabreEvPer/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
         self.verProc     = TagCaracter(nome='verProc',     tamanho=[1, 20], raiz='//eSocial/evtReabreEvPer/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
@@ -88,6 +89,7 @@ class IdeEvento(XMLNFe):
         xml += '<ideEvento>'
         xml += self.indApuracao.xml
         xml += self.perApur.xml
+        xml += self.indGuia.xml
         xml += self.tpAmb.xml
         xml += self.procEmi.xml
         xml += self.verProc.xml
@@ -98,6 +100,7 @@ class IdeEvento(XMLNFe):
         if self._le_xml(arquivo):
             self.indApuracao.xml = arquivo
             self.perApur.xml = arquivo
+            self.indGuia.xml = arquivo
             self.tpAmb.xml = arquivo
             self.procEmi.xml = arquivo
             self.verProc.xml = arquivo
