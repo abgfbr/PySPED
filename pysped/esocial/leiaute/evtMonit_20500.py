@@ -83,8 +83,6 @@ class RespMonit(XMLNFe):
 class Medico(XMLNFe):
     def __init__(self):
         super(Medico, self).__init__()
-        self.cpfMed = TagCaracter(nome='cpfMed', tamanho=[1, 11],   raiz='//eSocial/evtMonit/exMedOcup/aso/medico', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nisMed = TagCaracter(nome='nisMed', tamanho=[1, 11],   raiz='//eSocial/evtMonit/exMedOcup/aso/medico', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nmMed = TagCaracter(nome='nmMed', tamanho=[1, 70],   raiz='//eSocial/evtMonit/exMedOcup/aso/medico', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nrCRM = TagCaracter(nome='nrCRM', tamanho=[1, 8],   raiz='//eSocial/evtMonit/exMedOcup/aso/medico', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.ufCRM = TagCaracter(nome='ufCRM', tamanho=[1, 2],   raiz='//eSocial/evtMonit/exMedOcup/aso/medico', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -92,8 +90,6 @@ class Medico(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<medico>'
-        xml += self.cpfMed.xml
-        xml += self.nisMed.xml
         xml += self.nmMed.xml
         xml += self.nrCRM.xml
         xml += self.ufCRM.xml
@@ -102,8 +98,6 @@ class Medico(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.cpfMed.xml = arquivo
-            self.nisMed.xml = arquivo
             self.nmMed.xml = arquivo
             self.nrCRM.xml = arquivo
             self.ufCRM.xml = arquivo
@@ -114,10 +108,10 @@ class Medico(XMLNFe):
 class Exame(XMLNFe):
     def __init__(self):
         super(Exame, self).__init__()
-        self.dtExm = TagData(nome='dtExm', raiz='//dtExm', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.procRealizado = TagInteiro(nome='procRealizado', tamanho=[1, 4], raiz='//procRealizado', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtExm = TagData(nome='dtExm', raiz='//dtExm', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.procRealizado = TagCaracter(nome='procRealizado', tamanho=[1, 4], raiz='//procRealizado', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.obsProc = TagCaracter(nome='obsProc', tamanho=[1, 999],   raiz='//obsProc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.ordExame = TagInteiro(nome='ordExame', tamanho=[1, 1], raiz='//ordExame', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.ordExame = TagInteiro(nome='ordExame', tamanho=[1, 1], raiz='//ordExame', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.indResult = TagInteiro(nome='indResult', tamanho=[1, 1], raiz='//indResult', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
@@ -197,7 +191,6 @@ class IdeVinculo(XMLNFe):
     def __init__(self):
         super(IdeVinculo, self).__init__()
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.codCateg = TagCaracter(nome='codCateg', tamanho=[1, 30], raiz='//eSocial/evtMonit/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
@@ -205,7 +198,6 @@ class IdeVinculo(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<ideVinculo>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
         xml += self.matricula.xml
         xml += self.codCateg.xml
         xml += '</ideVinculo>'
@@ -215,7 +207,6 @@ class IdeVinculo(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
             self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
 
