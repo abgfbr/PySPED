@@ -74,7 +74,6 @@ class CatOrigem(XMLNFe):
 class Atestado(XMLNFe):
     def __init__(self):
         super(Atestado, self).__init__()
-        self.codCNES = TagCaracter(nome='codCNES', tamanho=[1, 7], raiz='//codCNES', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.dtAtendimento = TagData(nome='dtAtendimento', raiz='//dtAtendimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.hrAtendimento = TagCaracter(nome='hrAtendimento', tamanho=[1, 4], raiz='//hrAtendimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.indInternacao = TagCaracter(nome='indInternacao', tamanho=[1, 1], raiz='//indInternacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -93,7 +92,6 @@ class Atestado(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<atestado>'
-        xml += self.codCNES.xml
         xml += self.dtAtendimento.xml
         xml += self.hrAtendimento.xml
         xml += self.indInternacao.xml
@@ -115,7 +113,6 @@ class Atestado(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.codCNES.xml = arquivo
             self.dtAtendimento.xml = arquivo
             self.hrAtendimento.xml = arquivo
             self.indInternacao.xml = arquivo
@@ -202,7 +199,6 @@ class LocalAcidente(XMLNFe):
         super(LocalAcidente, self).__init__()
         self.tpLocal = TagInteiro(nome='tpLocal', raiz='//eSocial/evtCAT/cat/localAcidente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
         self.dscLocal = TagCaracter(nome='dscLocal', tamanho=[1, 255], raiz='//eSocial/evtCAT/cat/localAcidente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codAmb = TagCaracter(nome='codAmb', tamanho=[1, 30], raiz='//eSocial/evtCAT/cat/localAcidente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpLograd = TagCaracter(nome='tpLograd', tamanho=[1, 4], raiz='//eSocial/evtCAT/cat/localAcidente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dscLograd = TagCaracter(nome='dscLograd', tamanho=[1, 100], raiz='//eSocial/evtCAT/cat/localAcidente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nrLograd = TagCaracter(nome='nrLograd', tamanho=[1, 10], raiz='//eSocial/evtCAT/cat/localAcidente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -220,7 +216,6 @@ class LocalAcidente(XMLNFe):
         xml += '<localAcidente>'
         xml += self.tpLocal.xml
         xml += self.dscLocal.xml
-        xml += self.codAmb.xml
         xml += self.tpLograd.xml
         xml += self.dscLograd.xml
         xml += self.nrLograd.xml
@@ -241,7 +236,6 @@ class LocalAcidente(XMLNFe):
         if self._le_xml(arquivo):
             self.tpLocal.xml = arquivo
             self.dscLocal.xml = arquivo
-            self.codAmb.xml = arquivo
             self.tpLograd.xml = arquivo
             self.dscLograd.xml = arquivo
             self.nrLograd.xml = arquivo
@@ -263,7 +257,7 @@ class Cat(XMLNFe):
         self.dtAcid = TagData(nome='dtAcid', raiz='//eSocial/evtCAT/cat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpAcid = TagCaracter(nome='tpAcid', tamanho=[1, 6], raiz='//eSocial/evtCAT/cat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.hrAcid = TagCaracter(nome='hrAcid', tamanho=[1, 4], raiz='//eSocial/evtCAT/cat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.hrsTrabAntesAcid = TagCaracter(nome='hrsTrabAntesAcid', tamanho=[1, 4], raiz='//eSocial/evtCAT/cat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.hrsTrabAntesAcid = TagCaracter(nome='hrsTrabAntesAcid', tamanho=[1, 4], raiz='//eSocial/evtCAT/cat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpCat = TagCaracter(nome='tpCat', tamanho=[1, 4], raiz='//eSocial/evtCAT/cat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.indCatObito = TagCaracter(nome='indCatObito', tamanho=[1, 1], raiz='//eSocial/evtCAT/cat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtObito = TagData(nome='dtObito', raiz='//eSocial/evtCAT/cat', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
@@ -329,7 +323,6 @@ class IdeVinculo(XMLNFe):
     def __init__(self):
         super(IdeVinculo, self).__init__()
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtCAT/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtCAT/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtCAT/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.codCateg = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtCAT/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
@@ -337,7 +330,6 @@ class IdeVinculo(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<ideVinculo>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
         xml += self.matricula.xml
         xml += self.codCateg.xml
         xml += '</ideVinculo>'
@@ -347,7 +339,6 @@ class IdeVinculo(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
             self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
 
@@ -380,6 +371,7 @@ class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
         self.indRetif = TagInteiro(nome='indRetif', tamanho=[1, 1], raiz='//eSocial/evtExpRisco/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
+        self.nrRecibo = TagCaracter(nome='nrRecibo', raiz='//eSocial/evtCAT/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpAmb = TagInteiro(nome='tpAmb', raiz='//eSocial/evtCAT/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=2)
         self.procEmi = TagInteiro(nome='procEmi', raiz='//eSocial/evtCAT/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, valor=1)
         self.verProc = TagCaracter(nome='verProc', raiz='//eSocial/evtCAT/ideEvento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -388,6 +380,7 @@ class IdeEvento(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<ideEvento>'
         xml += self.indRetif.xml
+        xml += self.nrRecibo.xml
         xml += self.tpAmb.xml
         xml += self.procEmi.xml
         xml += self.verProc.xml
@@ -397,6 +390,7 @@ class IdeEvento(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.indRetif.xml = arquivo
+            self.nrRecibo.xml = arquivo
             self.tpAmb.xml = arquivo
             self.procEmi.xml = arquivo
             self.verProc.xml = arquivo
