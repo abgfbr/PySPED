@@ -61,6 +61,7 @@ class DetVerbas(XMLNFe):
         self.fatorRubr = TagInteiro(nome='fatorRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit = TagInteiro(nome='vrUnit', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr = TagDecimal(nome='vrRubr', raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indApurIR = TagCaracter(nome='indApurIR', tamanho=[1, 1], raiz='//detVerbas', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -71,6 +72,7 @@ class DetVerbas(XMLNFe):
         xml += self.fatorRubr.xml
         xml += self.vrUnit.xml
         xml += self.vrRubr.xml
+        xml += self.indApurIR.xml
         xml += '</detVerbas>'
 
         return xml
@@ -83,6 +85,7 @@ class DetVerbas(XMLNFe):
             self.fatorRubr.xml = arquivo
             self.vrUnit.xml = arquivo
             self.vrRubr.xml = arquivo
+            self.indApurIR.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -699,8 +702,6 @@ class InfoDeslig(XMLNFe):
         self.vrAlim = TagDecimal(nome='vrAlim', raiz='//eSocial/evtDeslig/inforDeslig',  tamanho=[1, 14, 2], namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nrCertObito = TagCaracter(nome='nrCertObito', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nrProcTrab = TagCaracter(nome='nrProcTrab', tamanho=[1, 20], raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.indCumprParc = TagInteiro(nome='indCumprParc', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.qtdDiasInterm = TagInteiro(nome='qtdDiasInterm', raiz='//eSocial/evtDeslig/inforDeslig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.observacoes = []
         self.sucessaoVinc = []
         self.transfTit = []
@@ -720,8 +721,6 @@ class InfoDeslig(XMLNFe):
         xml += self.vrAlim.xml
         xml += self.nrCertObito.xml
         xml += self.nrProcTrab.xml
-        xml += self.indCumprParc.xml
-        xml += self.qtdDiasInterm.xml
         if len(self.observacoes) > 0:
             for observacao in self.observacoes:
                 xml += observacao.xml
@@ -755,8 +754,6 @@ class InfoDeslig(XMLNFe):
             self.vrAlim.xml = arquivo
             self.nrCertObito.xml = arquivo
             self.nrProcTrab.xml = arquivo
-            self.indCumprParc.xml = arquivo
-            self.qtdDiasInterm.xml = arquivo
             self.observacoes = self.le_grupo('//eSocial/evtDeslig/inforDeslig/observacoes', Observacoes, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.sucessaoVinc = self.le_grupo('//eSocial/evtDeslig/inforDeslig/sucessaoVinc', SucessaoVinc, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.transfTit = self.le_grupo('//eSocial/evtDeslig/inforDeslig/transfTit', TransfTit, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
@@ -770,14 +767,12 @@ class IdeVinculo(XMLNFe):
     def __init__(self):
         super(IdeVinculo, self).__init__()
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideVinculo>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
         xml += self.matricula.xml
         xml += '</ideVinculo>'
 
@@ -786,7 +781,6 @@ class IdeVinculo(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
             self.matricula.xml = arquivo
 
     xml = property(get_xml, set_xml)
