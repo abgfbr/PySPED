@@ -965,7 +965,7 @@ class Trabalhador(XMLNFe):
     def __init__(self):
         super(Trabalhador, self).__init__()
         self.cpfTrab    = TagCaracter(nome='cpfTrab'   , tamanho=[1, 11], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab    = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        #self.nisTrab    = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nmTrab     = TagCaracter(nome='nmTrab'    , tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.sexo       = TagCaracter(nome='sexo'      , tamanho=[1, 1] , raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.racaCor    = TagCaracter(nome='racaCor'   , tamanho=[1, 1] , raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
@@ -1016,7 +1016,7 @@ class Trabalhador(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
+            #self.nisTrab.xml = arquivo
             self.nmTrab.xml = arquivo
             self.sexo.xml = arquivo
             self.racaCor.xml = arquivo
