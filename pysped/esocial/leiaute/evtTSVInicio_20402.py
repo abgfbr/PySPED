@@ -311,21 +311,22 @@ class Remuneracao(XMLNFe):
 class CargoFuncao(XMLNFe):
     def __init__(self):
         super(CargoFuncao, self).__init__()
-        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmFuncao = TagCaracter(nome='nmFuncao', tamanho=[1, 30], raiz='//nmFuncao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        #self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        #self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<cargoFuncao>'
-        xml += self.codCargo.xml
-        xml += self.codFuncao.xml
+        xml += self.nmFuncao.xml
+        #xml += self.codFuncao.xml
         xml += '</cargoFuncao>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.codCargo.xml = arquivo
-            self.codFuncao.xml = arquivo
+            self.nmFuncao.xml = arquivo
+            #self.codFuncao.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -939,23 +940,23 @@ class Nascimento(XMLNFe):
         xml += '<nascimento>'
         xml += self.dtNascto.xml
         xml += self.codMunic.xml
-        xml += self.uf.xml
+        #xml += self.uf.xml
         xml += self.paisNascto.xml
         xml += self.paisNac.xml
-        xml += self.nmMae.xml
-        xml += self.nmPai.xml
+        #xml += self.nmMae.xml
+        #xml += self.nmPai.xml
         xml += '</nascimento>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.dtNascto.xml = arquivo
-            self.codMunic.xml = arquivo
-            self.uf.xml = arquivo
+            #self.codMunic.xml = arquivo
+            #self.uf.xml = arquivo
             self.paisNascto.xml = arquivo
             self.paisNac.xml = arquivo
-            self.nmMae.xml = arquivo
-            self.nmPai.xml = arquivo
+            #self.nmMae.xml = arquivo
+            #self.nmPai.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -984,7 +985,7 @@ class Trabalhador(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<trabalhador>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
+        #xml += self.nisTrab.xml
         xml += self.nmTrab.xml
         xml += self.sexo.xml
         xml += self.racaCor.xml
