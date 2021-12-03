@@ -473,18 +473,18 @@ class Contato(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<contato>'
         xml += self.fonePrinc.xml
-        xml += self.foneAlternat.xml
+        #xml += self.foneAlternat.xml
         xml += self.emailPrinc.xml
-        xml += self.emailAlternat.xml
+        #xml += self.emailAlternat.xml
         xml += '</contato>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.fonePrinc.xml = arquivo
-            self.foneAlternat.xml = arquivo
+            #self.foneAlternat.xml = arquivo
             self.emailPrinc.xml = arquivo
-            self.emailAlternat.xml = arquivo
+            #self.emailAlternat.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
