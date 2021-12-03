@@ -928,12 +928,12 @@ class Nascimento(XMLNFe):
     def __init__(self):
         super(Nascimento, self).__init__()
         self.dtNascto    = TagData(    nome='dtNascto', raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        #self.codMunic    = TagCaracter(nome='codMunic', tamanho=[1, 7] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        #self.uf          = TagCaracter(nome='uf', tamanho=[1, 2] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codMunic    = TagCaracter(nome='codMunic', tamanho=[1, 7] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.uf          = TagCaracter(nome='uf', tamanho=[1, 2] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.paisNascto  = TagCaracter(nome='paisNascto', tamanho=[1, 3] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.paisNac     = TagCaracter(nome='paisNac', tamanho=[1, 3] , raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        #self.nmMae       = TagCaracter(nome='nmMae', tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        #self.nmPai       = TagCaracter(nome='nmPai', tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmMae       = TagCaracter(nome='nmMae', tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmPai       = TagCaracter(nome='nmPai', tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador/nascimento', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
