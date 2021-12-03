@@ -965,7 +965,7 @@ class Trabalhador(XMLNFe):
     def __init__(self):
         super(Trabalhador, self).__init__()
         self.cpfTrab    = TagCaracter(nome='cpfTrab'   , tamanho=[1, 11], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        #self.nisTrab    = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nisTrab    = TagCaracter(nome='nisTrab'   , tamanho=[1, 11], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nmTrab     = TagCaracter(nome='nmTrab'    , tamanho=[1, 70], raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.sexo       = TagCaracter(nome='sexo'      , tamanho=[1, 1] , raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.racaCor    = TagCaracter(nome='racaCor'   , tamanho=[1, 1] , raiz='//eSocial/evtTSVInicio/trabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
