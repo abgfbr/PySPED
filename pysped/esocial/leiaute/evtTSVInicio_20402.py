@@ -323,14 +323,20 @@ class CargoFuncao(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<cargoFuncao>'
+        xml += self.nmCargo.xml
+        xml += self.CBOCargo.xml
         xml += self.nmFuncao.xml
+        xml += self.CBOFuncao.xml
         #xml += self.codFuncao.xml
         xml += '</cargoFuncao>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
+            self.nmCargo.xml = arquivo
+            self.CBOCargo.xml = arquivo
             self.nmFuncao.xml = arquivo
+            self.CBOFuncao.xml = arquivo
             #self.codFuncao.xml = arquivo
 
     xml = property(get_xml, set_xml)
@@ -430,6 +436,8 @@ class InfoTSVInicio(XMLNFe):
         self.codCateg = TagInteiro(nome='codCateg', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.dtInicio = TagData(nome='dtInicio', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.natAtividade = TagInteiro(nome='natAtividade', raiz='//eSocial/evtTSVInicio/infoTSVInicio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtDeslig/ideVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
         self.infoComplementares = []
         self.afastamento = []
         self.termino = []
@@ -438,6 +446,7 @@ class InfoTSVInicio(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<infoTSVInicio>'
         xml += self.cadIni.xml
+        xml += self.matricula.xml
         xml += self.codCateg.xml
         xml += self.dtInicio.xml
         xml += self.natAtividade.xml
@@ -456,6 +465,7 @@ class InfoTSVInicio(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cadIni.xml = arquivo
+            self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
             self.dtInicio.xml = arquivo
             self.natAtividade.xml = arquivo
