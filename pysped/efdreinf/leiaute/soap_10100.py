@@ -136,7 +136,7 @@ class SOAPConsulta(XMLNFe):
         self.tipoInscricaoContribuinte = ''
         self.numeroInscricaoContribuinte = ''
         self.numeroProtocoloFechamento = ''
-        soap_action = b'http://sped.fazenda.gov.br/ConsultasReinf/ConsultaInformacoesConsolidadas' if self.ambiente == EFDREINF_AMBIENTE_PRODUCAO else b'http://sped.fazenda.gov.br/ConsultasReinf/ConsultaResultadoFechamento2099'
+        soap_action = b'http://sped.fazenda.gov.br/ConsultasReinf/ConsultaResultadoFechamento2099' if self.ambiente == EFDREINF_AMBIENTE_PRODUCAO else b'http://sped.fazenda.gov.br/ConsultasReinf/ConsultaResultadoFechamento2099'
         self._header = {
             b'Content-Type': b'text/xml; charset=UTF-8',
             b'Accept-Encoding': b'gzip,deflate',
@@ -153,8 +153,8 @@ class SOAPConsulta(XMLNFe):
         xml += '<soapenv:Body>'
         xml += '<sped:ConsultaResultadoFechamento2099>'
         if self.ambiente == EFDREINF_AMBIENTE_PRODUCAO:
-            xml += '<sped:tipoInscricaoContribuinte>%s</sped:tipoInscricaoContribuinte>' % self.tipoInscricaoContribuinte
-            xml += '<sped:numeroInscricaoContribuinte>%s</sped:numeroInscricaoContribuinte>' % self.numeroInscricaoContribuinte
+            xml += '<sped:tpInsc>%s</sped:tpInsc>' % self.tipoInscricaoContribuinte
+            xml += '<sped:nrInsc>%s</sped:nrInsc>' % self.numeroInscricaoContribuinte
         elif self.ambiente == EFDREINF_AMBIENTE_HOMOLOGACAO:
             xml += '<sped:tpInsc>%s</sped:tpInsc>' % self.tipoInscricaoContribuinte
             xml += '<sped:nrInsc>%s</sped:nrInsc>' % self.numeroInscricaoContribuinte
