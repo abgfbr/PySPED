@@ -63,8 +63,8 @@ class InfoComplCont(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<infoComplCont>'
         xml += self.codCBO.xml
-        xml += self.natAtividade
-        xml += self.qtdDiasTrab
+        xml += self.natAtividade.xml
+        xml += self.qtdDiasTrab.xml
         xml += '</infoComplCont>'
         return xml
 

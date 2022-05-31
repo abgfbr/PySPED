@@ -550,15 +550,13 @@ class Nascimento(XMLNFe):
 class DadosTrabalhador(XMLNFe):
     def __init__(self):
         super(DadosTrabalhador, self).__init__()
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nmTrab = TagCaracter(nome='nmTrab', tamanho=[1, 70], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.sexo = TagCaracter(nome='sexo', tamanho=[1, 1], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.racaCor = TagCaracter(nome='racaCor', tamanho=[1, 1], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.estCiv = TagCaracter(nome='estCiv', tamanho=[1, 1], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False,obrigatorio=False)
         self.grauInstr = TagCaracter(nome='grauInstr', tamanho=[1, 2], raiz='//eSocial/evtAltContratual/alteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nmSoc = TagCaracter(nome='nmSoc', tamanho=[1, 70], raiz='//eSocial/evtAltContratual/alteracao/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nascimento = Nascimento()
-        self.documentos = Documentos()
+        self.paisNac = TagCaracter(nome='paisNac', tamanho=[1, 70], raiz='//eSocial/evtAltContratual/alteracao/', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.endereco = Endereco()
         self.trabEstrangeiro = []
         self.infoDeficiencia = []
@@ -569,15 +567,13 @@ class DadosTrabalhador(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<dadosTrabalhador>'
-        xml += self.nisTrab.xml
         xml += self.nmTrab.xml
         xml += self.sexo.xml
         xml += self.racaCor.xml
         xml += self.estCiv.xml
         xml += self.grauInstr.xml
         xml += self.nmSoc.xml
-        xml += self.nascimento.xml
-        xml += self.documentos.xml
+        xml += self.paisNac.xml
         xml += self.endereco.xml
         if len(self.trabEstrangeiro) > 0:
             for t in self.trabEstrangeiro:
@@ -606,6 +602,7 @@ class DadosTrabalhador(XMLNFe):
             self.estCiv.xml = arquivo
             self.grauInstr.xml = arquivo
             self.nmSoc.xml = arquivo
+            self.paisNac.xml = arquivo
             self.nascimento.xml = arquivo
             self.documentos.xml = arquivo
             self.endereco.xml = arquivo
