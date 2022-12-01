@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
@@ -348,25 +349,25 @@ class InfoProcRet(XMLNFe):
 
 class Retencoes(XMLNFe):
     def __init__(self):
-        self.vlrBaseIR = TagInteiro(nome='vlrBaseIR', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrBaseIR = TagDecimalVirgula(nome='vlrBaseIR', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrIR = TagInteiro(nome='vlrIR', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrIR = TagDecimalVirgula(nome='vlrIR', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrBaseAgreg = TagInteiro(nome='vlrBaseAgreg', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrBaseAgreg = TagDecimalVirgula(nome='vlrBaseAgreg', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrAgreg = TagInteiro(nome='vlrAgreg', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrAgreg = TagDecimalVirgula(nome='vlrAgreg', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrBaseCSLL = TagInteiro(nome='vlrBaseCSLL', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrBaseCSLL = TagDecimalVirgula(nome='vlrBaseCSLL', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrCSLL = TagInteiro(nome='vlrCSLL', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrCSLL = TagDecimalVirgula(nome='vlrCSLL', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrBaseCofins = TagInteiro(nome='vlrBaseCofins', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrBaseCofins = TagDecimalVirgula(nome='vlrBaseCofins', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrCofins = TagInteiro(nome='vlrCofins', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrCofins = TagDecimalVirgula(nome='vlrCofins', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrBasePP = TagInteiro(nome='vlrBasePP', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrBasePP = TagDecimalVirgula(nome='vlrBasePP', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrPP = TagInteiro(nome='vlrPP', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
+        self.vlrPP = TagDecimalVirgula(nome='vlrPP', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
@@ -392,7 +393,7 @@ class InfoPgto(XMLNFe):
         super(InfoPgto, self).__init__()
         self.dtFG = TagData(nome='dtFG', raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto',
                             namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
-        self.vlrBruto = TagInteiro(nome='vlrBruto', tamanho=[1, 14], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto',
+        self.vlrBruto = TagDecimalVirgula(nome='vlrBruto', tamanho=[1, 14, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.indFciScp = TagInteiro(nome='indFciScp', tamanho=[1, 1], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
@@ -484,7 +485,7 @@ class IdeBenef(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideBenef>'
-        xml += self.cpfBenef.xml
+        xml += self.cnpjBenef.xml
         xml += self.nmBenef.xml
         for ide_pgto in self.idePgto:
             xml += ide_pgto.xml
@@ -494,7 +495,7 @@ class IdeBenef(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.cpfBenef.xml = arquivo
+            self.cnpjBenef.xml = arquivo
             self.nmBenef.xml = arquivo
             self.idePgto = self.le_grupo(
                 '//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto', IdePgto,

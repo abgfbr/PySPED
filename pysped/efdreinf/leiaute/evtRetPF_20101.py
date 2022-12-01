@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
@@ -772,7 +773,7 @@ class R4010(XMLNFe):
         xml += self.Signature.xml
         xml += '</Reinf>'
 
-        # Define o método de assinatura
+        # Define o metodo de assinatura
         self.Signature.metodo = 'sha256'
         return xml
 

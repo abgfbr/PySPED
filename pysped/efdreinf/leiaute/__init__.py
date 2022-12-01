@@ -79,6 +79,9 @@ from .evtRetPF_20101 import R4010 as R4010_2
 
 # Registro 4020
 from .evtRetPJ_20101 import R4020 as R4020_2
+from .evtRetPJ_20101 import IdePgto as R4020_IdePgto_2
+from .evtRetPJ_20101 import InfoPgto as R4020_InfoPgto_2
+from .evtRetPJ_20101 import Retencoes as R4020_Retencoes_2
 
 # Registro 4040
 from .evtBenefNId_20101 import R4040 as R4040_2

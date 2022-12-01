@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from __future__ import (division, print_function, unicode_literals,
                         absolute_import)
 
@@ -81,10 +82,6 @@ class IdeContri(XMLNFe):
 class IdeEvento(XMLNFe):
     def __init__(self):
         super(IdeEvento, self).__init__()
-        self.indRetif = TagInteiro(nome='indRetif', tamanho=[1, 1, 1], raiz='//Reinf/evtFech/ideEvento',
-                                   namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, valor=1)
-        self.nrRecibo = TagCaracter(nome='nrRecibo', tamanho=[0, 52], raiz='//Reinf/evtFech/ideEvento',
-                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.perApur = TagCaracter(nome='perApur', tamanho=[1, 10], raiz='//Reinf/evtFech/ideEvento',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.tpAmb = TagInteiro(nome='tpAmb', tamanho=[1, 1, 1], raiz='//Reinf/evtFech/ideEvento',
@@ -97,9 +94,6 @@ class IdeEvento(XMLNFe):
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideEvento>'
-        xml += self.indRetif.xml
-        if self.nrRecibo.valor:
-            xml += self.nrRecibo.xml
         xml += self.perApur.xml
         xml += self.tpAmb.xml
         xml += self.procEmi.xml
@@ -109,8 +103,6 @@ class IdeEvento(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.indRetif.xml = arquivo
-            self.nrRecibo.xml = arquivo
             self.perApur.xml = arquivo
             self.tpAmb.xml = arquivo
             self.procEmi.xml = arquivo
@@ -135,6 +127,7 @@ class EvtFech(XMLNFe):
         xml += self.ideEvento.xml
         xml += self.ideContri.xml
         xml += self.ideRespInf.xml
+        xml += self.infoFech.xml
         xml += '</evtFech>'
         return xml
 
@@ -143,7 +136,7 @@ class EvtFech(XMLNFe):
             self.Id.xml = arquivo
             self.ideEvento.xml = arquivo
             self.ideContri.xml = arquivo
-            self.ideEstab.xml = arquivo
+            self.infoFech.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -167,7 +160,7 @@ class R4099(XMLNFe):
         #
         # Define a URI a ser assinada
         #
-        self.Signature.URI = '#' + self.evtRetPF.Id.valor
+        self.Signature.URI = '#' + self.evtFech.Id.valor
         xml += self.Signature.xml
         xml += '</Reinf>'
 
@@ -177,7 +170,7 @@ class R4099(XMLNFe):
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.evtRetPF.xml = arquivo
+            self.evtFech.xml = arquivo
             self.Signature.xml = self._le_noh('//Reinf/evtFech/sig:Signature')
 
     def gera_id_evento(self, data_hora, sequencia=False):
@@ -201,15 +194,15 @@ class R4099(XMLNFe):
             sequencia = 1
 
         id_evento = 'ID'
-        id_evento += self.evtRetPF.ideContri.tpInsc.valor
-        id_evento += str(self.evtRetPF.ideContri.nrInsc.valor)[0:8] + '000000'
+        id_evento += self.evtFech.ideContri.tpInsc.valor
+        id_evento += str(self.evtFech.ideContri.nrInsc.valor)[0:8] + '000000'
         # id_evento += str(self.evtInfoContri.ideContri.nrInsc.valor).zfill(14)
         id_evento += data_hora
         id_evento += str(sequencia).zfill(5)
 
         # Define o Id
         #
-        self.evtRetPF.Id.valor = id_evento
+        self.evtFech.Id.valor = id_evento
         self.id_evento = id_evento
 
     xml = property(get_xml, set_xml)
