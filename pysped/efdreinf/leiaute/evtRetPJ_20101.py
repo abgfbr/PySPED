@@ -487,6 +487,7 @@ class IdeBenef(XMLNFe):
         xml += '<ideBenef>'
         xml += self.cnpjBenef.xml
         xml += self.nmBenef.xml
+        xml += self.isenImun.xml
         for ide_pgto in self.idePgto:
             xml += ide_pgto.xml
         xml += '</ideBenef>'
@@ -497,6 +498,7 @@ class IdeBenef(XMLNFe):
         if self._le_xml(arquivo):
             self.cnpjBenef.xml = arquivo
             self.nmBenef.xml = arquivo
+            self.isenImun.xml = arquivo
             self.idePgto = self.le_grupo(
                 '//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto', IdePgto,
                 namespace=NAMESPACE_EFDREINF)

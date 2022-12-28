@@ -399,6 +399,8 @@ class Certificado(object):
             doctype = '<!DOCTYPE Reinf [<!ATTLIST evtReabreEvPer Id ID #IMPLIED>]>'
         elif '</evtFechaEvPer>' in xml:
             doctype = '<!DOCTYPE Reinf [<!ATTLIST evtFechaEvPer Id ID #IMPLIED>]>'
+        elif '</evtRetPJ>' in xml:
+            doctype = '<!DOCTYPE Reinf [<!ATTLIST evtRetPJ Id ID #IMPLIED>]>'
 
 
         else:
