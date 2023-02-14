@@ -43,6 +43,7 @@ from __future__ import division, print_function, unicode_literals
 
 import os
 import sys
+import requests
 from datetime import datetime
 import time
 from uuid import uuid4
@@ -56,6 +57,8 @@ from .leiaute import SOAPEnvio_10100, SOAPRetorno_10100, SOAPConsulta_10100
 from .leiaute import LoteEventoEFDReinf_v1_03_02
 from .leiaute import RetornoLoteEventosEFDReinf_v1_03_02
 from .leiaute import RetornoTotalizadorContribuinteEFDReinf_v1_03_02 # R-5011
+from .leiaute import LoteEventoAssincronoEFDReinf_v1_00_00
+from .leiaute import RetornoLoteEventosAssincronoEFDReinf_v1_00_00
 
 
 class ProcessadorEFDReinf(ProcessadorNFe):
@@ -96,8 +99,10 @@ class ProcessadorEFDReinf(ProcessadorNFe):
         self._soap_retorno.resposta   = resposta
 
     def enviar_lote(self, lista_eventos=[]):
-        envio = LoteEventoEFDReinf_v1_03_02()
-        resposta = RetornoLoteEventosEFDReinf_v1_03_02()
+        # envio = LoteEventoEFDReinf_v1_03_02()
+        # resposta = RetornoLoteEventosEFDReinf_v1_03_02()
+        envio = LoteEventoAssincronoEFDReinf_v1_00_00()
+        resposta = RetornoLoteEventosAssincronoEFDReinf_v1_00_00()
         processo = ProcessoEFDReinf(webservice=WS_EFDREINF_ENVIO, envio=envio, resposta=resposta)
 
         # self.ambiente = lista_eventos[0].evtInfoContri.ideEvento.tpAmb.valor
@@ -107,6 +112,8 @@ class ProcessadorEFDReinf(ProcessadorNFe):
             evento.validar()
             
         envio.envioLoteEventos.eventos = lista_eventos
+        envio.envioLoteEventos.tpInsc.valor = lista_eventos[0].evento.ideContri.tpInsc.valor
+        envio.envioLoteEventos.nrInsc.valor = lista_eventos[0].evento.ideContri.nrInsc.valor
         envio.validar()
 
         if self.salvar_arquivos:
@@ -123,7 +130,7 @@ class ProcessadorEFDReinf(ProcessadorNFe):
 
         self._conectar_servico(WS_EFDREINF_ENVIO, envio, resposta)
 
-        if resposta.status in [404]:
+        if resposta.status_code in [404]:
             raise Exception("Ambiente não encontrado !")
 
         ## resposta.validar()
@@ -153,6 +160,105 @@ class ProcessadorEFDReinf(ProcessadorNFe):
 
         return processo
 
+    def _conectar_servico(self, servico, envio, resposta, ambiente=None, somente_ambiente_nacional=False):
+        self._configura_servico(servico, envio, resposta, ambiente=ambiente,
+                                somente_ambiente_nacional=somente_ambiente_nacional)
+
+        #try:
+        self.certificado.prepara_certificado_arquivo_pfx()
+
+        #
+        # Salva o certificado e a chave privada para uso na conexão HTTPS
+        # Salvamos como um arquivo de nome aleatório para evitar o conflito
+        # de uso de vários certificados e chaves diferentes na mesma máquina
+        # ao mesmo tempo
+        #
+        self.caminho_temporario = self.caminho_temporario or '/tmp/'
+
+        nome_arq_chave = self.caminho_temporario + uuid4().hex
+        arq_tmp = open(nome_arq_chave, 'w', encoding='utf-8')
+        arq_tmp.write(self.certificado.chave.decode('utf-8'))
+        arq_tmp.close()
+
+        nome_arq_certificado = self.caminho_temporario + uuid4().hex
+        arq_tmp = open(nome_arq_certificado, 'w', encoding='utf-8')
+        arq_tmp.write(self.certificado.certificado)
+        arq_tmp.close()
+        #import StringIO
+        #nome_arq_chave = StringIO.StringIO()
+        #nome_arq_chave.write(self.certificado.chave)
+        #nome_arq_certificado = StringIO.StringIO()
+        #nome_arq_certificado.write(self.certificado.certificado)
+
+        #con = HTTPSConnection(self._servidor, key_file=nome_arq_chave, cert_file=nome_arq_certificado)
+        con = ConexaoHTTPS(self._servidor, key_file=nome_arq_chave, cert_file=nome_arq_certificado)
+        #con.request('POST', '/' + self._url, self._soap_envio.xml.decode('utf-8'), self._soap_envio.header)
+        #
+        # É preciso definir o POST abaixo como bytestring, já que importamos
+        # os unicode_literals... Dá um pau com xml com acentos sem isso...
+        #
+        response = False
+        if sys.version_info.major == 2:
+            # con.request(b'POST', self._url.encode('utf-8'), envio.xml.encode('utf-8'), {b'Content-Type': b'application/xml'})
+            if servico == 1:
+                response = requests.get(
+                    'https://pre-reinf.receita.economia.gov.br/consulta/lotes/{}'.format(self.numeroProtocoloFechamento),
+                    envio.xml, headers={'Content-Type': 'application/xml'},
+                    cert=(nome_arq_certificado, nome_arq_chave))
+            else:
+                response = requests.post(
+                    'https://pre-reinf.receita.economia.gov.br/recepcao/lotes',
+                    envio.xml, headers={'Content-Type': 'application/xml'},
+                    cert=(nome_arq_certificado, nome_arq_chave))
+        else:
+            con.request('POST', '/' + self._url, self._soap_envio.xml.encode('utf-8'), self._soap_envio.header)
+
+        # resp = con.getresponse()
+
+        #
+        # Apagamos os arquivos do certificado e o da chave privada, para evitar
+        # um potencial risco de segurança; muito embora o uso da chave privada
+        # para assinatura exija o uso da senha, pode haver serviços que exijam
+        # apenas o uso do certificado para validar a identidade, independente
+        # da existência de assinatura digital
+        #
+        os.remove(nome_arq_chave)
+        os.remove(nome_arq_certificado)
+
+        resposta.set_xml(response.text)
+
+        # Dados do envelope de envio salvos para possível debug
+        envio.original = self._soap_envio.xml
+
+        self._soap_retorno.resposta.status_code = response.status_code
+        self._soap_retorno.resposta.reason = response.reason
+        self._soap_retorno.resposta.original = response.content
+        self._soap_retorno.xml = self._soap_retorno.resposta.original
+
+        # Dados da resposta salvos para possível debug
+        # self._soap_retorno.resposta.version  = resp.version
+        # self._soap_retorno.resposta.status   = resp.status
+        # if sys.version_info.major == 2:
+        #     self._soap_retorno.resposta.reason   = resp.reason.decode('utf-8')
+        # else:
+        #     self._soap_retorno.resposta.reason   = resp.reason
+        # self._soap_retorno.resposta.msg      = resp.msg
+        # if sys.version_info.major == 2:
+        #     self._soap_retorno.resposta.original = resp.read().decode('utf-8')
+        # else:
+        #     self._soap_retorno.resposta.original = resp.read()
+        #
+        # # Tudo certo!
+        # if self._soap_retorno.resposta.status == 200:
+        #     if sys.version_info.major == 2:
+        #         self._soap_retorno.xml = self._soap_retorno.resposta.original
+        #     else:
+        #         self._soap_retorno.xml = self._soap_retorno.resposta.original.decode('utf-8')
+        #except Exception, e:
+            #raise e
+        #else:
+        con.close()
+
     def monta_caminho_efdreinf(self, ambiente, id_evento):
         caminho = self.caminho
 
@@ -173,8 +279,10 @@ class ProcessadorEFDReinf(ProcessadorNFe):
         return caminho
 
     def consultar_fechamento(self, ambiente=None):
-        envio = RetornoTotalizadorContribuinteEFDReinf_v1_03_02()
-        resposta = RetornoTotalizadorContribuinteEFDReinf_v1_03_02()
+        # envio = RetornoTotalizadorContribuinteEFDReinf_v1_03_02()
+        # resposta = RetornoTotalizadorContribuinteEFDReinf_v1_03_02()
+        envio = LoteEventoAssincronoEFDReinf_v1_00_00()
+        resposta = RetornoLoteEventosAssincronoEFDReinf_v1_00_00()
 
         processo = ProcessoEFDReinf(webservice=WS_EFDREINF_CONSULTA, envio=False, resposta=resposta)
 

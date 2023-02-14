@@ -91,3 +91,6 @@ from .evtRetRec_20101 import R4080 as R4080_2
 
 # Registro 4099
 from .evtFech4000_20101 import R4099 as R4099_2
+
+from .envioLoteEventoAssincrono_v1_00_00 import LoteEventoEFDReinf as LoteEventoAssincronoEFDReinf_v1_00_00
+from .retornoLotesEventosAssincronos_v1_00_00 import RetornoLoteEventos as RetornoLoteEventosAssincronoEFDReinf_v1_00_00

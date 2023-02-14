@@ -60,7 +60,7 @@ PYBRASIL = True
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtTomadorServicos/v1_05_01'
+NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtTomadorServicos/v2_01_01'
 
 
 class InfoProcRetAd(XMLNFe):

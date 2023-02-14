@@ -380,6 +380,8 @@ class Certificado(object):
             doctype = '<!DOCTYPE EnviarLoteRpsEnvio>'
         elif 'CancelarNfseEnvio' in xml:
             doctype = '<!DOCTYPE CancelarNfseEnvio>'
+        elif 'GerarNfseEnvio' in xml:
+            doctype = '<!DOCTYPE GerarNfseEnvio>'
 
         #
         # Esocial
@@ -400,6 +402,8 @@ class Certificado(object):
         elif '</evtFechaEvPer>' in xml:
             doctype = '<!DOCTYPE Reinf [<!ATTLIST evtFechaEvPer Id ID #IMPLIED>]>'
         elif '</evtRetPJ>' in xml:
+            doctype = '<!DOCTYPE Reinf [<!ATTLIST evtRetPJ Id ID #IMPLIED>]>'
+        elif '</evtFech>' in xml:
             doctype = '<!DOCTYPE Reinf [<!ATTLIST evtRetPJ Id ID #IMPLIED>]>'
 
 

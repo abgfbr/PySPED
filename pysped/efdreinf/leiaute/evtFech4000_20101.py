@@ -9,7 +9,7 @@ from pysped.efdreinf.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtFech4000/v2_01_01'
+NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evt4099FechamentoDirf/v2_01_01'
 
 
 class InfoFech(XMLNFe):
@@ -114,7 +114,7 @@ class IdeEvento(XMLNFe):
 class EvtFech(XMLNFe):
     def __init__(self):
         super(EvtFech, self).__init__()
-        self.Id = TagCaracter(nome='evtRetRec', propriedade='id', raiz='//Reinf/evtFech',
+        self.Id = TagCaracter(nome='evtFech', propriedade='id', raiz='//Reinf/evtFech',
                               namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.ideEvento = IdeEvento()
         self.ideContri = IdeContri()
