@@ -1580,91 +1580,590 @@ class NFCe(NFe):
         self.infNFe.dest.modelo = '65'
 
 
-class NFSe(NFe):
+class Endereco(XMLNFe):
+    def __init__(self):
+        super(Endereco, self).__init__()
+        self.endereco = TagCaracter(
+            nome='Endereco', codigo='',
+            tamanho=[1, 255], raiz='//Endereco',
+            obrigatorio=False)
+        self.numero = TagCaracter(
+            nome='Numero', codigo='',
+            tamanho=[1, 60], raiz='//Endereco',
+            obrigatorio=False)
+        self.complemento = TagCaracter(
+            nome='Complemento', codigo='',
+            tamanho=[1, 60], raiz='//Endereco',
+            obrigatorio=False)
+        self.bairro = TagCaracter(
+            nome='Bairro', codigo='',
+            tamanho=[1, 60], raiz='//Endereco',
+            obrigatorio=False)
+        self.codigo_municipio = TagCaracter(
+            nome='CodigoMunicipio', codigo='',
+            tamanho=[1, 17], raiz='//Endereco',
+            obrigatorio=False)
+        self.uf = TagCaracter(
+            nome='Uf', codigo='',
+            tamanho=[1, 2], raiz='//Endereco',
+            obrigatorio=False)
+        self.cep = TagCaracter(
+            nome='Cep', codigo='',
+            tamanho=[1, 8], raiz='//Endereco',
+            obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<Endereco>'
+        xml += self.endereco.xml
+        xml += self.numero.xml
+        xml += self.complemento.xml
+        xml += self.bairro.xml
+        xml += self.codigo_municipio.xml
+        xml += self.uf.xml
+        xml += self.cep.xml
+        xml += '</Endereco>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.endereco.xml = arquivo
+            self.numero.xml = arquivo
+            self.complemento.xml = arquivo
+            self.bairro.xml = arquivo
+            self.codigo_municipio.xml = arquivo
+            self.uf.xml = arquivo
+            self.cep.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class IdentificacaoTomador(XMLNFe):
+    def __init__(self):
+        super(IdentificacaoTomador, self).__init__()
+        self.cpf = TagCaracter(
+            nome='Cpf', codigo='',
+            tamanho=[1, 11], raiz='//CpfCnpj',
+            obrigatorio=False)
+        self.cnpj = TagCaracter(
+            nome='Cnpj', codigo='',
+            tamanho=[1, 14], raiz='//CpfCnpj',
+            obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<IdentificacaoTomador>'
+        xml += '<CpfCnpj>'
+        xml += self.cpf.xml
+        xml += self.cnpj.xml
+        xml += '</CpfCnpj>'
+        xml += '</IdentificacaoTomador>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.cpf.xml = arquivo
+            self.cnpj.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class TomadorServico(XMLNFe):
+    def __init__(self):
+        super(TomadorServico, self).__init__()
+        self.identificacao_tomador = IdentificacaoTomador()
+        self.inscricao_municipal = TagCaracter(
+            nome='InscricaoMunicipal', codigo='',
+            tamanho=[1, 15], raiz='//TomadorServico', obrigatorio=False)
+        self.nif_tomador = TagCaracter(
+            nome='Cpf', codigo='',
+            tamanho=[1, 40], raiz='//TomadorServico', obrigatorio=False)
+        self.razao_social = TagCaracter(
+            nome='RazaoSocial', codigo='',
+            tamanho=[1, 150], raiz='//TomadorServico', obrigatorio=True)
+        self.endereco = Endereco()
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<TomadorServico>'
+        xml += self.identificacao_tomador.xml
+        xml += self.inscricao_municipal.xml
+        xml += self.nif_tomador.xml
+        xml += self.razao_social.xml
+        xml += self.endereco.xml
+        xml += '</TomadorServico>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.identificacao_tomador.xml = arquivo
+            self.inscricao_municipal.xml = arquivo
+            self.nif_tomador.xml = arquivo
+            self.razao_social.xml = arquivo
+            self.endereco.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class CpfCNPJPrestador(XMLNFe):
+    def __init__(self):
+        super(CpfCNPJPrestador, self).__init__()
+        self.cpf = TagCaracter(
+            nome='Cpf', codigo='',
+            tamanho=[1, 15], raiz='//CpfCnpj', obrigatorio=False)
+        self.cnpj = TagCaracter(
+            nome='Cnpj', codigo='',
+            tamanho=[1, 15], raiz='//CpfCnpj', obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<CpfCnpj>'
+        xml += self.cpf.xml
+        xml += self.cnpj.xml
+        xml += '</CpfCnpj>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.cpf.xml = arquivo
+            self.cnpj.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class Prestador(XMLNFe):
+    def __init__(self):
+        super(Prestador, self).__init__()
+        self.cpf_cnpj = CpfCNPJPrestador()
+        self.inscricao_municipal = TagCaracter(
+            nome='InscricaoMunicipal', codigo='',
+            tamanho=[1, 15], raiz='//Prestador', obrigatorio=True)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<Prestador>'
+        xml += self.cpf_cnpj.xml
+        xml += self.inscricao_municipal.xml
+        xml += '</Prestador>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.cpf_cnpj.xml = arquivo
+            self.inscricao_municipal.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class Valores(XMLNFe):
+    def __init__(self):
+        super(Valores, self).__init__()
+        self.valor_servicos = TagDecimal(nome='ValorServicos', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True)
+        self.valor_deducoes = TagDecimal(nome='ValorDeducoes', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.valor_pis = TagDecimal(nome='ValorPis', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.valor_cofins = TagDecimal(nome='ValorCofins', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.valor_inss = TagDecimal(nome='ValorInss', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.valor_ir = TagDecimal(nome='ValorIr', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.valor_csll = TagDecimal(nome='ValorCsll', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.outras_retencoes = TagDecimal(nome='OutrasRetencoes', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.val_tot_tributos = TagDecimal(nome='ValTotTributos', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.valor_iss = TagDecimal(nome='ValorIss', codigo='',
+                               tamanho=[1, 15, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.aliquota = TagDecimal(nome='Aliquota', codigo='',
+                               tamanho=[1, 4, 1], decimais=[0, 2, 2],
+                               raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=False, valor='0')
+        self.desconto_incondicionado = TagDecimal(
+            nome='DescontoIncondicionado', codigo='',
+            tamanho=[1, 15, 1], decimais=[0, 2, 2],
+            raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+        self.desconto_condicionado = TagDecimal(
+            nome='DescontoCondicionado', codigo='',
+            tamanho=[1, 15, 1], decimais=[0, 2, 2],
+            raiz='/InfDeclaracaoPrestacaoServico/Servico/Valores', obrigatorio=True, valor='0')
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<Valores>'
+        xml += self.valor_servicos.xml
+        xml += self.valor_deducoes.xml
+        xml += self.valor_pis.xml
+        xml += self.valor_cofins.xml
+        xml += self.valor_inss.xml
+        xml += self.valor_ir.xml
+        xml += self.valor_csll.xml
+        xml += self.outras_retencoes.xml
+        xml += self.val_tot_tributos.xml
+        xml += self.valor_iss.xml
+        xml += self.aliquota.xml
+        xml += self.desconto_incondicionado.xml
+        xml += self.desconto_condicionado.xml
+        xml += '</Valores>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.valor_servicos.xml = arquivo
+            self.valor_deducoes.xml = arquivo
+            self.valor_pis.xml = arquivo
+            self.valor_cofins.xml = arquivo
+            self.valor_inss.xml = arquivo
+            self.valor_ir.xml = arquivo
+            self.valor_csll.xml = arquivo
+            self.outras_retencoes.xml = arquivo
+            self.val_tot_tributos.xml = arquivo
+            self.valor_iss.xml = arquivo
+            self.aliquota.xml = arquivo
+            self.desconto_incondicionado.xml = arquivo
+            self.desconto_condicionado.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class Servico(XMLNFe):
+    def __init__(self):
+        super(Servico, self).__init__()
+        self.valores = Valores()
+        self.iss_retido = TagInteiro(
+            nome='IssRetido', codigo='', tamanho=[1, 1],
+            raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=True)
+        self.responsavel_retencao = TagInteiro(
+            nome='ResponsavelRetencao', codigo='', tamanho=[1, 1],
+            raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=False)
+        self.item_lista_servico = TagCaracter(
+            nome='ItemListaServico', codigo='',
+            tamanho=[1, 5], raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=True)
+        self.codigo_cnae = TagInteiro(
+            nome='CodigoCnae', codigo='', tamanho=[1, 7],
+            raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=False)
+        self.codigo_tributacao_municipio = TagCaracter(
+            nome='CodigoTributacaoMunicipio', codigo='',
+            tamanho=[1, 20], raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=False)
+        self.codigo_nbs = TagCaracter(
+            nome='CodigoNbs', codigo='',
+            tamanho=[1, 9], raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=False)
+        self.discriminacao = TagCaracter(
+            nome='Discriminacao', codigo='',
+            tamanho=[1, 2000], raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=True)
+        self.codigo_municipio = TagInteiro(
+            nome='CodigoMunicipio', codigo='', tamanho=[1, 17],
+            raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=True)
+        self.codigo_pais = TagInteiro(
+            nome='CodigoPais', codigo='', tamanho=[1, 4],
+            raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=False)
+        self.exigibilidade_iss = TagInteiro(
+            nome='ExigibilidadeISS', codigo='', tamanho=[1, 2],
+            raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=True)
+        self.identif_nao_exigibilidade = TagCaracter(
+            nome='IdentifNaoExigibilidade', codigo='',
+            tamanho=[1, 4], raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=False)
+        self.municipio_incidencia = TagInteiro(
+            nome='MunicipioIncidencia', codigo='', tamanho=[1, 7],
+            raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=False)
+        self.numero_processo = TagCaracter(
+            nome='NumeroProcesso', codigo='',
+            tamanho=[1, 30], raiz='//InfDeclaracaoPrestacaoServico/Servico', obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<Servico>'
+        xml += self.valores.xml
+        xml += self.iss_retido.xml
+        xml += self.responsavel_retencao.xml
+        xml += self.item_lista_servico.xml
+        xml += self.codigo_cnae.xml
+        xml += self.codigo_tributacao_municipio.xml
+        xml += self.codigo_nbs.xml
+        xml += self.discriminacao.xml
+        xml += self.codigo_municipio.xml
+        xml += self.codigo_pais.xml
+        xml += self.exigibilidade_iss.xml
+        xml += self.identif_nao_exigibilidade.xml
+        xml += self.municipio_incidencia.xml
+        xml += self.numero_processo.xml
+        xml += '</Servico>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.valores.xml = arquivo
+            self.iss_retido.xml = arquivo
+            self.responsavel_retencao.xml = arquivo
+            self.item_lista_servico.xml = arquivo
+            self.codigo_cnae.xml = arquivo
+            self.codigo_tributacao_municipio.xml = arquivo
+            self.codigo_nbs.xml = arquivo
+            self.discriminacao.xml = arquivo
+            self.codigo_municipio.xml = arquivo
+            self.codigo_pais.xml = arquivo
+            self.exigibilidade_iss.xml = arquivo
+            self.identif_nao_exigibilidade.xml = arquivo
+            self.municipio_incidencia.xml = arquivo
+            self.numero_processo.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class Rps(XMLNFe):
+    def __init__(self):
+        super(Rps, self).__init__()
+        self.Id = ''
+        self.numero = TagInteiro(
+            nome='Numero', codigo='', tamanho=[1, 15],
+            raiz='//InfDeclaracaoPrestacaoServico/Rps', obrigatorio=False)
+        self.serie = TagCaracter(
+            nome='Serie', codigo='',
+            tamanho=[1, 5], raiz='//InfDeclaracaoPrestacaoServico/Rps',
+            obrigatorio=True)
+        self.tipo = TagInteiro(
+            nome='Tipo', codigo='', tamanho=[1, 1],
+            raiz='//InfDeclaracaoPrestacaoServico/Rps', obrigatorio=False)
+        self.data_emissao_rps = TagCaracter(
+            nome='DataEmissao', codigo='', raiz='//InfDeclaracaoPrestacaoServico/Rps',
+            obrigatorio=True)
+        self.status = TagInteiro(
+            nome='Status', codigo='', tamanho=[1, 1],
+            raiz='//InfDeclaracaoPrestacaoServico/Rps', obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<Rps Id="{}">'.format(self.Id)
+        xml += '<IdentificacaoRps>'
+        xml += self.numero.xml
+        xml += self.serie.xml
+        xml += self.tipo.xml
+        xml += '</IdentificacaoRps>'
+        xml += self.data_emissao_rps.xml
+        xml += self.status.xml
+        xml += '</Rps>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if XMLNFe._le_xml(arquivo):
+            self.numero.xml = arquivo
+            self.serie.xml = arquivo
+            self.tipo.xml = arquivo
+            self.data_emissao_rps.xml = arquivo
+            self.status.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class InfDeclaracaoPrestacaoServico(XMLNFe):
+    def __init__(self):
+        super(InfDeclaracaoPrestacaoServico, self).__init__()
+        self.competencia = TagCaracter(
+            nome='Competencia', codigo='',
+            raiz='//GerarNfseEnvio/Rps/InfDeclaracaoPrestacaoServico', obrigatorio=True)
+        self.rps = Rps()
+        self.servico = Servico()
+        self.prestador = Prestador()
+        self.tomador_servico = TomadorServico()
+        self.optante_simples_nacional = TagInteiro(
+            nome='OptanteSimplesNacional', codigo='I53',
+            tamanho=[1, 1], raiz='//GerarNfseEnvio/Rps/InfDeclaracaoPrestacaoServico')
+        self.incentivo_fiscal = TagInteiro(
+            nome='IncentivoFiscal', codigo='I54', tamanho=[1, 1],
+            raiz='//GerarNfseEnvio/Rps/InfDeclaracaoPrestacaoServico')
+        self.informacoes_complementares = TagCaracter(
+            nome='InformacoesComplementares', codigo='',
+            raiz='//GerarNfseEnvio/Rps/InfDeclaracaoPrestacaoServico', obrigatorio=False)
+        self.Id = ''
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<InfDeclaracaoPrestacaoServico Id="{}">'.format(self.Id)
+        if self.rps.numero.valor:
+            xml += self.rps.xml
+        xml += self.competencia.xml
+        xml += self.servico.xml
+        xml += self.prestador.xml
+        xml += self.tomador_servico.xml
+        xml += self.optante_simples_nacional.xml
+        xml += self.incentivo_fiscal.xml
+        xml += self.informacoes_complementares.xml
+        xml += '</InfDeclaracaoPrestacaoServico>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.competencia.xml = arquivo
+            self.rps.xml = arquivo
+            self.servico.xml = arquivo
+            self.prestador.xml = arquivo
+            self.tomador_servico.xml = arquivo
+            self.optante_simples_nacional.xml = arquivo
+            self.incentivo_fiscal.xml = arquivo
+            self.informacoes_complementares.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class NFSe(XMLNFe):
     def __init__(self):
         super(NFSe, self).__init__()
-        self.infNFe.ide.mod.valor = '99'  #  NFS-e
-        self.infNFe.ide.tpImp.valor = '4'  #  DANFE NFS-e em papel
-        self.infNFe.ide.indFinal.valor = '1'  #  Consumidor final
-        self.infNFe.transp.modFrete.valor = 9  #  Sem frete
-        self.infNFe.dest.modelo = '99'
-        self.assinatura_servico = ''
-        self.codigo_verificacao = ''
-        self.cancelada = False
-        self.motivo_cancelamento = ''
+        self.infDeclaracaoPrestacaoServico = InfDeclaracaoPrestacaoServico()
+        self.Id = TagCaracter(nome='Id', codigo='A03', propriedade='Id', raiz='//GerarNfseEnvio')
+        self.Signature = Signature()
 
-        #
-        # Marca as tags de ISS e retenções como obrigatórias
-        #
-        self.infNFe.total.ISSQNTot.vServ.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vBC.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vISS.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vPIS.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vCOFINS.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vDeducao.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vOutro.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vDescIncond.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vDescCond.obrigatorio = True
-        self.infNFe.total.ISSQNTot.vISSRet.obrigatorio = True
-        self.infNFe.total.ISSQNTot.cRegTrib.obrigatorio = True
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<GerarNfseEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">'
+        xml += '<Rps>'
+        xml += self.infDeclaracaoPrestacaoServico.xml
+        self.Signature.URI = '#' + self.infDeclaracaoPrestacaoServico.Id
+        xml += self.Signature.xml
+        xml += '</Rps>'
+        xml += '</GerarNfseEnvio>'
 
-        self.infNFe.total.retTrib.vRetPIS.obrigatorio = True
-        self.infNFe.total.retTrib.vRetCOFINS.obrigatorio = True
-        self.infNFe.total.retTrib.vRetCSLL.obrigatorio = True
-        self.infNFe.total.retTrib.vBCIRRF.obrigatorio = True
-        self.infNFe.total.retTrib.vIRRF.obrigatorio = True
-        self.infNFe.total.retTrib.vBCRetPrev.obrigatorio = True
-        self.infNFe.total.retTrib.vRetPrev.obrigatorio = True
+        return xml
 
-    @property
-    def nome_cidade(self):
-        nome_cidade = self.infNFe.emit.enderEmit.UF.valor
-        nome_cidade += '-'
-        nome_cidade += self.infNFe.emit.enderEmit.xMun.valor
-        nome_cidade = nome_cidade.replace(' ', '_').lower()
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.infDeclaracaoPrestacaoServico.xml = arquivo
+            self.Signature.xml = arquivo
 
-        nome_cidade = nome_cidade.replace('°','o')
+    xml = property(get_xml, set_xml)
 
-        if sys.version_info.major == 2:
-            nome_cidade = unicodedata.normalize(b'NFKD', nome_cidade).encode('ascii', 'ignore').encode('utf-8')
-        else:
-            nome_cidade = unicodedata.normalize('NFKD', nome_cidade).encode('ascii', 'ignore').decode('utf-8')
 
-        return nome_cidade
+class CpfCnpj(XMLNFe):
+    def __init__(self):
+        super(CpfCnpj, self).__init__()
+        self.Cnpj = TagCaracter(
+            nome='Cnpj', codigo='',
+            raiz='//CancelarNfseEnvio/Pedido/InfPedidoCancelamento/IdentificacaoNfse', obrigatorio=False)
+        self.Cpf = TagCaracter(
+            nome='Cpf', codigo='',
+            raiz='//CancelarNfseEnvio/Pedido/InfPedidoCancelamento/IdentificacaoNfse', obrigatorio=False)
 
-    @property
-    def caminho_templates(self):
-        return os.path.join(DIRNAME, '../../nfse/', self.nome_cidade)
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<CpfCnpj>'
+        xml += self.Cnpj.xml
+        xml += self.Cpf.xml
+        xml += '</CpfCnpj>'
 
-    @property
-    def configuracao_json(self):
-        return os.path.join(DIRNAME, '../../nfse/', self.nome_cidade, self.nome_cidade + '.json')
+        return xml
 
-    def render_template(self, template, variaveis={}):
-        from genshi.template.loader import TemplateLoader
-        from genshi.template import MarkupTemplate
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.Cnpj.xml = arquivo
+            self.Cpf.xml = arquivo
 
-        loader = TemplateLoader(search_path=self.caminho_templates, auto_reload=True, allow_exec=True,
-                                default_class=MarkupTemplate)
+    xml = property(get_xml, set_xml)
 
-        tmpl = loader.load(template)
-        variaveis['NFe'] = self
 
-        if PYBRASIL:
-            variaveis['Decimal'] = Decimal
-            variaveis['D'] = Decimal
+class IdentificacaoNfse(XMLNFe):
+    def __init__(self):
+        super(IdentificacaoNfse, self).__init__()
+        self.Numero = TagCaracter(
+            nome='Numero', codigo='',
+            raiz='//CancelarNfseEnvio/Pedido/InfPedidoCancelamento/IdentificacaoNfse', obrigatorio=True)
+        self.CpfCnpj = CpfCnpj()
+        self.InscricaoMunicipal = TagCaracter(
+            nome='InscricaoMunicipal', codigo='',
+            raiz='//CancelarNfseEnvio/Pedido/InfPedidoCancelamento/IdentificacaoNfse', obrigatorio=True)
+        self.CodigoMunicipio = TagCaracter(
+            nome='CodigoMunicipio', codigo='',
+            raiz='//CancelarNfseEnvio/Pedido/InfPedidoCancelamento/IdentificacaoNfse', obrigatorio=True)
 
-        else:
-            variaveis['Decimal'] = Decimal
-            variaveis['D'] = Decimal
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<IdentificacaoNfse>'
+        xml += self.Numero.xml
+        xml += self.CpfCnpj.xml
+        xml += self.InscricaoMunicipal.xml
+        xml += self.CodigoMunicipio.xml
+        xml += '</IdentificacaoNfse>'
 
-        stream = tmpl.generate(**variaveis)
-        return stream.render()
+        return xml
 
-    @property
-    def xml_rps(self):
-        return self.render_template('envio_rps.xml')
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.Numero.xml = arquivo
+            self.CpfCnpj.xml = arquivo
+            self.InscricaoMunicipal.xml = arquivo
+            self.CodigoMunicipio.xml = arquivo
 
-    @property
-    def xml_cancelamento(self):
-        return self.render_template('envio_cancelamento.xml')
+    xml = property(get_xml, set_xml)
+
+
+class InfPedidoCancelamento(XMLNFe):
+    def __init__(self):
+        super(InfPedidoCancelamento, self).__init__()
+        self.IdentificacaoNfse = IdentificacaoNfse()
+        self.CodigoCancelamento = TagCaracter(
+            nome='CodigoCancelamento', codigo='',
+            raiz='//CancelarNfseEnvio/Pedido/InfPedidoCancelamento', obrigatorio=True)
+        self.Id = ''
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<InfPedidoCancelamento Id="{}">'.format(self.Id)
+        xml += self.IdentificacaoNfse.xml
+        xml += self.CodigoCancelamento.xml
+        xml += '</InfPedidoCancelamento>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.IdentificacaoNfse.xml = arquivo
+            self.CodigoCancelamento.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
+class NFSeCancelamento(XMLNFe):
+    def __init__(self):
+        super(NFSeCancelamento, self).__init__()
+        self.InfPedidoCancelamento = InfPedidoCancelamento()
+        self.Signature = Signature()
+        self.Id = TagCaracter(nome='Id', codigo='A03', propriedade='Id',
+                              raiz='//CancelarNfseEnvio')
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<CancelarNfseEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">'
+        xml += '<Pedido>'
+        xml += self.InfPedidoCancelamento.xml
+        self.Signature.URI = '#' + self.InfPedidoCancelamento.Id
+        xml += self.Signature.xml
+        xml += '</Pedido>'
+        xml += '</CancelarNfseEnvio>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.InfPedidoCancelamento.xml = arquivo
+            self.Signature.xml = arquivo
+
+    xml = property(get_xml, set_xml)
