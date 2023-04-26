@@ -352,6 +352,8 @@ class Certificado(object):
             doctype = '<!DOCTYPE inutNFe [<!ATTLIST infInut Id ID #IMPLIED>]>'
         elif '</infEvento>' in xml:
             doctype = '<!DOCTYPE evento [<!ATTLIST infEvento Id ID #IMPLIED>]>'
+        elif '</InfDeclaracaoPrestacaoServico>' in xml:
+            doctype = '<!DOCTYPE evento [<!ATTLIST InfDeclaracaoPrestacaoServico Id ID #IMPLIED>]>'
 
         #
         # XML do CT-e

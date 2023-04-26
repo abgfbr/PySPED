@@ -341,6 +341,7 @@ from .nfe_400 import NFCe as NFCe_400
 # Emissão de NFS-e
 #
 from .nfe_400 import NFSe as NFSe_400
+from .nfe_400 import NFSeCancelamento as NFSeCancelamento_400
 
 #
 # Emissão de NF-e
