@@ -1684,6 +1684,12 @@ class TomadorServico(XMLNFe):
             nome='RazaoSocial', codigo='',
             tamanho=[1, 150], raiz='//TomadorServico', obrigatorio=True)
         self.endereco = Endereco()
+        self.telefone = TagCaracter(
+            nome='Telefone', codigo='',
+            tamanho=[1, 150], raiz='//TomadorServico', obrigatorio=False)
+        self.email = TagCaracter(
+            nome='Email', codigo='',
+            tamanho=[1, 150], raiz='//TomadorServico', obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -1693,6 +1699,13 @@ class TomadorServico(XMLNFe):
         xml += self.nif_tomador.xml
         xml += self.razao_social.xml
         xml += self.endereco.xml
+        if self.telefone.valor or self.email.valor:
+            xml += '<Contato>'
+            if self.telefone.valor:
+                xml += self.telefone.xml
+            if self.email.valor:
+                xml += self.email.xml
+            xml += '</Contato>'
         xml += '</TomadorServico>'
 
         return xml
