@@ -433,57 +433,21 @@ class DmDev(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
-class ProcJudTrab(XMLNFe):
-    def __init__(self):
-        super(ProcJudTrab, self).__init__()
-        self.tpTrib    = TagCaracter(nome='tpTrib',    tamanho=[1, 1],  raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nrProcJud = TagCaracter(nome='nrProcJud', tamanho=[1, 20], raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codSusp   = TagCaracter(nome='codSusp',   tamanho=[1, 14], raiz='//procJudTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-
-    def get_xml(self):
-        xml = XMLNFe.get_xml(self)
-        xml += '<procJudTrab>'
-        xml += self.tpTrib.xml
-        xml += self.nrProcJud.xml
-        xml += self.codSusp.xml
-        xml += '</procJudTrab>'
-        return xml
-
-    def set_xml(self, arquivo):
-        if self._le_xml(arquivo):
-            self.tpTrib.xml = arquivo
-            self.nrProcJud.xml = arquivo
-            self.codSusp.xml = arquivo
-
-    xml = property(get_xml, set_xml)
-
-
 class IdeTrabalhador(XMLNFe):
     def __init__(self):
         super(IdeTrabalhador, self).__init__()
         self.cpfTrab        = TagCaracter(nome='cpfTrab',  tamanho=[1, 11], raiz='//eSocial/evtRmnRPPS/ideTrabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab        = TagCaracter(nome='nisTrab',  tamanho=[1, 11], raiz='//eSocial/evtRmnRPPS/ideTrabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.qtdDepFP       = TagInteiro( nome='qtdDepFP', tamanho=[1, 2],  raiz='//eSocial/evtRmnRPPS/ideTrabalhador', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.procJudTrab    = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideTrabalhador>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
-        xml += self.qtdDepFP.xml
-        if len(self.procJudTrab) > 0:
-            for p in self.procJudTrab:
-                xml += p.xml
         xml += '</ideTrabalhador>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
-            self.qtdDepFP.xml = arquivo
-            self.procJudTrab = self.le_grupo('//eSocial/evtRmnRPPS/ideTrabalhador/procJudTrab', ProcJudTrab, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
