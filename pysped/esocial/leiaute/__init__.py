@@ -370,3 +370,12 @@ from .evtProcTrab import IdeEvento as IdeEvento_2
 from .evtProcTrab import EvtProcTrab as EvtProcTrab_2
 from .evtProcTrab import S2500 as S2500_2
 
+from .evtContProc import InfoCRIRRF as InfoCRIRRF_2
+from .evtContProc import InfoCRContrib as InfoCRContrib_2
+from .evtContProc import CalcTrib as CalcTrib_2
+from .evtContProc import IdeTrab as IdeTrab_2
+from .evtContProc import IdeProc as IdeProc_2
+from .evtContProc import IdeEmpregador as IdeEmpregador_2
+from .evtContProc import IdeEvento as IdeEvento_2
+from .evtContProc import evtContProc as evtContProc_2
+from .evtContProc import S2501 as S2501_2
