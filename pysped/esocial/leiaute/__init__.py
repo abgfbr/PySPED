@@ -339,3 +339,34 @@ from .evtCS_20402 import InfoCREstab as S5011_InfoCREstab_2
 # S-5012
 from .evtIrrf import S5012 as S5012_2
 from .evtIrrf import InfoCRContrib as S5012_InfoCRContrib_2
+
+# S-2500
+from .evtProcTrab import BaseMudCateg as BaseMudCateg_2
+from .evtProcTrab import InfoFGTS as InfoFGTS_2
+from .evtProcTrab import InfoAgNocivo as InfoAgNocivo_2
+from .evtProcTrab import BaseCalculo as BaseCalculo_2
+from .evtProcTrab import IdePeriodo as IdePeriodo_2
+from .evtProcTrab import InfoVlr as InfoVlr_2
+from .evtProcTrab import IdeEstab as IdeEstab_2
+from .evtProcTrab import UnicContr as UnicContr_2
+from .evtProcTrab import MudCategAtiv as MudCategAtiv_2
+from .evtProcTrab import InfoTerm as InfoTerm_2
+from .evtProcTrab import InfoDeslig as InfoDeslig_2
+from .evtProcTrab import SucessaoVinc as SucessaoVinc_2
+from .evtProcTrab import Observacoes as Observacoes_2
+from .evtProcTrab import Duracao as Duracao_2
+from .evtProcTrab import InfoVinc as InfoVinc_2
+from .evtProcTrab import Remuneracao as Remuneracao_2
+from .evtProcTrab import InfoCompl as InfoCompl_2
+from .evtProcTrab import InfoContr as InfoContr_2
+from .evtProcTrab import Dependente as Dependente_2
+from .evtProcTrab import IdeTrab as IdeTrab_2
+from .evtProcTrab import InfoCCP as InfoCCP_2
+from .evtProcTrab import InfoProcJud as InfoProcJud_2
+from .evtProcTrab import DadosCompl as DadosCompl_2
+from .evtProcTrab import InfoProcesso as InfoProcesso_2
+from .evtProcTrab import IdeEmpregador as IdeEmpregador_2
+from .evtProcTrab import IdeEvento as IdeEvento_2
+from .evtProcTrab import EvtProcTrab as EvtProcTrab_2
+from .evtProcTrab import S2500 as S2500_2
+
