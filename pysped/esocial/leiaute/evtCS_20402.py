@@ -50,7 +50,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtCS/v_S_01_00_00'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtCS/v_S_01_01_00'
 
 
 class InfoCRContrib(XMLNFe):
