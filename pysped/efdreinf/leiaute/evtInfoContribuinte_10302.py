@@ -60,7 +60,7 @@ PYBRASIL = True
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtInfoContribuinte/v1_05_01'
+NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtInfoContribuinte/v2_01_01'
 
 
 class Contato(XMLNFe):
@@ -159,6 +159,7 @@ class InfoCadastro(XMLNFe):
         self.indDesoneracao = TagCaracter(nome='indDesoneracao', tamanho=[1, 1], raiz='//Reinf/evtInfoContri/infoContri/infoCadastro', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.indAcordoIsenMulta = TagCaracter(nome='indAcordoIsenMulta', tamanho=[1, 1], raiz='//Reinf/evtInfoContri/infoContri/infoCadastro', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.indSitPJ = TagCaracter(nome='indSitPJ', tamanho=[1, 1], raiz='//Reinf/evtInfoContri/infoContri/infoCadastro', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
+        self.indUniao = TagCaracter(nome='indUniao', tamanho=[1, 1], valor='1', raiz='//Reinf/evtInfoContri/infoContri/infoCadastro', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -168,17 +169,19 @@ class InfoCadastro(XMLNFe):
         xml += self.indDesoneracao.xml
         xml += self.indAcordoIsenMulta.xml
         xml += self.indSitPJ.xml
+        xml += self.indUniao.xml
         xml += self.contato.xml
         xml += '</infoCadastro>'
         return xml
 
-    def set_xml(self):
+    def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.classTrib.xml = arquivo
             self.indEscrituracao.xml = arquivo
             self.indDesoneracao.xml = arquivo
             self.indAcordoIsenMulta.xml = arquivo
             self.indSitPJ.xml = arquivo
+            self.indUniao.xml = arquivo
         return True
 
     xml = property(get_xml, set_xml)

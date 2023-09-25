@@ -70,3 +70,5 @@ por_acentos
 somente_ascii
 tira_abertura
 tirar_acentos
+
+from . import certificado

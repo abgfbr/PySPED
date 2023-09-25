@@ -45,6 +45,7 @@ from __future__ import division, print_function, unicode_literals
 # Versão 1.03.02
 #
 ESQUEMA_ATUAL_VERSAO_1 = 'v1.05.01'
+ESQUEMA_ATUAL_VERSAO_2 = 'v2.01.01'
 
 
 from .soap_10100 import SOAPEnvio as SOAPEnvio_10100
@@ -67,3 +68,29 @@ from .evtTomadorServicos_10302 import InfoTpServ as InfoTpServ_1
 
 from .evtReabreEvPer_10302 import R2098 as R2098_1
 from .evtFechamento_10302 import R2099 as R2099_1
+
+
+#
+# Versão 2.01.01
+#
+
+# Regitros 4010
+from .evtRetPF_20101 import R4010 as R4010_2
+
+# Registro 4020
+from .evtRetPJ_20101 import R4020 as R4020_2
+from .evtRetPJ_20101 import IdePgto as R4020_IdePgto_2
+from .evtRetPJ_20101 import InfoPgto as R4020_InfoPgto_2
+from .evtRetPJ_20101 import Retencoes as R4020_Retencoes_2
+
+# Registro 4040
+from .evtBenefNId_20101 import R4040 as R4040_2
+
+# Registro 4080
+from .evtRetRec_20101 import R4080 as R4080_2
+
+# Registro 4099
+from .evtFech4000_20101 import R4099 as R4099_2
+
+from .envioLoteEventoAssincrono_v1_00_00 import LoteEventoEFDReinf as LoteEventoAssincronoEFDReinf_v1_00_00
+from .retornoLotesEventosAssincronos_v1_00_00 import RetornoLoteEventos as RetornoLoteEventosAssincronoEFDReinf_v1_00_00
