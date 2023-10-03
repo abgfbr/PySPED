@@ -9,7 +9,7 @@ from pysped.efdreinf.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evt4020PagtoBeneficiarioPJ/v2_01_01'
+NAMESPACE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evt4020PagtoBeneficiarioPJ/v2_01_02'
 
 
 class InfoReembDep(XMLNFe):
@@ -476,7 +476,7 @@ class IdeBenef(XMLNFe):
         self.nmBenef = TagCaracter(nome='nmBenef', tamanho=[0, 70], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef',
                                     namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
         self.isenImun = TagInteiro(nome='isenImun', tamanho=[1, 1], raiz='//Reinf/evtRetPJ/ideEstab/ideBene',
-                                   namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
+                                   namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
         self.socCivil = TagInteiro(nome='socCivil', tamanho=[1, 1], raiz='//Reinf/evtRetPJ/ideEstab/ideBene',
                                    namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
         self.ideDep = []

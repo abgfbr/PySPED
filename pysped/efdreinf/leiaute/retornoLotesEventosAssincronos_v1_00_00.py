@@ -50,10 +50,10 @@ from pysped.xml_sped import *
 DIRNAME = os.path.dirname(__file__)
 
 NAMESPACE_LOTE_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/retornoLoteEventosAssincrono/v1_00_00'
-NAMESPACE_EVT_RET_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtRet/v2_01_01'
-NAMESPACE_EVT_TOTAL_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtTotal/v2_01_01'
-NAMESPACE_EVT_RET_CONS_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtRetCons/v2_01_01'
-NAMESPACE_EVT_TOTAL_CONTRIB_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtTotalContrib/v2_01_01'
+NAMESPACE_EVT_RET_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtRet/v2_01_02'
+NAMESPACE_EVT_TOTAL_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtTotal/v2_01_02'
+NAMESPACE_EVT_RET_CONS_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtRetCons/v2_01_02'
+NAMESPACE_EVT_TOTAL_CONTRIB_EFDREINF = 'http://www.reinf.esocial.gov.br/schemas/evtTotalContrib/v2_01_02'
 
 
 class DadosProcessamentoLote(XMLNFe):
@@ -160,7 +160,7 @@ class Ocorrencias(XMLNFe):
         self.tpOcorr = TagCaracter(nome='tpOcorr', tamanho=[1, 255], raiz='//regOcorrs', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
         self.localErroAviso = TagCaracter(nome='localErroAviso', tamanho=[1, 255], raiz='//regOcorrs', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
         self.codResp = TagCaracter(nome='codResp', tamanho=[1, 255], raiz='//regOcorrs', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
-        self.dscResp = TagCaracter(nome='dscResp', tamanho=[1, 255], raiz='//regOcorrs', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
+        self.dscResp = TagCaracter(nome='dscResp', tamanho=[1, 999], raiz='//regOcorrs', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -189,8 +189,6 @@ class Ocorrencias(XMLNFe):
         for elem in self._xml.iter():
             elem_list.append(elem.tag)
 
-        print(elem_list)
-
         namespace = ''
 
         if "evtTotal" in elem_list[4]:
@@ -212,6 +210,8 @@ class RetornoLoteEventoStatus(XMLNFe):
         super(RetornoLoteEventoStatus, self).__init__()
         self.cdRetorno = TagCaracter(nome='cdRetorno', tamanho=[1, 255], raiz='//Reinf/evtRet/ideRecRetorno/ideStatus', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
         self.descRetorno = TagCaracter(nome='descRetorno', tamanho=[1, 255], raiz='//Reinf/evtRet/ideRecRetorno/ideStatus', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
+        self.nrProtLote = TagCaracter(nome='nrProtLote', tamanho=[1, 255], raiz='//Reinf/evtRet/infoRecEv', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
+        self.hash = TagCaracter(nome='hash', tamanho=[1, 255], raiz='//Reinf/evtRet/infoRecEv', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
         self.regOcorrs = []
 
     def get_xml(self):
@@ -222,6 +222,10 @@ class RetornoLoteEventoStatus(XMLNFe):
         xml += self.descRetorno.xml
         for ocorr in self.regOcorrs:
             xml += ocorr.xml
+        xml += '<infoRecEv>'
+        xml += self.nrProtLote.xml
+        xml += self.hash.xml
+        xml += '</infoRecEv>'
         xml += '</ideStatus>'
         xml += '</ideRecRetorno>'
 
@@ -235,14 +239,18 @@ class RetornoLoteEventoStatus(XMLNFe):
             self.descRetorno.raiz = self.get_raiz_correta(self.descRetorno.raiz)
             self.descRetorno.namespace = self.get_namespace()
             self.descRetorno.xml = arquivo
+            self.nrProtLote.raiz = self.get_raiz_correta('//Reinf/evtRet/infoRecEv')
+            self.nrProtLote.namespace = self.get_namespace()
+            self.nrProtLote.xml = arquivo
+            self.hash.raiz = self.get_raiz_correta('//Reinf/evtRet/infoRecEv')
+            self.hash.namespace = self.get_namespace()
+            self.hash.xml = arquivo
             self.regOcorrs = self.le_grupo(self.get_raiz_correta('//Reinf/evtRet/ideRecRetorno/ideStatus/regOcorrs'), Ocorrencias, namespace=self.get_namespace(), sigla_ns='res')
 
     def get_namespace(self):
         elem_list = []
         for elem in self._xml.iter():
             elem_list.append(elem.tag)
-
-        print(elem_list)
 
         namespace = ''
 
@@ -299,8 +307,6 @@ class RetornoTotalizadorEvento(XMLNFe):
         elem_list = []
         for elem in self._xml.iter():
             elem_list.append(elem.tag)
-
-        print(elem_list)
 
         namespace = ''
 
@@ -369,6 +375,5 @@ class RetornoLoteEventos(XMLNFe):
             self.dadosRegistroOcorrenciaLote.xml = arquivo
             self.dadosProcessamentoLote.xml = arquivo
             self.retornoEventos = self.le_grupo('//Reinf/retornoLoteEventosAssincrono/retornoEventos/evento', RetornoTotalizadorEvento, namespace=NAMESPACE_LOTE_EFDREINF)
-            self.eventos = self.retornoEventos
 
     xml = property(get_xml, set_xml)
