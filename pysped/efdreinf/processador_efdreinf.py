@@ -203,7 +203,6 @@ class ProcessadorEFDReinf(ProcessadorNFe):
             if servico == 1:
                 response = requests.get(
                     'https://pre-reinf.receita.economia.gov.br/consulta/lotes/{}'.format(self.numeroProtocoloFechamento),
-                    envio.xml, headers={'Content-Type': 'application/xml'},
                     cert=(nome_arq_certificado, nome_arq_chave))
             else:
                 response = requests.post(

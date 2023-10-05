@@ -377,6 +377,8 @@ class Retencoes(XMLNFe):
         xml += self.vlrIR.xml
         xml += self.vlrBaseAgreg.xml
         xml += self.vlrAgreg.xml
+        xml += self.vlrBaseCSLL.xml
+        xml += self.vlrCSLL.xml
         xml += self.vlrBaseCofins.xml
         xml += self.vlrCofins.xml
         xml += self.vlrBasePP.xml

@@ -212,6 +212,7 @@ class RetornoLoteEventoStatus(XMLNFe):
         self.descRetorno = TagCaracter(nome='descRetorno', tamanho=[1, 255], raiz='//Reinf/evtRet/ideRecRetorno/ideStatus', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
         self.nrProtLote = TagCaracter(nome='nrProtLote', tamanho=[1, 255], raiz='//Reinf/evtRet/infoRecEv', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
         self.hash = TagCaracter(nome='hash', tamanho=[1, 255], raiz='//Reinf/evtRet/infoRecEv', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
+        self.nrRecArqBase = TagCaracter(nome='nrRecArqBase', tamanho=[1, 255], raiz='//Reinf/evtRet/infoRecEv', namespace=NAMESPACE_EVT_RET_EFDREINF, namespace_obrigatorio=False)
         self.regOcorrs = []
 
     def get_xml(self):
@@ -225,6 +226,7 @@ class RetornoLoteEventoStatus(XMLNFe):
         xml += '<infoRecEv>'
         xml += self.nrProtLote.xml
         xml += self.hash.xml
+        xml += self.nrRecArqBase.xml
         xml += '</infoRecEv>'
         xml += '</ideStatus>'
         xml += '</ideRecRetorno>'
@@ -245,6 +247,9 @@ class RetornoLoteEventoStatus(XMLNFe):
             self.hash.raiz = self.get_raiz_correta('//Reinf/evtRet/infoRecEv')
             self.hash.namespace = self.get_namespace()
             self.hash.xml = arquivo
+            self.nrRecArqBase.raiz = self.get_raiz_correta('//Reinf/evtRet/infoRecEv')
+            self.nrRecArqBase.namespace = self.get_namespace()
+            self.nrRecArqBase.xml = arquivo
             self.regOcorrs = self.le_grupo(self.get_raiz_correta('//Reinf/evtRet/ideRecRetorno/ideStatus/regOcorrs'), Ocorrencias, namespace=self.get_namespace(), sigla_ns='res')
 
     def get_namespace(self):
