@@ -49,7 +49,7 @@ from pysped.esocial.leiaute import ESQUEMA_ATUAL_VERSAO_2 as ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
-NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTSVAltContr/v_S_01_01_00'
+NAMESPACE_ESOCIAL = 'http://www.esocial.gov.br/schema/evt/evtTSVAltContr/v_S_01_02_00'
 
 class SupervisorEstagio(XMLNFe):
     def __init__(self):
@@ -350,14 +350,14 @@ class IdeTrabSemVinculo(XMLNFe):
     def __init__(self):
         super(IdeTrabSemVinculo, self).__init__()
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nisTrab = TagCaracter(nome='nisTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codCateg = TagInteiro(nome='codCateg', tamanho=[1, 3], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codCateg = TagInteiro(nome='codCateg', tamanho=[1, 3], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideTrabSemVinculo>'
         xml += self.cpfTrab.xml
-        xml += self.nisTrab.xml
+        xml += self.matricula.xml
         xml += self.codCateg.xml
         xml += '</ideTrabSemVinculo>'
         return xml
@@ -365,7 +365,7 @@ class IdeTrabSemVinculo(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfTrab.xml = arquivo
-            self.nisTrab.xml = arquivo
+            self.matricula.xml = arquivo
             self.codCateg.xml = arquivo
 
     xml = property(get_xml, set_xml)
