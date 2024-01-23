@@ -342,6 +342,31 @@ class CargoFuncao(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
+class LocalTrabGeral(XMLNFe):
+    def __init__(self):
+        super(LocalTrabGeral, self).__init__()
+        self.tpInsc = TagInteiro(nome='tpInsc', raiz='//localTrabGeral', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 14], raiz='//localTrabGeral', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.descComp = TagCaracter(nome='descComp', tamanho=[1, 80], raiz='//localTrabGeral', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<localTrabGeral>'
+        xml += self.tpInsc.xml
+        xml += self.nrInsc.xml
+        xml += self.descComp.xml
+        xml += '</localTrabGeral>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.tpInsc.xml = arquivo
+            self.nrInsc.xml = arquivo
+            self.descComp.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
 class InfoComplementares(XMLNFe):
     def __init__(self):
         super(InfoComplementares, self).__init__()
@@ -351,6 +376,7 @@ class InfoComplementares(XMLNFe):
         self.infoDirigenteSindical = []
         self.infoTrabCedido = []
         self.infoEstagiario = []
+        self.localTrabGeral = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -373,6 +399,9 @@ class InfoComplementares(XMLNFe):
         if self.infoEstagiario:
             for estag in self.infoEstagiario:
                 xml += estag.xml
+        if self.localTrabGeral:
+            for lt in self.localTrabGeral:
+                xml += lt.xml
         xml += '</infoComplementares>'
         return xml
 

@@ -267,6 +267,7 @@ from .evtTSVInicio_20402 import InfoEstagiario as S2300_InfoEstagiario_2
 from .evtTSVInicio_20402 import InstEnsino as S2300_InstEnsino_2
 from .evtTSVInicio_20402 import AgeIntegracao as S2300_AgeIntegracao_2
 from .evtTSVInicio_20402 import SupervisorEstagio as S2300_SupervisorEstagio_2
+from .evtTSVInicio_20402 import LocalTrabGeral as S2300_LocalTrabGeral_2
 from .evtTSVInicio_20402 import Afastamento as S2300_Afastamento_2
 from .evtTSVInicio_20402 import Termino as S2300_Termino_2
 
