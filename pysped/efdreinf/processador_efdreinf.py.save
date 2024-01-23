@@ -204,9 +204,9 @@ class ProcessadorEFDReinf(ProcessadorNFe):
         if sys.version_info.major == 2:
             # con.request(b'POST', self._url.encode('utf-8'), envio.xml.encode('utf-8'), {b'Content-Type': b'application/xml'})
             if servico == 1:
-                _logger.info(self.numeroProtocoloFechamento)
                 response = requests.get(
-                    'https://reinf.receita.economia.gov.br/consulta/lotes/{}'.format(self.numeroProtocoloFechamento),
+                    'https://reinf.receita.economia.gov.br/recepcao/lotes/{}'.format(self.numeroProtocoloFechamento),
+                    envio.xml, headers={'Content-Type': 'application/xml'},
                     cert=(nome_arq_certificado, nome_arq_chave))
             else:
                 response = requests.post(
@@ -229,6 +229,7 @@ class ProcessadorEFDReinf(ProcessadorNFe):
         os.remove(nome_arq_certificado)
         
         _logger.info(response.status_code)
+        _logger.info(response.text)
 
         resposta.set_xml(response.text)
 

@@ -204,37 +204,19 @@ class InfoEstagiario(XMLNFe):
 class InfoTrabCedido(XMLNFe):
     def __init__(self):
         super(InfoTrabCedido, self).__init__()
-        self.categOrig = TagCaracter(nome='categOrig', raiz='//categOrig', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.cnpjCednt = TagCaracter(nome='cnpjCednt', raiz='//cnpjCednt', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.matricCed = TagCaracter(nome='matricCed', raiz='//matricCed', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dtAdmCed = TagData(nome='dtAdmCed', raiz='//dtAdmCed', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.tpRegTrab = TagCaracter(nome='tpRegTrab', raiz='//tpRegTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpRegPrev = TagCaracter(nome='tpRegPrev', raiz='//tpRegPrev', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.infOnus = TagCaracter(nome='infOnus', tamanho=[1, 1], raiz='//infOnus', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<infoTrabCedido>'
-        xml += self.categOrig.xml
-        xml += self.cnpjCednt.xml
-        xml += self.matricCed.xml
-        xml += self.dtAdmCed.xml
-        xml += self.tpRegTrab.xml
         xml += self.tpRegPrev.xml
-        xml += self.infOnus.xml
         xml += '</infoTrabCedido>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.categOrig.xml = arquivo
-            self.cnpjCednt.xml = arquivo
-            self.matricCed.xml = arquivo
-            self.dtAdmCed.xml = arquivo
-            self.tpRegTrab.xml = arquivo
             self.tpRegPrev.xml = arquivo
-            self.infOnus.xml = arquivo
-
+            
     xml = property(get_xml, set_xml)
 
 
@@ -266,21 +248,31 @@ class Remuneracao(XMLNFe):
 class CargoFuncao(XMLNFe):
     def __init__(self):
         super(CargoFuncao, self).__init__()
-        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[0, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmFuncao = TagCaracter(nome='nmFuncao', tamanho=[1, 250], raiz='//nmFuncao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.nmCargo = TagCaracter(nome='nmCargo', tamanho=[1, 250], raiz='//nmCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.CBOCargo = TagCaracter(nome='CBOCargo', tamanho=[1, 30], raiz='//CBOCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.CBOFuncao = TagCaracter(nome='CBOFuncao', tamanho=[1, 30], raiz='//CBOFuncao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<cargoFuncao>'
-        xml += self.codCargo.xml
-        xml += self.codFuncao.xml
+        xml += self.nmCargo.xml
+        xml += self.CBOCargo.xml
+        xml += self.nmFuncao.xml
+        xml += self.CBOFuncao.xml
+        # xml += self.codFuncao.xml
         xml += '</cargoFuncao>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.codCargo.xml = arquivo
-            self.codFuncao.xml = arquivo
+            self.nmCargo.xml = arquivo
+            self.CBOCargo.xml = arquivo
+            self.nmFuncao.xml = arquivo
+            self.CBOFuncao.xml = arquivo
+            # self.codFuncao.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -325,14 +317,15 @@ class InfoTSVAlteracao(XMLNFe):
     def __init__(self):
         super(InfoTSVAlteracao, self).__init__()
         self.dtAlteracao = TagData(nome='dtAlteracao', raiz='//eSocial/evtAltContratual/infoTSVAlteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.natAtividade = TagInteiro(nome='natAtividade', raiz='//eSocial/evtAltContratual/infoTSVAlteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.natAtividade = TagInteiro(nome='natAtividade', raiz='//eSocial/evtAltContratual/infoTSVAlteracao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.infoComplementares = InfoComplementares()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<infoTSVAlteracao>'
         xml += self.dtAlteracao.xml
-        xml += self.natAtividade.xml
+        if self.natAtividade.valor:
+            xml += self.natAtividade.xml
         xml += self.infoComplementares.xml
         xml += '</infoTSVAlteracao>'
         return xml
@@ -350,15 +343,17 @@ class IdeTrabSemVinculo(XMLNFe):
     def __init__(self):
         super(IdeTrabSemVinculo, self).__init__()
         self.cpfTrab = TagCaracter(nome='cpfTrab', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.matricula = TagCaracter(nome='matricula', tamanho=[1, 11], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.codCateg = TagInteiro(nome='codCateg', tamanho=[1, 3], raiz='//eSocial/evtTSVAltContr/ideTrabSemVinculo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<ideTrabSemVinculo>'
         xml += self.cpfTrab.xml
-        xml += self.matricula.xml
-        xml += self.codCateg.xml
+        if self.matricula.valor:
+            xml += self.matricula.xml
+        if self.codCateg.valor:
+            xml += self.codCateg.xml
         xml += '</ideTrabSemVinculo>'
         return xml
 

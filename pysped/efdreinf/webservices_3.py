@@ -69,7 +69,7 @@ METODO_WS = {
 SVEFDREINF = {
     # o servidor da consulta de cadastro é diferente dos demais...
     EFDREINF_AMBIENTE_PRODUCAO: {
-        'servidor'                  : 'reinf.receita.fazenda.gov.br',
+        'servidor'                  : 'reinf.receita.economia.gov.br',
         WS_EFDREINF_ENVIO           : 'WsREINF/RecepcaoLoteReinf.svc',
         WS_EFDREINF_CONSULTA        : 'WsReinfConsultas/ConsultasReinf.svc',
         

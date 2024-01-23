@@ -61,6 +61,7 @@ class RemunPerAntItensRemun(XMLNFe):
         self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indApurIR  = TagCaracter( nome='indApurIR',     tamanho=[1, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -71,6 +72,7 @@ class RemunPerAntItensRemun(XMLNFe):
         xml += self.fatorRubr.xml
         xml += self.vrUnit.xml
         xml += self.vrRubr.xml
+        xml += self.indApurIR.xml
         xml += '</itensRemun>'
         return xml
 
@@ -82,6 +84,7 @@ class RemunPerAntItensRemun(XMLNFe):
             self.fatorRubr.xml = arquivo
             self.vrUnit.xml = arquivo
             self.vrRubr.xml = arquivo
+            self.indApurIR.xml
 
     xml = property(get_xml, set_xml)
 
@@ -90,14 +93,14 @@ class RemunPerAnt(XMLNFe):
     def __init__(self):
         super(RemunPerAnt, self).__init__()
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//ideEstab/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codCateg  = TagCaracter(nome='codCateg',  tamanho=[1, 3],  raiz='//ideEstab/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        # self.codCateg  = TagCaracter(nome='codCateg',  tamanho=[1, 3],  raiz='//ideEstab/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.itensRemun     = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<remunPerAnt>'
         xml += self.matricula.xml
-        xml += self.codCateg.xml
+        # xml += self.codCateg.xml
         if len(self.itensRemun) > 0:
             for r in self.itensRemun:
                 xml += r.xml
@@ -107,7 +110,7 @@ class RemunPerAnt(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.matricula.xml = arquivo
-            self.codCateg.xml = arquivo
+            # self.codCateg.xml = arquivo
             self.itensRemun = self.le_grupo('//eSocial/evtRmnRPPS/dmDev/infoPerAnt/ideADC/idePeriodo/ideEstab/remunPerAnt/itensRemun', RemunPerAntItensRemun, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
@@ -301,6 +304,7 @@ class ItensRemun(XMLNFe):
         self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrUnit     = TagDecimal( nome='vrUnit',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.indApurIR  = TagCaracter( nome='indApurIR', tamanho=[1, 2],     raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -311,6 +315,7 @@ class ItensRemun(XMLNFe):
         xml += self.fatorRubr.xml
         xml += self.vrUnit.xml
         xml += self.vrRubr.xml
+        xml += self.indApurIR.xml
         xml += '</itensRemun>'
         return xml
 
@@ -322,6 +327,7 @@ class ItensRemun(XMLNFe):
             self.fatorRubr.xml = arquivo
             self.vrUnit.xml = arquivo
             self.vrRubr.xml = arquivo
+            self.indApurIR.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -330,7 +336,7 @@ class RemunPerApur(XMLNFe):
     def __init__(self):
         super(RemunPerApur, self).__init__()
         self.matricula = TagCaracter(nome='matricula', tamanho=[1, 30], raiz='//infoPerApur/ideEstab/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.codCateg  = TagCaracter(nome='codCateg',  tamanho=[1, 3],  raiz='//infoPerApur/ideEstab/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codCateg  = TagCaracter(nome='codCateg',  tamanho=[1, 3],  raiz='//infoPerApur/ideEstab/remunPerApur', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.itensRemun = []
         self.infoSaudeColet = []
 
@@ -408,6 +414,7 @@ class DmDev(XMLNFe):
     def __init__(self):
         super(DmDev, self).__init__()
         self.ideDmDev = TagCaracter(nome='ideDmDev', tamanho=[1, 30], raiz='//eSocial/evtRmnRPPS/dmDev', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.codCateg = TagCaracter(nome='codCateg', tamanho=[1, 30], raiz='//eSocial/evtRmnRPPS/dmDev', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.infoPerApur   = []
         self.infoPerAnt    = []
 
@@ -415,6 +422,7 @@ class DmDev(XMLNFe):
         xml = XMLNFe.get_xml(self)
         xml += '<dmDev>'
         xml += self.ideDmDev.xml
+        xml += self.codCateg.xml
         if len(self.infoPerApur) > 0:
             for i in self.infoPerApur:
                 xml += i.xml
@@ -427,6 +435,7 @@ class DmDev(XMLNFe):
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.ideDmDev.xml = arquivo
+            self.codCateg.xml = arquivo
             self.infoPerApur = self.le_grupo('//eSocial/evtRmnRPPS/dmDev/infoPerApur', InfoPerApur, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoPerAnt = self.le_grupo('//eSocial/evtRmnRPPS/dmDev/infoPerAnt', InfoPerAnt, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 

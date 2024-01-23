@@ -205,7 +205,7 @@ class InfoTrabCedido(XMLNFe):
         self.dtAdmCed = TagData(nome='dtAdmCed', raiz='//dtAdmCed', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpRegTrab = TagCaracter(nome='tpRegTrab', raiz='//tpRegTrab', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.tpRegPrev = TagCaracter(nome='tpRegPrev', raiz='//tpRegPrev', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.infOnus = TagCaracter(nome='infOnus', tamanho=[1, 1], raiz='//infOnus', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.infOnus = TagCaracter(nome='infOnus', tamanho=[1, 1], raiz='//infOnus', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -264,20 +264,17 @@ class InfoDirigenteSindical(XMLNFe):
 class FGTS(XMLNFe):
     def __init__(self):
         super(FGTS, self).__init__()
-        self.opcFGTS   = TagCaracter(nome='opcFGTS'  , tamanho=[1, 1], raiz='//infoCeletista/fgts', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtOpcFGTS = TagCaracter(nome='dtOpcFGTS', raiz='//infoCeletista/fgts', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<fgts>'
-        xml += self.opcFGTS.xml
+        xml += '<FGTS>'
         xml += self.dtOpcFGTS.xml
-        xml += '</fgts>'
+        xml += '</FGTS>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
-            self.opcFGTS.xml = arquivo
             self.dtOpcFGTS.xml = arquivo
 
     xml = property(get_xml, set_xml)
@@ -311,13 +308,13 @@ class Remuneracao(XMLNFe):
 class CargoFuncao(XMLNFe):
     def __init__(self):
         super(CargoFuncao, self).__init__()
-        self.nmFuncao = TagCaracter(nome='nmFuncao', tamanho=[1, 30], raiz='//nmFuncao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nmFuncao = TagCaracter(nome='nmFuncao', tamanho=[1, 250], raiz='//nmFuncao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codCargo = TagCaracter(nome='codCargo', tamanho=[1, 30], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.codFuncao = TagCaracter(nome='codFuncao', tamanho=[1, 1], raiz='//codCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
-        self.nmCargo = TagCaracter(nome='nmCargo', tamanho=[1, 30], raiz='//nmCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.CBOCargo = TagCaracter(nome='CBOCargo', tamanho=[1, 30], raiz='//CBOCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.CBOFuncao = TagCaracter(nome='CBOFuncao', tamanho=[1, 30], raiz='//CBOFuncao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nmCargo = TagCaracter(nome='nmCargo', tamanho=[1, 250], raiz='//nmCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.CBOCargo = TagCaracter(nome='CBOCargo', tamanho=[1, 30], raiz='//CBOCargo', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.CBOFuncao = TagCaracter(nome='CBOFuncao', tamanho=[1, 30], raiz='//CBOFuncao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
 
     def get_xml(self):

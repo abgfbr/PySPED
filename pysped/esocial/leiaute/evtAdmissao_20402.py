@@ -222,7 +222,7 @@ class LocalTrabDom(XMLNFe):
         self.nrLograd    = TagCaracter(nome='nrLograd',    tamanho=[1, 10], raiz='//localTrabDom', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.complemento = TagCaracter(nome='complemento', tamanho=[1, 30], raiz='//localTrabDom', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.bairro      = TagCaracter(nome='bairro',      tamanho=[1, 60], raiz='//localTrabDom', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.cep         = TagCaracter(nome='cep',         tamanho=[1, 8],  raiz='//localTrabDom', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cep         = TagCaracter(nome='cep',         tamanho=[1, 10],  raiz='//localTrabDom', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codMunic    = TagCaracter(nome='codMunic',    tamanho=[1, 7],  raiz='//localTrabDom', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.uf          = TagCaracter(nome='uf',          tamanho=[1, 2],  raiz='//localTrabDom', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
@@ -928,7 +928,7 @@ class Brasil(XMLNFe):
         self.nrLograd     = TagCaracter(nome='nrLograd'    , tamanho=[1, 10], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.complemento  = TagCaracter(nome='complemento' , tamanho=[1, 30], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.bairro       = TagCaracter(nome='bairro'      , tamanho=[1, 60], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.cep          = TagCaracter(nome='cep'         , tamanho=[1,  8], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cep          = TagCaracter(nome='cep'         , tamanho=[1,  10], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.codMunic     = TagCaracter(nome='codMunic'    , tamanho=[1,  7], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.uf           = TagCaracter(nome='uf'          , tamanho=[1,  2], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
