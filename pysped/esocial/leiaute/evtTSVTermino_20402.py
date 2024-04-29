@@ -319,6 +319,29 @@ class VerbasResc(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
+class RemunAposTerm(XMLNFe):
+    def __init__(self):
+        super(RemunAposTerm, self).__init__()
+        self.indRemun = TagCaracter(nome='indRemun', tamanho=[0, 2], raiz='//eSocial/evtTSVTermino/infoTSVTermino/remunAposTerm/indRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.dtFimRemun = TagData(nome='dtFimRemun', raiz='//eSocial/evtTSVTermino/infoTSVTermino/remunAposTerm/dtFimRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<remunAposTerm>'
+        xml += self.indRemun.xml
+        xml += self.dtFimRemun.xml
+        xml += '</remunAposTerm>'
+
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.indRemun.xml = arquivo
+            self.dtFimRemun.xml = arquivo
+
+    xml = property(get_xml, set_xml)
+
+
 class InfoTSVTermino(XMLNFe):
     def __init__(self):
         super(InfoTSVTermino, self).__init__()
@@ -329,6 +352,7 @@ class InfoTSVTermino(XMLNFe):
         self.vrAlim = TagDecimal(nome='vrAlim', raiz='//eSocial/evtTSVTermino/infoTSVTermino',  tamanho=[1, 14, 2], namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nrProcTrab = TagCaracter(nome='nrProcTrab', raiz='//eSocial/evtTSVTermino/infoTSVTermino',  tamanho=[1, 20], namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.verbasResc = []
+        self.remunAposTerm = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -342,6 +366,9 @@ class InfoTSVTermino(XMLNFe):
         if self.verbasResc:
             for verba in self.verbasResc:
                 xml += verba.xml
+        if self.remunAposTerm:
+            for remuneracao in self.remunAposTerm:
+                xml += remuneracao.xml
         xml += '</infoTSVTermino>'
         return xml
 
@@ -352,6 +379,7 @@ class InfoTSVTermino(XMLNFe):
             self.nrProcTrab.xml = arquivo
             if self._le_xml(arquivo):
                 self.verbasResc = self.le_grupo('//eSocial/evtTSVTermino/infoTSVTermino/verbasResc', DmDev, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+                self.remunAposTerm = self.le_grupo('//eSocial/evtTSVTermino/infoTSVTermino/remunAposTerm', RemunAposTerm, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 

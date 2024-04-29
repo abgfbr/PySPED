@@ -295,6 +295,7 @@ from .evtTSVTermino_20402 import DmDev as S2399_DmDev_2
 from .evtTSVTermino_20402 import VerbasResc as S2399_VerbasResc_2
 from .evtTSVTermino_20402 import IdeEmpregador as S2399_DetOper_2
 from .evtTSVTermino_20402 import IdeEvento as S2399_IdeEvento_2
+from .evtTSVTermino_20402 import RemunAposTerm as S2399_RemunAposTerm_2
 
 # S-3000
 from .evtExclusao import S3000 as S3000_2
