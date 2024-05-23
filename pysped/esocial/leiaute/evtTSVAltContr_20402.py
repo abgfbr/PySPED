@@ -277,6 +277,23 @@ class CargoFuncao(XMLNFe):
     xml = property(get_xml, set_xml)
 
 
+class LocalTrabGeral(XMLNFe):
+    def __init__(self):
+        super(LocalTrabGeral, self).__init__()
+        self.tpInsc = TagCaracter(nome='tpInsc', tamanho=[1, 1], raiz='//tpInsc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrInsc = TagCaracter(nome='nrInsc', tamanho=[1, 14], raiz='//nrInsc', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<localTrabGeral>'
+        xml += self.tpInsc.xml
+        xml += self.nrInsc.xml
+        xml += '</localTrabGeral>'
+        return xml
+
+    xml = property(get_xml)
+
+
 class InfoComplementares(XMLNFe):
     def __init__(self):
         super(InfoComplementares, self).__init__()
@@ -284,6 +301,7 @@ class InfoComplementares(XMLNFe):
         self.remuneracao = []
         self.infoTrabCedido = []
         self.infoEstagiario = []
+        self.localTrabGeral = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -300,6 +318,9 @@ class InfoComplementares(XMLNFe):
         if self.infoEstagiario:
             for e in self.infoEstagiario:
                 xml += e.xml
+        if self.localTrabGeral:
+            for l in self.localTrabGeral:
+                xml += l.xml
         xml += '</infoComplementares>'
         return xml
 
@@ -309,6 +330,7 @@ class InfoComplementares(XMLNFe):
             self.remuneracao.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/remuneracao', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoTrabCedido.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/infoTrabCedido', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
             self.infoEstagiario.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/infoTrabCedido', Remuneracao, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+            self.localTrabGeral.xml = self.le_grupo('//eSocial/evtTSVAltContr/infoTSVAlteracao/infoComplementares/infoTrabCedido', LocalTrabGeral, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
 
     xml = property(get_xml, set_xml)
 
