@@ -280,6 +280,7 @@ from .evtTSVAltContr_20402 import InfoEstagiario as S2306_InfoEstagiario_2
 from .evtTSVAltContr_20402 import InstEnsino as S2306_InstEnsino_2
 from .evtTSVAltContr_20402 import AgeIntegracao as S2306_AgeIntegracao_2
 from .evtTSVAltContr_20402 import SupervisorEstagio as S2306_SupervisorEstagio_2
+from .evtTSVAltContr_20402 import LocalTrabGeral as S2306_LocalTrabGeral_2
 
 # S-2399
 from .evtTSVTermino_20402 import S2399 as S2399_2

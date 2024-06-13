@@ -157,7 +157,7 @@ class InfoPgtoExt(XMLNFe):
                                     namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False)
         self.frmTribut = TagCaracter(nome='frmTribut', tamanho=[1, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto',
                                     namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
-        self.endExt = []
+        self.endExt = EndExt()
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -165,11 +165,12 @@ class InfoPgtoExt(XMLNFe):
         xml += self.indNIF.xml
         xml += self.nifBenef.xml
         xml += self.frmTribut.xml
-        for end_ext in self.endExt:
-            xml += end_ext.xml
+        xml += self.endExt.xml
         xml += '</infoPgtoExt>'
 
         return xml
+
+    xml = property(get_xml)
 
 
 class InfoProcJud(XMLNFe):
@@ -390,6 +391,59 @@ class Retencoes(XMLNFe):
     xml = property(get_xml)
 
 
+class EndExt(XMLNFe):
+    def __init__(self):
+        super(EndExt, self).__init__()
+        self.dscLograd = TagCaracter(nome='dscLograd', tamanho=[0, 80], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt/endExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.nrLograd = TagCaracter(nome='nrLograd', tamanho=[0, 10], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt/endExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.complem = TagCaracter(nome='complem', tamanho=[0, 30], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt/endExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.bairro = TagCaracter(nome='bairro', tamanho=[0, 60], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt/endExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.cidade = TagCaracter(nome='cidade', tamanho=[0, 40], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt/endExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.estado = TagCaracter(nome='estado', tamanho=[0, 40], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt/endExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.codPostal = TagCaracter(nome='codPostal', tamanho=[0, 12], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt/endExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.telef = TagCaracter(nome='telef', tamanho=[0, 15], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt/endExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<endExt>'
+        xml += self.dscLograd.xml
+        xml += self.nrLograd.xml
+        xml += self.complem.xml
+        xml += self.bairro.xml
+        xml += self.cidade.xml
+        xml += self.codPostal.xml
+        xml += self.telef.xml
+        xml += '</endExt>'
+
+        return xml
+
+    xml = property(get_xml)
+
+
+class InfoPgtoExt(XMLNFe):
+    def __init__(self):
+        super(InfoPgtoExt, self).__init__()
+        self.indNIF = TagInteiro(nome='indNIF', tamanho=[1, 1], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.nifBenef = TagCaracter(nome='nifBenef', tamanho=[0, 30], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.relFontPg = TagInteiro(nome='relFontPg', tamanho=[1, 3], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.frmTribut = TagCaracter(nome='frmTribut', tamanho=[0, 2], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt', namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
+        self.endExt = EndExt()
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<infoPgtoExt>'
+        xml += self.indNIF.xml
+        xml += self.nifBenef.xml
+        xml += self.relFontPg.xml
+        xml += self.frmTribut.xml
+        xml += self.endExt.xml
+        xml += '</infoPgtoExt>'
+
+        return xml
+
+    xml = property(get_xml)
+
+
 class InfoPgto(XMLNFe):
     def __init__(self):
         super(InfoPgto, self).__init__()
@@ -408,6 +462,7 @@ class InfoPgto(XMLNFe):
         self.paisResidExt = TagCaracter(nome='paisResidExt', tamanho=[0, 3], raiz='//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto',
                                     namespace=NAMESPACE_EFDREINF, namespace_obrigatorio=False, obrigatorio=False)
         self.retencoes = []
+        self.infoPgtoExt = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -421,6 +476,8 @@ class InfoPgto(XMLNFe):
         xml += self.paisResidExt.xml
         for retencao in self.retencoes:
             xml += retencao.xml
+        for info_pgto_exterior in self.infoPgtoExt:
+            xml += info_pgto_exterior.xml
         xml += '</infoPgto>'
 
         return xml
@@ -434,8 +491,8 @@ class InfoPgto(XMLNFe):
             self.percSCP.xml = arquivo
             self.indJud.xml = arquivo
             self.paisResidExt.xml = arquivo
-            self.retencoes = self.le_grupo('//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes', Retencoes,
-                                          namespace=NAMESPACE_EFDREINF)
+            self.retencoes = self.le_grupo('//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/retencoes', Retencoes, namespace=NAMESPACE_EFDREINF)
+            self.retencoes = self.le_grupo('//Reinf/evtRetPJ/ideEstab/ideBenef/ideDep/idePgto/infoPgto/infoPgtoExt', InfoPgtoExt, namespace=NAMESPACE_EFDREINF)
 
     xml = property(get_xml, set_xml)
 
