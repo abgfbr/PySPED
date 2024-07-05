@@ -115,13 +115,13 @@ class InstEnsino(XMLNFe):
     def __init__(self):
         super(InstEnsino, self).__init__()
         self.cnpjInstEnsino = TagCaracter(nome='cnpjInstEnsino', tamanho=[1, 14], raiz='//cnpjInstEnsino', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nmRazao = TagCaracter(nome='nmRazao', tamanho=[1, 100], raiz='//nmRazao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nmRazao = TagCaracter(nome='nmRazao', tamanho=[1, 100], raiz='//nmRazao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.dscLograd = TagCaracter(nome='dscLograd', tamanho=[1, 14], raiz='//dscLograd', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nrLograd = TagInteiro(nome='nrLograd', tamanho=[1, 1], raiz='//nrLograd', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrLograd = TagInteiro(nome='nrLograd', tamanho=[1, 1], raiz='//nrLograd', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.bairro = TagCaracter(nome='bairro', tamanho=[1, 60], raiz='//bairro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.cep = TagCaracter(nome='cep', tamanho=[1, 8], raiz='//cep', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codMunic = TagCaracter(nome='codMunic', tamanho=[1,  7], raiz='//codMunic', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.uf = TagCaracter(nome='uf', tamanho=[1,  2], raiz='//uf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.cep = TagCaracter(nome='cep', tamanho=[1, 8], raiz='//cep', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.codMunic = TagCaracter(nome='codMunic', tamanho=[1,  7], raiz='//codMunic', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.uf = TagCaracter(nome='uf', tamanho=[1,  2], raiz='//uf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -158,7 +158,6 @@ class InfoEstagiario(XMLNFe):
         self.nivEstagio = TagInteiro(nome='nivEstagio', tamanho=[1, 1], raiz='//nivEstagio', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.areaAtuacao = TagInteiro(nome='areaAtuacao', tamanho=[0, 50], raiz='//areaAtuacao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nrApol = TagCaracter(nome='nrApol', tamanho=[0, 30], raiz='//nrApol', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.vlrBolsa = TagDecimal(nome='vlrBolsa', tamanho=[1, 14, 2], raiz='//vlrBolsa', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtPrevTerm = TagData(nome='dtPrevTerm', raiz='//dtPrevTerm', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.instEnsino = InstEnsino()
         self.ageIntegracao = []
@@ -171,7 +170,6 @@ class InfoEstagiario(XMLNFe):
         xml += self.nivEstagio.xml
         xml += self.areaAtuacao.xml
         xml += self.nrApol.xml
-        xml += self.vlrBolsa.xml
         xml += self.dtPrevTerm.xml
         xml += self.instEnsino.xml
         if self.ageIntegracao:
@@ -190,7 +188,6 @@ class InfoEstagiario(XMLNFe):
             self.nivEstagio.xml = arquivo
             self.areaAtuacao.xml = arquivo
             self.nrApol.xml = arquivo
-            self.vlrBolsa.xml = arquivo
             self.dtPrevTerm.xml = arquivo
 
     xml = property(get_xml, set_xml)
