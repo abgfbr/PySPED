@@ -53,60 +53,36 @@ class SupervisorEstagio(XMLNFe):
     def __init__(self):
         super(SupervisorEstagio, self).__init__()
         self.cpfSupervisor = TagCaracter(nome='cpfSupervisor', tamanho=[1, 11], raiz='//cpfSupervisor', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.nmSupervisor = TagCaracter(nome='nmSupervisor', tamanho=[1, 70], raiz='//nmSupervisor', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
         xml += '<supervisorEstagio>'
         xml += self.cpfSupervisor.xml
-        xml += self.nmSupervisor.xml
         xml += '</supervisorEstagio>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cpfSupervisor.xml = arquivo
-            self.nmSupervisor.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
 
 class AgeIntegracao(XMLNFe):
     def __init__(self):
-        super(InstEnsino, self).__init__()
-        self.cnpjAgntInteg = TagCaracter(nome='cnpjAgntInteg', tamanho=[1, 14], raiz='//cnpjAgntInteg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nmRazao = TagCaracter(nome='nmRazao', tamanho=[1, 100], raiz='//nmRazao', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.dscLograd = TagCaracter(nome='dscLograd', tamanho=[1, 14], raiz='//dscLograd', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.nrLograd = TagInteiro(nome='nrLograd', tamanho=[1, 1], raiz='//nrLograd', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.bairro = TagCaracter(nome='bairro', tamanho=[1, 60], raiz='//bairro', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.cep = TagCaracter(nome='cep', tamanho=[1, 8], raiz='//cep', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.codMunic = TagCaracter(nome='codMunic', tamanho=[1,  7], raiz='//codMunic', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.uf = TagCaracter(nome='uf', tamanho=[1,  2], raiz='//uf', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        super(AgeIntegracao, self).__init__()
+        self.cnpjAgntInteg = TagCaracter(nome='cnpjAgntInteg', tamanho=[1, 14], raiz='//cnpjAgntInteg', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
-        xml += '<instEnsino>'
-        xml += self.cnpjInstEnsino.xml
-        xml += self.nmRazao.xml
-        xml += self.dscLograd.xml
-        xml += self.nrLograd.xml
-        xml += self.bairro.xml
-        xml += self.cep.xml
-        xml += self.codMunic.xml
-        xml += self.uf.xml
-        xml += '</instEnsino>'
+        xml += '<ageIntegracao>'
+        xml += self.cnpjAgntInteg.xml
+        xml += '</ageIntegracao>'
         return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
             self.cnpjInstEnsino.xml = arquivo
-            self.nmRazao.xml = arquivo
-            self.dscLograd.xml = arquivo
-            self.nrLograd.xml = arquivo
-            self.bairro.xml = arquivo
-            self.cep.xml = arquivo
-            self.codMunic.xml = arquivo
-            self.uf.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
