@@ -234,6 +234,11 @@ from .evtBenPrRP_20402 import Itens as S1207_Itens_2
 # S-1210
 from .evtPgtos_20402 import S1210 as S1210_2
 from .evtPgtos_20402 import InfoPgto as S1210_InfoPgto_2
+from .evtPgtos_20402 import InfoIRComplem as S1210_InfoIRComplem_2
+from .evtPgtos_20402 import InfoDep as S1210_InfoDep_2
+from .evtPgtos_20402 import InfoIRCR as S1210_InfoIRCR_2
+from .evtPgtos_20402 import PenAlim as S1210_PenAlim_2
+
 
 # S-1295
 from .evtTotContig_20402 import IdeRespInf as S1295_IdeRespInf_2
