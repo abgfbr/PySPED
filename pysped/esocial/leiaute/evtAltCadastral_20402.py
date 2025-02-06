@@ -102,13 +102,15 @@ class Aposentadoria(XMLNFe):
 class Dependente(XMLNFe):
     def __init__(self):
         super(Dependente, self).__init__()
-        self.tpDep            = TagCaracter(nome='tpDep'           , tamanho=[1,  2], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpDep            = TagCaracter(nome='tpDep'           , tamanho=[1,  2], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nmDep            = TagCaracter(nome='nmDep'           , tamanho=[1, 70], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtNascto         = TagData(    nome='dtNascto'        ,                  raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.cpfDep           = TagCaracter(nome='cpfDep'          , tamanho=[1, 11], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.sexoDep           = TagCaracter(nome='sexoDep'          , tamanho=[1, 1], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.depIRRF          = TagCaracter(nome='depIRRF'         , tamanho=[1,  1], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.depSF            = TagCaracter(nome='depSF'           , tamanho=[1,  1], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
-        self.incTrab          = TagCaracter(nome='incTrab'         , tamanho=[1,  1], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.incTrab          = TagCaracter(nome='incTrab'         , tamanho=[1,  1], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.descrDep          = TagCaracter(nome='descrDep'         , tamanho=[1,  100], raiz='//dependente', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -117,9 +119,11 @@ class Dependente(XMLNFe):
         xml += self.nmDep.xml
         xml += self.dtNascto.xml
         xml += self.cpfDep.xml
+        xml += self.sexoDep.xml
         xml += self.depIRRF.xml
         xml += self.depSF.xml
         xml += self.incTrab.xml
+        xml += self.descrDep.xml
         xml += '</dependente>'
         return xml
 
@@ -129,9 +133,11 @@ class Dependente(XMLNFe):
             self.nmDep.xml = arquivo
             self.dtNascto.xml = arquivo
             self.cpfDep.xml = arquivo
+            self.sexoDep.xml = arquivo
             self.depIRRF.xml = arquivo
             self.depSF.xml = arquivo
             self.incTrab.xml = arquivo
+            self.descrDep.xml = arquivo
 
     xml = property(get_xml, set_xml)
 
@@ -244,7 +250,7 @@ class Exterior(XMLNFe):
 class Brasil(XMLNFe):
     def __init__(self):
         super(Brasil, self).__init__()
-        self.tpLograd     = TagCaracter(nome='tpLograd'    , tamanho=[1,  4], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.tpLograd     = TagCaracter(nome='tpLograd'    , tamanho=[1,  4], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.dscLograd    = TagCaracter(nome='dscLograd'   , tamanho=[1, 80], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nrLograd     = TagCaracter(nome='nrLograd'    , tamanho=[1, 10], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.complemento  = TagCaracter(nome='complemento' , tamanho=[1, 30], raiz='//Brasil', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
