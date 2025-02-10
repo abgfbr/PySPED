@@ -113,7 +113,7 @@ class InfoDep(XMLNFe):
         self.cpfDep  = TagCaracter(nome='cpfDep', tamanho=[1, 11], raiz='//eSocial/evtPgtos/ideBenef/infoIRComplem/infoDep/cpfDep', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.dtNascto  = TagData(nome='dtNascto', raiz='//eSocial/evtPgtos/ideBenef/infoIRComplem/infoDep/dtNascto', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.nome  = TagCaracter(nome='nome', tamanho=[2, 70], raiz='//eSocial/evtPgtos/ideBenef/infoIRComplem/infoDep/nome', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
-        self.depIRRF  = TagCaracter(nome='dpIRRF', tamanho=[1, 1], raiz='//eSocial/evtPgtos/ideBenef/infoIRComplem/infoDep/dpIRRF', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+        self.depIRRF  = TagCaracter(nome='depIRRF', tamanho=[1, 1], raiz='//eSocial/evtPgtos/ideBenef/infoIRComplem/infoDep/dpIRRF', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.tpDep  = TagCaracter(nome='tpDep', tamanho=[1, 2], raiz='//eSocial/evtPgtos/ideBenef/infoIRComplem/infoDep/tpDep', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.descrDep  = TagCaracter(nome='descrDep', tamanho=[1, 100], raiz='//eSocial/evtPgtos/ideBenef/infoIRComplem/infoDep/descrDep', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
 
