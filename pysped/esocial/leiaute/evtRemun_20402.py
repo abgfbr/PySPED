@@ -433,7 +433,7 @@ class ItensRemun(XMLNFe):
         xml += self.vrRubr.xml
         xml += self.indApurIR.xml
         for desc in self.descFolha:
-            xml += self.desc.xml
+            xml += desc.xml
         xml += '</itensRemun>'
         return xml
 
@@ -452,6 +452,7 @@ class ItensRemun(XMLNFe):
 
 class DescFolha(XMLNFe):
     def __init__(self):
+        super(DescFolha, self).__init__()
         self.tpDesc = TagInteiro( nome='tpDesc', tamanho=[1, 1],  raiz='//descFolha', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.instFinanc = TagCaracter(nome='instFinanc', tamanho=[1, 30], raiz='//descFolha', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.nrDoc = TagCaracter(nome='nrDoc', tamanho=[1, 30], raiz='//descFolha', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
