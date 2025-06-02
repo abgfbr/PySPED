@@ -421,6 +421,7 @@ class ItensRemun(XMLNFe):
         self.fatorRubr  = TagInteiro( nome='fatorRubr',  tamanho=[1, 5, 2],  raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
         self.vrRubr     = TagDecimal( nome='vrRubr',     tamanho=[1, 14, 2], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
         self.indApurIR = TagCaracter(nome='indApurIR', tamanho=[1, 1], raiz='//itensRemun', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.descFolha = []
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)
@@ -431,6 +432,8 @@ class ItensRemun(XMLNFe):
         xml += self.fatorRubr.xml
         xml += self.vrRubr.xml
         xml += self.indApurIR.xml
+        for desc in self.descFolha:
+            xml += self.desc.xml
         xml += '</itensRemun>'
         return xml
 
@@ -442,6 +445,33 @@ class ItensRemun(XMLNFe):
             self.fatorRubr.xml = arquivo
             self.vrRubr.xml = arquivo
             self.indApurIR.xml = arquivo
+            self.descFolha = self.le_grupo('//eSocial/evtRemun/dmDev/ideEstabLot/remunPerApur/itensRemun/descFolha', DescFolha, namespace=NAMESPACE_ESOCIAL, sigla_ns='res')
+
+    xml = property(get_xml, set_xml)
+
+
+class DescFolha(XMLNFe):
+    def __init__(self):
+        self.tpDesc = TagInteiro( nome='tpDesc', tamanho=[1, 1],  raiz='//descFolha', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.instFinanc = TagCaracter(nome='instFinanc', tamanho=[1, 30], raiz='//descFolha', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.nrDoc = TagCaracter(nome='nrDoc', tamanho=[1, 30], raiz='//descFolha', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False)
+        self.observacao = TagCaracter(nome='observacao', tamanho=[1, 30], raiz='//descFolha', namespace=NAMESPACE_ESOCIAL, namespace_obrigatorio=False, obrigatorio=False)
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += '<descFolha>'
+        xml += self.tpDesc.xml
+        xml += self.instFinanc.xml
+        xml += self.nrDoc.xml
+        xml += self.observacao.xml
+        xml += '</descFolha>'
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.tpDesc.xml = arquivo
+            self.instFinanc.xml = arquivo
+            self.nrDoc.xml = arquivo
+            self.observacao.xml = arquivo
 
     xml = property(get_xml, set_xml)
 

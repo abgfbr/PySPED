@@ -209,6 +209,7 @@ from .evtRemun_20402 import IdePeriodoIdeEstabLot as S1200_IdePeriodoIdeEstabLot
 from .evtRemun_20402 import RemunPerAntItensRemun as S1200_RemunPerAntItensRemun_2
 from .evtRemun_20402 import RemunPerAntInfoAgNocivo as S1200_RemunPerAntInfoAgNocivo_2
 from .evtRemun_20402 import RemunPerAntInfoTrabInterm as S1200_RemunPerAntInfoTrabInterm_2
+from .evtRemun_20402 import DescFolha as s1200_DescFolha_2
 
 # S-1202
 from .evtRmnRPPS_20402 import S1202 as S1202_2
