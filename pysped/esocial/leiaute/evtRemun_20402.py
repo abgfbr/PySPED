@@ -466,6 +466,7 @@ class DescFolha(XMLNFe):
         xml += self.nrDoc.xml
         xml += self.observacao.xml
         xml += '</descFolha>'
+        return xml
 
     def set_xml(self, arquivo):
         if self._le_xml(arquivo):
